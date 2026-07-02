@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kdy fixovat elektřinu na rok 2027? Data říkají: hlavně ne v listopadu | nepřeplácejte.cz</title>
+<meta name="description" content="Kdy je nejvýhodnější fixovat cenu elektřiny pro firmu? Analýza cen ročních kontraktů 2021–2025 ukazuje, že podzimní podpis stál firmy v průměru 411 Kč/MWh navíc.">
+<link rel="canonical" href="https://nepreplacejte.cz/blog-kdy-fixovat-elektrinu.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1B232E;--paper:#F2F3F0;--panel:#FFFFFF;--volt:#FFC800;--line:#D9DCD6;--mut:#5B6470;--good:#1B8A5A;--bad:#C9403A;--mono:'IBM Plex Mono',monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Archivo',sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;font-size:16.5px}
+h1,h2,h3{font-family:'Archivo Black',sans-serif;font-weight:400;line-height:1.12}
+.mono{font-family:var(--mono)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+a{color:inherit}
+nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0}
+.logo{font-family:'Archivo Black',sans-serif;font-size:21px;letter-spacing:-.02em;text-decoration:none}
+.logo em{font-style:normal;background:var(--volt);padding:0 5px}
+.navlinks{display:flex;align-items:center;gap:22px}
+.navlinks a{text-decoration:none;font-weight:600;font-size:14.5px}
+.nav-cta{background:var(--ink);color:#fff;padding:11px 20px;font-weight:600;font-size:14px;border:2px solid var(--ink);text-decoration:none;display:inline-block}
+.nav-cta:hover{background:var(--volt);color:var(--ink)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin-bottom:10px}
+footer{background:var(--ink);color:#8A95A1;padding:40px 0;font-size:13px;margin-top:80px}
+footer .wrap{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
+footer .flogo{font-family:'Archivo Black',sans-serif;color:#fff;font-size:17px}
+footer .flogo em{font-style:normal;background:var(--volt);color:var(--ink);padding:0 4px}
+footer a{color:#fff}
+footer p{max-width:62ch;margin-top:10px;line-height:1.6}
+/* article */
+.art{max-width:760px;margin:0 auto;padding:44px 24px 0}
+.art h1{font-size:clamp(30px,4.4vw,44px);letter-spacing:-.01em;margin:10px 0 16px}
+.art .perex{font-size:19px;color:var(--mut);margin-bottom:14px}
+.art .meta{font-family:var(--mono);font-size:12.5px;color:var(--mut);border-bottom:1.5px solid var(--ink);padding-bottom:22px;margin-bottom:34px}
+.art h2{font-size:clamp(21px,2.6vw,27px);margin:42px 0 14px}
+.art p{margin-bottom:16px}
+.art ul,.art ol{margin:0 0 16px 22px}
+.art li{margin-bottom:8px}
+.art table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:13.5px;margin:20px 0 26px}
+.art th{text-align:left;font-weight:500;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--mut);border-bottom:1.5px solid var(--ink);padding:8px 10px 8px 0}
+.art td{padding:10px 10px 10px 0;border-bottom:1px solid #E3E5E0}
+.art tr.hot td{background:#FFF7DC}
+.hl{background:linear-gradient(transparent 58%,var(--volt) 58%,var(--volt) 92%,transparent 92%)}
+.ctabox{background:var(--ink);color:#fff;padding:28px 30px;margin:42px 0}
+.ctabox h3{font-family:'Archivo',sans-serif;font-weight:700;font-size:18px;margin-bottom:8px}
+.ctabox p{color:#AEB6BE;font-size:15px;margin-bottom:18px}
+.btn-volt{background:var(--volt);color:var(--ink);padding:13px 24px;font-weight:700;font-size:15px;text-decoration:none;display:inline-block;border:2px solid var(--volt)}
+.btn-volt:hover{background:#fff;border-color:#fff}
+.note{font-family:var(--mono);font-size:11.5px;color:var(--mut);border-top:1.5px dashed var(--line);padding-top:18px;margin:44px 0 0;line-height:1.7}
+/* blog index */
+.bhero{padding:50px 0 34px;border-bottom:1.5px solid var(--ink)}
+.bhero h1{font-size:clamp(30px,4.4vw,46px)}
+.bhero p{color:var(--mut);max-width:60ch;margin-top:12px}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:26px;padding:40px 0}
+.card{background:var(--panel);border:1.5px solid var(--ink);padding:26px 26px 22px;text-decoration:none;display:flex;flex-direction:column;gap:10px;transition:box-shadow .15s}
+.card:hover{box-shadow:6px 6px 0 var(--volt)}
+.card .k{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--mut)}
+.card h2{font-size:20px}
+.card p{color:var(--mut);font-size:14.5px}
+.card .more{font-family:var(--mono);font-size:12.5px;margin-top:auto}
+/* glossary */
+.gwrap{max-width:820px;margin:0 auto;padding:44px 24px 0}
+.gwrap h1{font-size:clamp(30px,4.4vw,44px);margin-bottom:14px}
+.gwrap .glead{color:var(--mut);max-width:62ch;margin-bottom:30px}
+.gidx{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:38px}
+.gidx a{font-family:var(--mono);font-size:12.5px;border:1.5px solid var(--ink);padding:6px 11px;text-decoration:none;background:#fff}
+.gidx a:hover{background:var(--volt)}
+.term{background:var(--panel);border:1.5px solid var(--ink);padding:20px 24px;margin-bottom:-1.5px;scroll-margin-top:20px}
+.term h2{font-family:'Archivo',sans-serif;font-weight:700;font-size:17.5px;margin-bottom:8px}
+.term p{font-size:15px;color:#333B46}
+.term .rel{font-family:var(--mono);font-size:12px;color:var(--mut);margin-top:10px}
+@media(max-width:760px){.cards{grid-template-columns:1fr}.navlinks{gap:14px}}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Kdy fixovat elektřinu na rok 2027? Data říkají: hlavně ne v listopadu", "description": "Kdy je nejvýhodnější fixovat cenu elektřiny pro firmu? Analýza cen ročních kontraktů 2021–2025 ukazuje, že podzimní podpis stál firmy v průměru 411 Kč/MWh navíc.", "datePublished": "2026-06-12", "inLanguage": "cs", "author": {"@type": "Organization", "name": "nepřeplácejte.cz"}, "mainEntityOfPage": "https://nepreplacejte.cz/blog-kdy-fixovat-elektrinu.html"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Kdy je nejlepší fixovat cenu elektřiny?", "acceptedAnswer": {"@type": "Answer", "text": "Historická data 2021–2025 ukazují, že jednorázová fixace na podzim byla v průměru o 411 Kč/MWh dražší než nákup rozložený do tranší během celého roku. Neexistuje jeden „správný měsíc“ — výhodnější je průměrovat cenu v čase, případně hlídat poklesy trhu."}}, {"@type": "Question", "name": "Kolik stojí elektřina pro firmy na rok 2027?", "acceptedAnswer": {"@type": "Answer", "text": "Roční kontrakt (CAL27) se v červnu 2026 obchoduje kolem 100 EUR/MWh. Po přičtení obvyklé marže dodavatele vychází férové rozmezí fixní ceny silové elektřiny zhruba 2 670–2 970 Kč/MWh bez DPH."}}]}</script>
+</head>
+<body>
+<header class="wrap">
+  <nav>
+    <a class="logo" href="index.html">nepřeplácejte<em>.cz</em></a>
+    <div class="navlinks">
+      <a href="blog.html">Blog</a>
+      <a href="slovnik.html">Slovník</a>
+      <a class="nav-cta" href="index.html#analyzer">Spustit kontrolu</a>
+    </div>
+  </nav>
+</header>
+
+<article class="art">
+  <div class="eyebrow">Nákupní strategie · elektřina</div>
+  <h1>Kdy fixovat elektřinu na rok 2027? Data říkají: hlavně ne v listopadu</h1>
+  <p class="perex">Kdy je nejvýhodnější fixovat cenu elektřiny pro firmu? Analýza cen ročních kontraktů 2021–2025 ukazuje, že podzimní podpis stál firmy v průměru 411 Kč/MWh navíc.</p>
+  <div class="meta mono">12. 6. 2026 · data: OTE, PXE/EEX, ERÚ · <a href="blog.html">← všechny články</a></div>
+  
+<p>Většina českých firem řeší smlouvu na elektřinu ve stejném rytmu: smlouva končí k 31. prosinci, nákupčí nebo jednatel dostane v říjnu nabídku na prodloužení a v listopadu podepíše. Zní to rozumně — jenže znamená to, že <span class="hl">celý trh nakupuje ve stejných šesti týdnech</span>. A forwardové ceny to vědí.</p>
+<h2>Co říkají data z let 2021–2025</h2>
+<p>Porovnali jsme, kolik by firma zaplatila za silovou elektřinu (včetně obvyklé marže dodavatele 350 Kč/MWh) při dvou způsobech fixace ročního kontraktu — jednorázovém podzimním podpisu a nákupu rozloženém do čtyř tranší během roku:</p>
+<table>
+<tr><th>Strategie</th><th>Ø cena 2022–2025 (Kč/MWh)</th></tr>
+<tr><td>Fix podepsaný na podzim (Q4)</td><td>3 926</td></tr>
+<tr class="hot"><td>Fix nakupovaný ve čtvrtletních tranších</td><td>3 514</td></tr>
+</table>
+<p>Rozdíl <strong>411 Kč/MWh</strong>. Pro firmu se spotřebou 200 MWh je to přes <strong>82 000 Kč ročně</strong> — ne za jiného dodavatele, ne za jiný produkt, jen za jiné načasování stejného podpisu.</p>
+<h2>Proč je podzim systematicky dražší</h2>
+<p>Tři důvody se sčítají. Zaprvé do ceny ročního kontraktu na podzim vstupuje zimní riziko — trh si nechává platit za nejistotu topné sezóny. Zadruhé poptávková špička: dodavatelé vědí, že v Q4 podepisuje většina firem, a nemusí o cenu bojovat. Zatřetí extrémy — v listopadu 2021 i na podzim 2022 podepisovaly firmy fixace na absolutních vrcholech trhu, protože „smlouva končila a nešlo čekat“.</p>
+<h2>Jak z toho ven, i když smlouva končí v prosinci</h2>
+<ol>
+<li><strong>Oddělte konec smlouvy od okamžiku nákupu.</strong> Cenu na rok 2027 můžete zafixovat klidně v březnu 2026, i když stará smlouva běží do prosince. Dodavatelé běžně nabízejí podpis s odloženým začátkem dodávky.</li>
+<li><strong>Nakupujte v tranších.</strong> U větších odběrů (od ~100 MWh) chtějte produkt s postupným nákupem — 3–4 tranše během roku průměrují cenu a eliminují riziko jednoho špatného dne.</li>
+<li><strong>Sledujte trh, ne kalendář.</strong> Roční kontrakt CAL27 se letos pohyboval mezi ~85 a ~102 EUR/MWh. Kdo měl nastavené hlídání a koupil v dubnu, má cenu o desítky Kč/MWh nižší než ten, kdo čeká na říjnovou nabídku.</li>
+</ol>
+<h2>Kolik je teď „férová“ cena na 2027</h2>
+<p>Roční kontrakt base load CZ (CAL27) se v červnu 2026 obchoduje kolem <strong>100 EUR/MWh</strong>. Po přepočtu (24,20 CZK/EUR) a přičtení obvyklé marže dodavatele 250–550 Kč/MWh vychází férové rozmezí fixní ceny silové elektřiny <strong>2 670–2 970 Kč/MWh bez DPH</strong>. Nabídka výrazně nad tímto pásmem znamená, že platíte přirážku za pohodlí prolongace.</p>
+
+  <div class="ctabox">
+  <h3>Zkontrolujte si nákup energií zdarma</h3>
+  <p>Za 2 minuty zjistíte, jestli je vaše cena ve férovém rozmezí a jestli vám sedí způsob nákupu — na reálných datech OTE a PXE/EEX, s protokolem na konci.</p>
+  <a class="btn-volt" href="index.html#analyzer">Spustit kontrolu →</a>
+</div>
+  <h2>Časté otázky</h2>
+  <h2>Kdy je nejlepší fixovat cenu elektřiny?</h2><p>Historická data 2021–2025 ukazují, že jednorázová fixace na podzim byla v průměru o 411 Kč/MWh dražší než nákup rozložený do tranší během celého roku. Neexistuje jeden „správný měsíc“ — výhodnější je průměrovat cenu v čase, případně hlídat poklesy trhu.</p><h2>Kolik stojí elektřina pro firmy na rok 2027?</h2><p>Roční kontrakt (CAL27) se v červnu 2026 obchoduje kolem 100 EUR/MWh. Po přičtení obvyklé marže dodavatele vychází férové rozmezí fixní ceny silové elektřiny zhruba 2 670–2 970 Kč/MWh bez DPH.</p>
+  <p class="note">Publikováno: 12. 6. 2026 · Autor: nepřeplácejte.cz · Zdroje dat: OTE, a.s. (denní trh), PXE/EEX (roční kontrakty), ERÚ. Ceny bez DPH. Článek má informativní charakter, není investičním doporučením; minulá výkonnost nezaručuje budoucí výsledky.</p>
+</article>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="flogo">nepřeplácejte<em>.cz</em></div>
+      <p>Kontrola nákupu energií pro firmy. Nejsme dodavatel ani makléř konkrétní značky — počítáme z dat trhu. Obsah má informativní charakter a nenahrazuje individuální poradenství.</p>
+    </div>
+    <div class="mono" style="font-size:12px;line-height:2">
+      <a href="blog.html">Blog</a> · <a href="slovnik.html">Slovník pojmů</a><br>
+      info@nepreplacejte.cz<br>
+      Data: OTE · PXE/EEX · ERÚ · energy-charts.info (CC BY 4.0)<br>
+      © 2026 nepřeplácejte.cz
+    </div>
+  </div>
+</footer>
+</body>
+</html>

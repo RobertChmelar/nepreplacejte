@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slovník: nákup energií pro firmy (spot, fix, CAL, prolongace…) | nepřeplácejte.cz</title>
+<meta name="description" content="Srozumitelný slovník pojmů z nákupu elektřiny a plynu pro firmy: spot, fixace, CAL kontrakt, tranše, odchylka, prolongace, distribuční sazba a další.">
+<link rel="canonical" href="https://nepreplacejte.cz/slovnik.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1B232E;--paper:#F2F3F0;--panel:#FFFFFF;--volt:#FFC800;--line:#D9DCD6;--mut:#5B6470;--good:#1B8A5A;--bad:#C9403A;--mono:'IBM Plex Mono',monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Archivo',sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;font-size:16.5px}
+h1,h2,h3{font-family:'Archivo Black',sans-serif;font-weight:400;line-height:1.12}
+.mono{font-family:var(--mono)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+a{color:inherit}
+nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0}
+.logo{font-family:'Archivo Black',sans-serif;font-size:21px;letter-spacing:-.02em;text-decoration:none}
+.logo em{font-style:normal;background:var(--volt);padding:0 5px}
+.navlinks{display:flex;align-items:center;gap:22px}
+.navlinks a{text-decoration:none;font-weight:600;font-size:14.5px}
+.nav-cta{background:var(--ink);color:#fff;padding:11px 20px;font-weight:600;font-size:14px;border:2px solid var(--ink);text-decoration:none;display:inline-block}
+.nav-cta:hover{background:var(--volt);color:var(--ink)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin-bottom:10px}
+footer{background:var(--ink);color:#8A95A1;padding:40px 0;font-size:13px;margin-top:80px}
+footer .wrap{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
+footer .flogo{font-family:'Archivo Black',sans-serif;color:#fff;font-size:17px}
+footer .flogo em{font-style:normal;background:var(--volt);color:var(--ink);padding:0 4px}
+footer a{color:#fff}
+footer p{max-width:62ch;margin-top:10px;line-height:1.6}
+/* article */
+.art{max-width:760px;margin:0 auto;padding:44px 24px 0}
+.art h1{font-size:clamp(30px,4.4vw,44px);letter-spacing:-.01em;margin:10px 0 16px}
+.art .perex{font-size:19px;color:var(--mut);margin-bottom:14px}
+.art .meta{font-family:var(--mono);font-size:12.5px;color:var(--mut);border-bottom:1.5px solid var(--ink);padding-bottom:22px;margin-bottom:34px}
+.art h2{font-size:clamp(21px,2.6vw,27px);margin:42px 0 14px}
+.art p{margin-bottom:16px}
+.art ul,.art ol{margin:0 0 16px 22px}
+.art li{margin-bottom:8px}
+.art table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:13.5px;margin:20px 0 26px}
+.art th{text-align:left;font-weight:500;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--mut);border-bottom:1.5px solid var(--ink);padding:8px 10px 8px 0}
+.art td{padding:10px 10px 10px 0;border-bottom:1px solid #E3E5E0}
+.art tr.hot td{background:#FFF7DC}
+.hl{background:linear-gradient(transparent 58%,var(--volt) 58%,var(--volt) 92%,transparent 92%)}
+.ctabox{background:var(--ink);color:#fff;padding:28px 30px;margin:42px 0}
+.ctabox h3{font-family:'Archivo',sans-serif;font-weight:700;font-size:18px;margin-bottom:8px}
+.ctabox p{color:#AEB6BE;font-size:15px;margin-bottom:18px}
+.btn-volt{background:var(--volt);color:var(--ink);padding:13px 24px;font-weight:700;font-size:15px;text-decoration:none;display:inline-block;border:2px solid var(--volt)}
+.btn-volt:hover{background:#fff;border-color:#fff}
+.note{font-family:var(--mono);font-size:11.5px;color:var(--mut);border-top:1.5px dashed var(--line);padding-top:18px;margin:44px 0 0;line-height:1.7}
+/* blog index */
+.bhero{padding:50px 0 34px;border-bottom:1.5px solid var(--ink)}
+.bhero h1{font-size:clamp(30px,4.4vw,46px)}
+.bhero p{color:var(--mut);max-width:60ch;margin-top:12px}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:26px;padding:40px 0}
+.card{background:var(--panel);border:1.5px solid var(--ink);padding:26px 26px 22px;text-decoration:none;display:flex;flex-direction:column;gap:10px;transition:box-shadow .15s}
+.card:hover{box-shadow:6px 6px 0 var(--volt)}
+.card .k{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--mut)}
+.card h2{font-size:20px}
+.card p{color:var(--mut);font-size:14.5px}
+.card .more{font-family:var(--mono);font-size:12.5px;margin-top:auto}
+/* glossary */
+.gwrap{max-width:820px;margin:0 auto;padding:44px 24px 0}
+.gwrap h1{font-size:clamp(30px,4.4vw,44px);margin-bottom:14px}
+.gwrap .glead{color:var(--mut);max-width:62ch;margin-bottom:30px}
+.gidx{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:38px}
+.gidx a{font-family:var(--mono);font-size:12.5px;border:1.5px solid var(--ink);padding:6px 11px;text-decoration:none;background:#fff}
+.gidx a:hover{background:var(--volt)}
+.term{background:var(--panel);border:1.5px solid var(--ink);padding:20px 24px;margin-bottom:-1.5px;scroll-margin-top:20px}
+.term h2{font-family:'Archivo',sans-serif;font-weight:700;font-size:17.5px;margin-bottom:8px}
+.term p{font-size:15px;color:#333B46}
+.term .rel{font-family:var(--mono);font-size:12px;color:var(--mut);margin-top:10px}
+@media(max-width:760px){.cards{grid-template-columns:1fr}.navlinks{gap:14px}}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "DefinedTermSet", "name": "Slovník nákupu energií pro firmy", "inLanguage": "cs", "hasDefinedTerm": [{"@type": "DefinedTerm", "name": "Spotová cena", "description": "Cena elektřiny nebo plynu na krátkodobém (denním) trhu. U elektřiny ji v ČR organizuje OTE — aukce probíhá den předem pro každou čtvrthodinu. Firma na spotovém produktu platí tržní cenu + poplatek dodavatele.", "url": "https://nepreplacejte.cz/slovnik.html#spot"}, {"@type": "DefinedTerm", "name": "Fixní cena (fixace)", "description": "Cena sjednaná na pevné období (typicky 1–3 roky). Dodavatel ji staví z ceny ročního kontraktu na burze v okamžiku nákupu plus své marže. Fixuje se jen neregulovaná složka ceny — distribuce fixovat nelze.", "url": "https://nepreplacejte.cz/slovnik.html#fix"}, {"@type": "DefinedTerm", "name": "CAL kontrakt (roční futures)", "description": "Burzovní kontrakt na dodávku komodity po celý kalendářní rok (CAL27 = dodávka v roce 2027). Jeho cena je základem fixních ceníků. Obchoduje se na PXE/EEX (elektřina CZ) a TTF (plyn).", "url": "https://nepreplacejte.cz/slovnik.html#cal"}, {"@type": "DefinedTerm", "name": "Baseload (BL)", "description": "Rovnoměrná dodávka konstantního výkonu 24/7 po celé období kontraktu. Referenční produkt, ze kterého se odvozují ceny; protikladem je peakload.", "url": "https://nepreplacejte.cz/slovnik.html#baseload"}, {"@type": "DefinedTerm", "name": "Peakload (PL)", "description": "Dodávka ve špičce — pracovní dny 8:00–20:00. Firma s odběrem hlavně přes den má profil bližší peakloadu, což se promítá do ceny.", "url": "https://nepreplacejte.cz/slovnik.html#peakload"}, {"@type": "DefinedTerm", "name": "OTE", "description": "Operátor trhu s elektřinou a plynem v ČR. Organizuje denní a vnitrodenní trh (spotové ceny) a zúčtování odchylek. Data denního trhu jsou veřejná.", "url": "https://nepreplacejte.cz/slovnik.html#ote"}, {"@type": "DefinedTerm", "name": "PXE / EEX", "description": "PXE (Power Exchange Central Europe, součást skupiny EEX) je pražská energetická burza — obchodují se na ní roční, kvartální a měsíční kontrakty na elektřinu pro ČR. EEX v Lipsku je mateřská evropská burza.", "url": "https://nepreplacejte.cz/slovnik.html#pxe"}, {"@type": "DefinedTerm", "name": "TTF a CZ VTP", "description": "TTF je nizozemský virtuální obchodní bod — evropská referenční cena plynu. CZ VTP je český virtuální obchodní bod; ceny kopírují TTF s malou přirážkou.", "url": "https://nepreplacejte.cz/slovnik.html#ttf"}, {"@type": "DefinedTerm", "name": "Silová elektřina / komodita", "description": "Neregulovaná část ceny — samotná energie od dodavatele (u plynu „dodávka plynu“). Jediná složka, kterou ovlivníte výběrem dodavatele a způsobem nákupu.", "url": "https://nepreplacejte.cz/slovnik.html#silova"}, {"@type": "DefinedTerm", "name": "Regulovaná složka", "description": "Distribuce, systémové služby, poplatek OTE a podpora POZE. Stanovuje ji cenové rozhodnutí ERÚ, je stejná u všech dodavatelů. Ovlivníte ji jen správnou sazbou a kapacitou, ne změnou dodavatele.", "url": "https://nepreplacejte.cz/slovnik.html#regulovana"}, {"@type": "DefinedTerm", "name": "ERÚ", "description": "Energetický regulační úřad — stanovuje regulované ceny, licencuje dodavatele a řeší spory. Jeho cenová rozhodnutí jsou veřejná.", "url": "https://nepreplacejte.cz/slovnik.html#eru"}, {"@type": "DefinedTerm", "name": "Marže dodavatele", "description": "Rozdíl mezi burzovní cenou v okamžiku nákupu a cenou ve vaší smlouvě. U fixu bývá u firem ~250–550 Kč/MWh (elektřina), u spotu se schovává do poplatku za MWh. Vždy ji chtějte vyčíslenou.", "url": "https://nepreplacejte.cz/slovnik.html#marze"}, {"@type": "DefinedTerm", "name": "Nákup v tranších", "description": "Rozložení fixace do několika dílčích nákupů během roku (např. 4× 25 %). Průměruje cenu v čase a odstraňuje riziko jednoho špatně načasovaného podpisu. V letech 2022–2025 vyšel o ~410 Kč/MWh levněji než jednorázový podzimní fix.", "url": "https://nepreplacejte.cz/slovnik.html#transe"}, {"@type": "DefinedTerm", "name": "Kombinace fix + spot", "description": "Část spotřeby zafixovaná, zbytek za spot (např. 70/30). Tlumí výkyvy spotu a snižuje riziko špatné fixace celého objemu.", "url": "https://nepreplacejte.cz/slovnik.html#kombinace"}, {"@type": "DefinedTerm", "name": "Spot se stropem (cap)", "description": "Spotový produkt s garantovanou maximální cenou. Zachovává potenciál poklesu, ale omezuje riziko krize. Za strop se platí přirážkou — porovnávejte její výši.", "url": "https://nepreplacejte.cz/slovnik.html#strop"}, {"@type": "DefinedTerm", "name": "Odchylka", "description": "Rozdíl mezi sjednaným a skutečným odběrem, který se finančně vypořádává přes OTE. U spotových smluv sledujte, jak dodavatel odchylku účtuje — bývá tam schovaná část marže.", "url": "https://nepreplacejte.cz/slovnik.html#odchylka"}, {"@type": "DefinedTerm", "name": "Automatická prolongace", "description": "Samočinné prodloužení smlouvy, pokud ji firma včas nevypoví. Nová cena se řídí prolongačním ceníkem, který bývá stovky Kč/MWh nad trhem. Nejčastější způsob, jak firmy přeplácejí.", "url": "https://nepreplacejte.cz/slovnik.html#prolongace"}, {"@type": "DefinedTerm", "name": "Výpovědní lhůta", "description": "Období před koncem smlouvy, ve kterém musí být výpověď doručena dodavateli (u firem běžně 3–6 měsíců). Zmeškání znamená prolongaci. Firemní smlouvy nemají zákonnou ochranu jako domácnosti.", "url": "https://nepreplacejte.cz/slovnik.html#vypovedni-lhuta"}, {"@type": "DefinedTerm", "name": "Odběrné místo (OM/EAN/EIC)", "description": "Místo, kde se měří spotřeba — identifikované kódem EAN (elektřina) či EIC (plyn). Firma s více OM by měla chtít jednu cenu a společnou fakturaci pro všechna.", "url": "https://nepreplacejte.cz/slovnik.html#om"}, {"@type": "DefinedTerm", "name": "Distribuční sazba", "description": "Tarif regulovaných plateb podle charakteru odběru (např. C25d, jističe, napěťová hladina). Špatně zvolená sazba prodražuje i při dobré ceně komodity — stojí za pravidelnou revizi.", "url": "https://nepreplacejte.cz/slovnik.html#distribucni-sazba"}, {"@type": "DefinedTerm", "name": "Rezervovaná kapacita", "description": "U odběrů z vysokého napětí sjednaný maximální výkon. Předimenzovaná kapacita = zbytečné platby, poddimenzovaná = sankce za překročení.", "url": "https://nepreplacejte.cz/slovnik.html#kapacita"}, {"@type": "DefinedTerm", "name": "Čtvrthodinové maximum", "description": "Nejvyšší průměrný výkon v jedné čtvrthodině měsíce — základ platby za kapacitu na VN. Řídí se optimalizací provozu (nespouštět velké spotřebiče najednou).", "url": "https://nepreplacejte.cz/slovnik.html#ctvrthodinove-maximum"}, {"@type": "DefinedTerm", "name": "Typový diagram dodávky (TDD)", "description": "Modelový průběh spotřeby v čase, kterým se u menších odběrů bez průběhového měření rozpočítává roční spotřeba do měsíců a hodin.", "url": "https://nepreplacejte.cz/slovnik.html#tdd"}, {"@type": "DefinedTerm", "name": "Profil spotřeby", "description": "Rozložení odběru v čase (rovnoměrný / denní / sezónní). Určuje, která strategie a produkt firmě sedí — denní profil zvýhodňuje jiné produkty než sezónní topení plynem.", "url": "https://nepreplacejte.cz/slovnik.html#profil"}, {"@type": "DefinedTerm", "name": "Forward / futures", "description": "Kontrakt na dodávku v budoucím období za cenu sjednanou dnes. Roční (CAL), kvartální (Q) a měsíční (M) kontrakty tvoří „forwardovou křivku“, podle které trh oceňuje budoucnost.", "url": "https://nepreplacejte.cz/slovnik.html#forward"}, {"@type": "DefinedTerm", "name": "EEX DataSource", "description": "Placená datová služba burzy EEX — oficiální zdroj historických závěrečných (settlement) cen futures, včetně kontraktů na českou elektřinu. Aktuální ceny publikuje zdarma pxe.cz.", "url": "https://nepreplacejte.cz/slovnik.html#eex-datasource"}, {"@type": "DefinedTerm", "name": "Vnitrodenní trh", "description": "Trh, kde se elektřina/plyn doobchodovává v průběhu dne dodávky. Pro firemní nákup je podstatný hlavně denní (day-ahead) trh; vnitrodenní řeší dodavatelé a obchodníci.", "url": "https://nepreplacejte.cz/slovnik.html#vnitrodenni"}, {"@type": "DefinedTerm", "name": "POZE", "description": "Platba na podporu elektřiny z podporovaných zdrojů energie — součást regulované složky. Hradí se podle spotřeby, případně podle rezervovaného příkonu.", "url": "https://nepreplacejte.cz/slovnik.html#poze"}, {"@type": "DefinedTerm", "name": "Silový ceník vs. koncová cena", "description": "Silová/komoditní cena je jen část faktury; koncová cena = komodita + marže + regulované platby + daně. Nabídky porovnávejte vždy na stejné úrovni — ideálně celkovou koncovou cenu na MWh.", "url": "https://nepreplacejte.cz/slovnik.html#ean"}, {"@type": "DefinedTerm", "name": "Nákupní okno", "description": "Období, kdy je forward levný vzhledem k okolí — např. po mírné zimě u plynu. Nákupní okno nelze spolehlivě předpovědět, ale lze ho hlídat a nakupovat po tranších, když trh klesá.", "url": "https://nepreplacejte.cz/slovnik.html#fixace-okno"}]}</script>
+</head>
+<body>
+<header class="wrap">
+  <nav>
+    <a class="logo" href="index.html">nepřeplácejte<em>.cz</em></a>
+    <div class="navlinks">
+      <a href="blog.html">Blog</a>
+      <a href="slovnik.html">Slovník</a>
+      <a class="nav-cta" href="index.html#analyzer">Spustit kontrolu</a>
+    </div>
+  </nav>
+</header>
+
+<section class="gwrap">
+  <div class="eyebrow">Slovník pojmů</div>
+  <h1>Nákup energií pro firmy — bez ptydepe</h1>
+  <p class="glead">Každý pojem ve dvou–třech větách a lidsky. Přesně tolik, kolik potřebujete, abyste rozuměli nabídce dodavatele — a našemu protokolu.</p>
+  <div class="gidx"><a href="#spot">Spotová cena</a><a href="#fix">Fixní cena (fixace)</a><a href="#cal">CAL kontrakt (roční futures)</a><a href="#baseload">Baseload (BL)</a><a href="#peakload">Peakload (PL)</a><a href="#ote">OTE</a><a href="#pxe">PXE / EEX</a><a href="#ttf">TTF a CZ VTP</a><a href="#silova">Silová elektřina / komodita</a><a href="#regulovana">Regulovaná složka</a><a href="#eru">ERÚ</a><a href="#marze">Marže dodavatele</a><a href="#transe">Nákup v tranších</a><a href="#kombinace">Kombinace fix + spot</a><a href="#strop">Spot se stropem (cap)</a><a href="#odchylka">Odchylka</a><a href="#prolongace">Automatická prolongace</a><a href="#vypovedni-lhuta">Výpovědní lhůta</a><a href="#om">Odběrné místo (OM/EAN/EIC)</a><a href="#distribucni-sazba">Distribuční sazba</a><a href="#kapacita">Rezervovaná kapacita</a><a href="#ctvrthodinove-maximum">Čtvrthodinové maximum</a><a href="#tdd">Typový diagram dodávky (TDD)</a><a href="#profil">Profil spotřeby</a><a href="#forward">Forward / futures</a><a href="#eex-datasource">EEX DataSource</a><a href="#vnitrodenni">Vnitrodenní trh</a><a href="#poze">POZE</a><a href="#ean">Silový ceník vs. koncová cena</a><a href="#fixace-okno">Nákupní okno</a></div>
+  
+    <div class="term" id="spot">
+      <h2>Spotová cena</h2>
+      <p>Cena elektřiny nebo plynu na krátkodobém (denním) trhu. U elektřiny ji v ČR organizuje OTE — aukce probíhá den předem pro každou čtvrthodinu. Firma na spotovém produktu platí tržní cenu + poplatek dodavatele.</p>
+      <div class="rel">Souvisí: <a href="#fix">Fixní cena (fixace)</a> · <a href="#ote">OTE</a> · <a href="#odchylka">Odchylka</a></div>
+    </div>
+    <div class="term" id="fix">
+      <h2>Fixní cena (fixace)</h2>
+      <p>Cena sjednaná na pevné období (typicky 1–3 roky). Dodavatel ji staví z ceny ročního kontraktu na burze v okamžiku nákupu plus své marže. Fixuje se jen neregulovaná složka ceny — distribuce fixovat nelze.</p>
+      <div class="rel">Souvisí: <a href="#cal">CAL kontrakt (roční futures)</a> · <a href="#marze">Marže dodavatele</a> · <a href="#prolongace">Automatická prolongace</a></div>
+    </div>
+    <div class="term" id="cal">
+      <h2>CAL kontrakt (roční futures)</h2>
+      <p>Burzovní kontrakt na dodávku komodity po celý kalendářní rok (CAL27 = dodávka v roce 2027). Jeho cena je základem fixních ceníků. Obchoduje se na PXE/EEX (elektřina CZ) a TTF (plyn).</p>
+      <div class="rel">Souvisí: <a href="#fix">Fixní cena (fixace)</a> · <a href="#pxe">PXE / EEX</a> · <a href="#ttf">TTF a CZ VTP</a> · <a href="#baseload">Baseload (BL)</a></div>
+    </div>
+    <div class="term" id="baseload">
+      <h2>Baseload (BL)</h2>
+      <p>Rovnoměrná dodávka konstantního výkonu 24/7 po celé období kontraktu. Referenční produkt, ze kterého se odvozují ceny; protikladem je peakload.</p>
+      <div class="rel">Souvisí: <a href="#peakload">Peakload (PL)</a> · <a href="#cal">CAL kontrakt (roční futures)</a></div>
+    </div>
+    <div class="term" id="peakload">
+      <h2>Peakload (PL)</h2>
+      <p>Dodávka ve špičce — pracovní dny 8:00–20:00. Firma s odběrem hlavně přes den má profil bližší peakloadu, což se promítá do ceny.</p>
+      <div class="rel">Souvisí: <a href="#baseload">Baseload (BL)</a> · <a href="#profil">Profil spotřeby</a></div>
+    </div>
+    <div class="term" id="ote">
+      <h2>OTE</h2>
+      <p>Operátor trhu s elektřinou a plynem v ČR. Organizuje denní a vnitrodenní trh (spotové ceny) a zúčtování odchylek. Data denního trhu jsou veřejná.</p>
+      <div class="rel">Souvisí: <a href="#spot">Spotová cena</a> · <a href="#odchylka">Odchylka</a></div>
+    </div>
+    <div class="term" id="pxe">
+      <h2>PXE / EEX</h2>
+      <p>PXE (Power Exchange Central Europe, součást skupiny EEX) je pražská energetická burza — obchodují se na ní roční, kvartální a měsíční kontrakty na elektřinu pro ČR. EEX v Lipsku je mateřská evropská burza.</p>
+      <div class="rel">Souvisí: <a href="#cal">CAL kontrakt (roční futures)</a> · <a href="#eex-datasource">EEX DataSource</a></div>
+    </div>
+    <div class="term" id="ttf">
+      <h2>TTF a CZ VTP</h2>
+      <p>TTF je nizozemský virtuální obchodní bod — evropská referenční cena plynu. CZ VTP je český virtuální obchodní bod; ceny kopírují TTF s malou přirážkou.</p>
+      <div class="rel">Souvisí: <a href="#cal">CAL kontrakt (roční futures)</a> · <a href="#spot">Spotová cena</a></div>
+    </div>
+    <div class="term" id="silova">
+      <h2>Silová elektřina / komodita</h2>
+      <p>Neregulovaná část ceny — samotná energie od dodavatele (u plynu „dodávka plynu“). Jediná složka, kterou ovlivníte výběrem dodavatele a způsobem nákupu.</p>
+      <div class="rel">Souvisí: <a href="#regulovana">Regulovaná složka</a> · <a href="#marze">Marže dodavatele</a></div>
+    </div>
+    <div class="term" id="regulovana">
+      <h2>Regulovaná složka</h2>
+      <p>Distribuce, systémové služby, poplatek OTE a podpora POZE. Stanovuje ji cenové rozhodnutí ERÚ, je stejná u všech dodavatelů. Ovlivníte ji jen správnou sazbou a kapacitou, ne změnou dodavatele.</p>
+      <div class="rel">Souvisí: <a href="#silova">Silová elektřina / komodita</a> · <a href="#distribucni-sazba">Distribuční sazba</a> · <a href="#eru">ERÚ</a></div>
+    </div>
+    <div class="term" id="eru">
+      <h2>ERÚ</h2>
+      <p>Energetický regulační úřad — stanovuje regulované ceny, licencuje dodavatele a řeší spory. Jeho cenová rozhodnutí jsou veřejná.</p>
+      <div class="rel">Souvisí: <a href="#regulovana">Regulovaná složka</a></div>
+    </div>
+    <div class="term" id="marze">
+      <h2>Marže dodavatele</h2>
+      <p>Rozdíl mezi burzovní cenou v okamžiku nákupu a cenou ve vaší smlouvě. U fixu bývá u firem ~250–550 Kč/MWh (elektřina), u spotu se schovává do poplatku za MWh. Vždy ji chtějte vyčíslenou.</p>
+      <div class="rel">Souvisí: <a href="#fix">Fixní cena (fixace)</a> · <a href="#spot">Spotová cena</a></div>
+    </div>
+    <div class="term" id="transe">
+      <h2>Nákup v tranších</h2>
+      <p>Rozložení fixace do několika dílčích nákupů během roku (např. 4× 25 %). Průměruje cenu v čase a odstraňuje riziko jednoho špatně načasovaného podpisu. V letech 2022–2025 vyšel o ~410 Kč/MWh levněji než jednorázový podzimní fix.</p>
+      <div class="rel">Souvisí: <a href="#fix">Fixní cena (fixace)</a> · <a href="#kombinace">Kombinace fix + spot</a></div>
+    </div>
+    <div class="term" id="kombinace">
+      <h2>Kombinace fix + spot</h2>
+      <p>Část spotřeby zafixovaná, zbytek za spot (např. 70/30). Tlumí výkyvy spotu a snižuje riziko špatné fixace celého objemu.</p>
+      <div class="rel">Souvisí: <a href="#fix">Fixní cena (fixace)</a> · <a href="#spot">Spotová cena</a> · <a href="#transe">Nákup v tranších</a></div>
+    </div>
+    <div class="term" id="strop">
+      <h2>Spot se stropem (cap)</h2>
+      <p>Spotový produkt s garantovanou maximální cenou. Zachovává potenciál poklesu, ale omezuje riziko krize. Za strop se platí přirážkou — porovnávejte její výši.</p>
+      <div class="rel">Souvisí: <a href="#spot">Spotová cena</a> · <a href="#fix">Fixní cena (fixace)</a></div>
+    </div>
+    <div class="term" id="odchylka">
+      <h2>Odchylka</h2>
+      <p>Rozdíl mezi sjednaným a skutečným odběrem, který se finančně vypořádává přes OTE. U spotových smluv sledujte, jak dodavatel odchylku účtuje — bývá tam schovaná část marže.</p>
+      <div class="rel">Souvisí: <a href="#ote">OTE</a> · <a href="#spot">Spotová cena</a></div>
+    </div>
+    <div class="term" id="prolongace">
+      <h2>Automatická prolongace</h2>
+      <p>Samočinné prodloužení smlouvy, pokud ji firma včas nevypoví. Nová cena se řídí prolongačním ceníkem, který bývá stovky Kč/MWh nad trhem. Nejčastější způsob, jak firmy přeplácejí.</p>
+      <div class="rel">Souvisí: <a href="#vypovedni-lhuta">Výpovědní lhůta</a> · <a href="#fix">Fixní cena (fixace)</a></div>
+    </div>
+    <div class="term" id="vypovedni-lhuta">
+      <h2>Výpovědní lhůta</h2>
+      <p>Období před koncem smlouvy, ve kterém musí být výpověď doručena dodavateli (u firem běžně 3–6 měsíců). Zmeškání znamená prolongaci. Firemní smlouvy nemají zákonnou ochranu jako domácnosti.</p>
+      <div class="rel">Souvisí: <a href="#prolongace">Automatická prolongace</a></div>
+    </div>
+    <div class="term" id="om">
+      <h2>Odběrné místo (OM/EAN/EIC)</h2>
+      <p>Místo, kde se měří spotřeba — identifikované kódem EAN (elektřina) či EIC (plyn). Firma s více OM by měla chtít jednu cenu a společnou fakturaci pro všechna.</p>
+      <div class="rel">Souvisí: <a href="#distribucni-sazba">Distribuční sazba</a></div>
+    </div>
+    <div class="term" id="distribucni-sazba">
+      <h2>Distribuční sazba</h2>
+      <p>Tarif regulovaných plateb podle charakteru odběru (např. C25d, jističe, napěťová hladina). Špatně zvolená sazba prodražuje i při dobré ceně komodity — stojí za pravidelnou revizi.</p>
+      <div class="rel">Souvisí: <a href="#regulovana">Regulovaná složka</a> · <a href="#kapacita">Rezervovaná kapacita</a></div>
+    </div>
+    <div class="term" id="kapacita">
+      <h2>Rezervovaná kapacita</h2>
+      <p>U odběrů z vysokého napětí sjednaný maximální výkon. Předimenzovaná kapacita = zbytečné platby, poddimenzovaná = sankce za překročení.</p>
+      <div class="rel">Souvisí: <a href="#ctvrthodinove-maximum">Čtvrthodinové maximum</a> · <a href="#distribucni-sazba">Distribuční sazba</a></div>
+    </div>
+    <div class="term" id="ctvrthodinove-maximum">
+      <h2>Čtvrthodinové maximum</h2>
+      <p>Nejvyšší průměrný výkon v jedné čtvrthodině měsíce — základ platby za kapacitu na VN. Řídí se optimalizací provozu (nespouštět velké spotřebiče najednou).</p>
+      <div class="rel">Souvisí: <a href="#kapacita">Rezervovaná kapacita</a></div>
+    </div>
+    <div class="term" id="tdd">
+      <h2>Typový diagram dodávky (TDD)</h2>
+      <p>Modelový průběh spotřeby v čase, kterým se u menších odběrů bez průběhového měření rozpočítává roční spotřeba do měsíců a hodin.</p>
+      <div class="rel">Souvisí: <a href="#profil">Profil spotřeby</a></div>
+    </div>
+    <div class="term" id="profil">
+      <h2>Profil spotřeby</h2>
+      <p>Rozložení odběru v čase (rovnoměrný / denní / sezónní). Určuje, která strategie a produkt firmě sedí — denní profil zvýhodňuje jiné produkty než sezónní topení plynem.</p>
+      <div class="rel">Souvisí: <a href="#baseload">Baseload (BL)</a> · <a href="#peakload">Peakload (PL)</a> · <a href="#tdd">Typový diagram dodávky (TDD)</a></div>
+    </div>
+    <div class="term" id="forward">
+      <h2>Forward / futures</h2>
+      <p>Kontrakt na dodávku v budoucím období za cenu sjednanou dnes. Roční (CAL), kvartální (Q) a měsíční (M) kontrakty tvoří „forwardovou křivku“, podle které trh oceňuje budoucnost.</p>
+      <div class="rel">Souvisí: <a href="#cal">CAL kontrakt (roční futures)</a></div>
+    </div>
+    <div class="term" id="eex-datasource">
+      <h2>EEX DataSource</h2>
+      <p>Placená datová služba burzy EEX — oficiální zdroj historických závěrečných (settlement) cen futures, včetně kontraktů na českou elektřinu. Aktuální ceny publikuje zdarma pxe.cz.</p>
+      <div class="rel">Souvisí: <a href="#pxe">PXE / EEX</a> · <a href="#cal">CAL kontrakt (roční futures)</a></div>
+    </div>
+    <div class="term" id="vnitrodenni">
+      <h2>Vnitrodenní trh</h2>
+      <p>Trh, kde se elektřina/plyn doobchodovává v průběhu dne dodávky. Pro firemní nákup je podstatný hlavně denní (day-ahead) trh; vnitrodenní řeší dodavatelé a obchodníci.</p>
+      <div class="rel">Souvisí: <a href="#ote">OTE</a> · <a href="#spot">Spotová cena</a></div>
+    </div>
+    <div class="term" id="poze">
+      <h2>POZE</h2>
+      <p>Platba na podporu elektřiny z podporovaných zdrojů energie — součást regulované složky. Hradí se podle spotřeby, případně podle rezervovaného příkonu.</p>
+      <div class="rel">Souvisí: <a href="#regulovana">Regulovaná složka</a></div>
+    </div>
+    <div class="term" id="ean">
+      <h2>Silový ceník vs. koncová cena</h2>
+      <p>Silová/komoditní cena je jen část faktury; koncová cena = komodita + marže + regulované platby + daně. Nabídky porovnávejte vždy na stejné úrovni — ideálně celkovou koncovou cenu na MWh.</p>
+      <div class="rel">Souvisí: <a href="#silova">Silová elektřina / komodita</a> · <a href="#regulovana">Regulovaná složka</a></div>
+    </div>
+    <div class="term" id="fixace-okno">
+      <h2>Nákupní okno</h2>
+      <p>Období, kdy je forward levný vzhledem k okolí — např. po mírné zimě u plynu. Nákupní okno nelze spolehlivě předpovědět, ale lze ho hlídat a nakupovat po tranších, když trh klesá.</p>
+      <div class="rel">Souvisí: <a href="#transe">Nákup v tranších</a> · <a href="#forward">Forward / futures</a></div>
+    </div>
+  <div class="ctabox">
+  <h3>Zkontrolujte si nákup energií zdarma</h3>
+  <p>Za 2 minuty zjistíte, jestli je vaše cena ve férovém rozmezí a jestli vám sedí způsob nákupu — na reálných datech OTE a PXE/EEX, s protokolem na konci.</p>
+  <a class="btn-volt" href="index.html#analyzer">Spustit kontrolu →</a>
+</div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="flogo">nepřeplácejte<em>.cz</em></div>
+      <p>Kontrola nákupu energií pro firmy. Nejsme dodavatel ani makléř konkrétní značky — počítáme z dat trhu. Obsah má informativní charakter a nenahrazuje individuální poradenství.</p>
+    </div>
+    <div class="mono" style="font-size:12px;line-height:2">
+      <a href="blog.html">Blog</a> · <a href="slovnik.html">Slovník pojmů</a><br>
+      info@nepreplacejte.cz<br>
+      Data: OTE · PXE/EEX · ERÚ · energy-charts.info (CC BY 4.0)<br>
+      © 2026 nepřeplácejte.cz
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,4 @@
+# Závislosti pouze pro backfill_cal.py (jednorázový import historie z kurzy.cz).
+# update_data.py (denní Action) běží čistě na standardní knihovně.
+requests>=2.31
+pandas>=2.0

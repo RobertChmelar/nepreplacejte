@@ -1,0 +1,5 @@
+date,commodity,contract,settlement_eur
+# Ruční doplnění chybějících dnů. commodity=ele|gas, contract=CAL22..CAL26 (rok dodávky),
+# settlement_eur = denní závěrečná cena v EUR/MWh (desetinná tečka i čárka OK).
+# Řádky s prázdným settlement_eur se ignorují. Zdroje: pxe.cz, EEX DataSource.
+2021-01-15,ele,CAL22,

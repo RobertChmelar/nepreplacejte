@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nepřeplácejte.cz — Kontrola nákupu energií pro firmy</title>
+<meta name="description" content="Zjistěte zdarma, jestli vaše firma nakupuje energie správně. Porovnáme fix, spot i kombinace na reálných datech trhu.">
+<link rel="canonical" href="https://nepreplacejte.cz/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<!-- ticker -->
+<div class="ticker" aria-hidden="true"><div class="ticker-inner" id="ticker"></div></div>
+
+<header class="wrap">
+  <nav>
+    <div class="logo">nepřeplácejte<em>.cz</em></div>
+    <div style="display:flex;align-items:center;gap:22px">
+      <a href="blog.html" style="text-decoration:none;font-weight:600;font-size:14.5px">Blog</a>
+      <a href="slovnik.html" style="text-decoration:none;font-weight:600;font-size:14.5px">Slovník</a>
+      <button class="nav-cta" onclick="document.getElementById('analyzer').scrollIntoView()">Spustit kontrolu</button>
+    </div>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="wrap hero">
+  <div>
+    <h1>Neřešte jen <span class="hl">u koho</span> nakupujete energie.<br>Řešte <span class="hl">jak</span>.</h1>
+    <p class="lead">Většina firem fixuje ceny na konci roku — ve stejnou chvíli jako všichni ostatní, často v nejdražším okně. Zkontrolujeme vaši nákupní strategii na reálných datech trhu. Zdarma, za 2 minuty.</p>
+    <a href="#analyzer" class="btn-main">Zkontrolovat nákup energií →</a>
+    <div class="sub mono">Bez registrace · výsledek ihned · data OTE &amp; PXE/EEX</div>
+  </div>
+  <div class="proto-mini" aria-hidden="true">
+    <div class="ph"><span>Kontrolní protokol</span><span>č. 2026-0612</span></div>
+    <div class="row"><span>Roční spotřeba</span><b>180 MWh</b></div>
+    <div class="row"><span>Strategie</span><b>Fix 2 roky · nákup XI/25</b></div>
+    <div class="row"><span>Vaše cena</span><b>3 350 Kč/MWh</b></div>
+    <div class="row"><span>Férové rozmezí</span><b>2 670–2 970 Kč/MWh</b></div>
+    <div class="row"><span>Rozdíl</span><b class="neg">+68 400 Kč/rok</b></div>
+    <div class="stamp-mini">PŘEPLÁCÍTE</div>
+  </div>
+</section>
+
+<!-- INSIGHT -->
+<section class="insight">
+  <div class="wrap grid">
+    <div>
+      <h2>Listopad je nejhorší měsíc na podpis. A přesto v něm podepisuje <em>většina firem</em>.</h2>
+      <p>Firemní smlouvy končí typicky k 31. 12. Nákupčí proto řeší novou cenu v říjnu a listopadu — kdy do forwardů vstupuje zimní riziko a ceny bývají sezónně nejvýš.</p>
+      <p>Kdo v letech 2022–2025 fixoval vždy v Q4, zaplatil v průměru výrazně víc než firma, která nakupovala postupně v tranších během roku. Rozdíl dělá u 200 MWh stovky tisíc korun.</p>
+      <div class="stat mono" id="insightStat">FIX NAKOUPENÝ V Q4 vs. NÁKUP V TRANŠÍCH: rozdíl ~410 Kč/MWh (data OTE + PXE/EEX, dodávky 2022–2025)</div>
+    </div>
+    <div>
+      <svg class="seasonchart" viewBox="0 0 460 250" role="img" aria-label="Sezónnost cen ročních kontraktů elektřiny — ceny rostou ke konci roku">
+        <text class="cap" x="0" y="14">Cena ročního kontraktu (CAL) podle měsíce nákupu — typický rok</text>
+        <g id="seasonBars"></g>
+        <line x1="0" y1="218" x2="460" y2="218" stroke="#3A4452"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ANALYZER -->
+<section class="analyzer wrap" id="analyzer">
+  <div class="sec-eyebrow">Kontrola zdarma · výsledek ihned</div>
+  <h2>Kontrola nákupu energií</h2>
+  <p class="sec-sub">Tři kroky. Porovnáme, kolik by vaše firma zaplatila při čtyřech nákupních strategiích na datech z let 2021–2025, a zkontrolujeme vaši aktuální cenu proti trhu.</p>
+
+  <div class="azr">
+    <div class="steps" role="tablist">
+      <div class="st on" id="tab0">1 · Spotřeba</div>
+      <div class="st" id="tab1">2 · Smlouva</div>
+      <div class="st" id="tab2">3 · Profil firmy</div>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="pane on" id="pane0">
+      <h3>Co a kolik odebíráte</h3>
+      <div class="fg">
+        <label>Komodita</label>
+        <div class="seg" id="segKom">
+          <button type="button" data-v="ele" class="on">Elektřina</button>
+          <button type="button" data-v="plyn">Zemní plyn</button>
+        </div>
+      </div>
+      <div class="frow">
+        <div class="fg">
+          <label for="mwh">Roční spotřeba (MWh)</label>
+          <input type="number" id="mwh" min="1" placeholder="např. 180" inputmode="numeric">
+          <div class="hint">Najdete na roční faktuře. 1 MWh = 1 000 kWh.</div>
+        </div>
+        <div class="fg">
+          <label for="om">Počet odběrných míst</label>
+          <input type="number" id="om" min="1" value="1" inputmode="numeric">
+        </div>
+      </div>
+      <div class="err" id="err0">Doplňte prosím roční spotřebu.</div>
+      <div class="nav-btns"><span></span><button class="btn-next" onclick="goStep(1)">Pokračovat →</button></div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="pane" id="pane1">
+      <h3>Jak nakupujete dnes</h3>
+      <div class="fg">
+        <label>Typ současné ceny</label>
+        <div class="seg" id="segTyp">
+          <button type="button" data-v="fix" class="on">Fixní cena</button>
+          <button type="button" data-v="spot">Spotová (burzovní)</button>
+          <button type="button" data-v="nevim">Nevím / kombinace</button>
+        </div>
+      </div>
+      <div class="frow">
+        <div class="fg">
+          <label for="cena">Cena silové elektřiny / plynu (Kč/MWh bez DPH)</label>
+          <input type="number" id="cena" min="0" placeholder="např. 3350" inputmode="numeric">
+          <div class="hint">Jen komodita — bez distribuce a poplatků. Je na faktuře jako „silová elektřina“ / „dodávka plynu“. Nevíte-li, nechte prázdné.</div>
+        </div>
+        <div class="fg">
+          <label for="konec">Kdy vám končí smlouva</label>
+          <select id="konec">
+            <option value="2026">Letos (2026)</option>
+            <option value="2027">Příští rok (2027)</option>
+            <option value="2028">Později</option>
+            <option value="0">Smlouva na dobu neurčitou / nevím</option>
+          </select>
+        </div>
+      </div>
+      <div class="fg">
+        <label>Kdy obvykle podepisujete novou cenu</label>
+        <div class="seg" id="segKdy">
+          <button type="button" data-v="q4" class="on">Na podzim (X–XII)</button>
+          <button type="button" data-v="rok">Průběžně během roku</button>
+          <button type="button" data-v="nevim">Neřešíme / prodlužuje se sama</button>
+        </div>
+      </div>
+      <div class="nav-btns"><button class="btn-back" onclick="goStep(0)">← Zpět</button><button class="btn-next" onclick="goStep(2)">Pokračovat →</button></div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="pane" id="pane2">
+      <h3>Co vaše firma potřebuje</h3>
+      <div class="fg">
+        <label>Profil spotřeby</label>
+        <div class="seg" id="segProfil">
+          <button type="button" data-v="rovny" class="on">Rovnoměrný celý rok</button>
+          <button type="button" data-v="den">Hlavně přes den (po–pá)</button>
+          <button type="button" data-v="sezona">Sezónní výkyvy</button>
+        </div>
+      </div>
+      <div class="fg">
+        <label>Co je pro vás důležitější</label>
+        <div class="seg" id="segRisk">
+          <button type="button" data-v="jistota" class="on">Jistota rozpočtu — žádná překvapení</button>
+          <button type="button" data-v="mix">Vyvážený přístup</button>
+          <button type="button" data-v="uspora">Maximální úspora, výkyvy uneseme</button>
+        </div>
+      </div>
+      <div class="nav-btns"><button class="btn-back" onclick="goStep(1)">← Zpět</button><button class="btn-next" onclick="runAnalysis()">Vyhodnotit ⚡</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROTOCOL -->
+<section id="protokol" class="wrap">
+  <div class="proto">
+    <div class="proto-head">
+      <div class="t">KONTROLNÍ PROTOKOL</div>
+      <div class="n mono" id="protoNum"></div>
+    </div>
+    <div class="proto-body">
+      <div class="verdict-line">
+        <div class="stamp" id="stamp">PŘEPLÁCÍTE</div>
+        <div class="verdict-txt" id="verdictTxt"></div>
+      </div>
+
+      <div class="kpis" id="kpis"></div>
+
+      <h4>Backtest nákupních strategií · dodávky 2022–2025</h4>
+      <p style="color:var(--mut);font-size:14px;margin-bottom:14px" id="btIntro">Kolik by vaše firma zaplatila za silovou komoditu (vč. obvyklé marže dodavatele) při čtyřech strategiích, přepočteno na vaši spotřebu.</p>
+      <table class="strattbl" id="stratTbl"></table>
+
+      <div class="chartbox">
+        <svg id="btChart" viewBox="0 0 920 330" role="img" aria-label="Roční náklady podle strategie"></svg>
+        <div class="legend" id="legend"></div>
+      </div>
+
+      <h4>Doporučení</h4>
+      <div id="reco" style="font-size:15.5px;max-width:78ch"></div>
+
+      <h4>Na co si dát pozor</h4>
+      <div class="watch"><ul id="watchList"></ul></div>
+
+      <div class="leadblk" id="leadblk">
+        <h4>Chcete úplný report a hlídání trhu?</h4>
+        <p>Pošleme vám PDF protokol s detailním rozpadem, férové cenové rozmezí pro váš objem a upozorníme vás, až bude na trhu vhodné okno pro nákup. Ozve se vám jeden prověřený specialista — žádný kolotoč telefonátů.</p>
+        <form id="leadForm" onsubmit="return submitLead(event)">
+          <div class="frow">
+            <div class="fg"><label for="lname">Jméno a příjmení</label><input type="text" id="lname" required></div>
+            <div class="fg"><label for="lfirma">Firma / IČO</label><input type="text" id="lfirma" required></div>
+            <div class="fg"><label for="lmail">Pracovní e-mail</label><input type="email" id="lmail" required></div>
+            <div class="fg"><label for="ltel">Telefon</label><input type="tel" id="ltel" required></div>
+          </div>
+          <!-- honeypot proti spamu: skryté pole, které vyplní jen boti -->
+          <div style="position:absolute;left:-9999px" aria-hidden="true"><label for="lweb">Web</label><input type="text" id="lweb" tabindex="-1" autocomplete="off"></div>
+          <label class="consent"><input type="checkbox" id="lconsent" required><span>Souhlasím se zpracováním údajů a s tím, že mě může kontaktovat partner nepřeplácejte.cz s nabídkou dodávky energií. <a href="zasady-ochrany-udaju.html" style="color:#fff" target="_blank" rel="noopener">Zásady ochrany údajů</a>.</span></label>
+          <button class="btn-volt" type="submit">Poslat plný report zdarma</button>
+          <div class="lead-ok" id="leadOk">✔ Hotovo. Report posíláme na váš e-mail do 24 hodin.</div>
+        </form>
+      </div>
+
+      <p class="note"><b>Data platná k: <span id="asof">11. 6. 2026</span>.</b> Metodika a data — elektřina: spotová strategie počítá s ověřenými průměrnými ročními cenami denního trhu OTE (2021: 2 570 · 2022: 6 080 · 2023: 2 420 · 2024: 2 140 · 2025: 2 400 Kč/MWh bez DPH; zdroj OTE, a.s.); fixní strategie vychází ze závěrečných cen ročních kontraktů base load CZ na PXE/EEX (rekonstrukce čtvrtletních průměrů, kalibrováno mj. na Ø H1/2021 pro CAL22 = 59,76 EUR/MWh a aktuální CAL27 ≈ 100 EUR/MWh). Plyn: spotová strategie z průměrných ročních cen day-ahead TTF/CZ VTP (2021 ≈ 47 · 2022 ≈ 123 · 2023 ≈ 41 · 2024 ≈ 34,5 · 2025 ≈ 35 EUR/MWh; kotveno na veřejně dostupné údaje EEX/TTF), fixní strategie z ročních kontraktů TTF (rekonstrukce, kalibrováno na aktuální CAL27 ≈ 39 EUR/MWh). Kurz 24,20 CZK/EUR. Marže dodavatele: elektřina fix +350 / spot +250 Kč/MWh, plyn fix +300 / spot +200 Kč/MWh (obvyklé tržní hodnoty). Hodnota „dnes Ø“ v liště se načítá živě z API energy-charts.info (Fraunhofer ISE, data ENTSO-E; pro zónu CZ jde o ceny denního trhu OTE, licence CC BY 4.0). Minulá výkonnost nezaručuje budoucí výsledky; protokol je orientační a není investičním doporučením.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section class="how wrap">
+  <div class="sec-eyebrow">Jak to funguje</div>
+  <h2 style="font-size:clamp(26px,3.2vw,36px)">Tři kroky ke správnému nákupu</h2>
+  <div class="cols">
+    <div class="c"><div class="num mono">KROK 01</div><h3>Zadáte spotřebu a smlouvu</h3><p>Stačí roční spotřeba v MWh a cena z faktury. Žádné přihlašování, žádné plné moci.</p></div>
+    <div class="c"><div class="num mono">KROK 02</div><h3>Spočítáme backtest strategií</h3><p>Fix kupovaný na podzim, fix v tranších, čistý spot i kombinace — na reálných datech OTE a PXE/EEX z posledních let.</p></div>
+    <div class="c"><div class="num mono">KROK 03</div><h3>Dostanete protokol s verdiktem</h3><p>Doporučená strategie, férové cenové rozmezí a rizika ve smlouvě, na která si dát pozor. Celé zdarma.</p></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq wrap">
+  <div class="sec-eyebrow">Časté otázky</div>
+  <h2 style="font-size:clamp(26px,3.2vw,36px);margin-bottom:26px">Co se nás firmy ptají</h2>
+  <details><summary>Proč je to zdarma?</summary><div class="a">Platí nás dodavatelé energií — pokud se rozhodnete na základě protokolu poptat nabídku, předáme kontakt prověřenému partnerovi a ten nám platí provizi. Vy neplatíte nic a doporučení strategie je na dodavatelích nezávislé: počítá se z burzovních dat, ne z ceníků.</div></details>
+  <details><summary>Není pro mou firmu nejjednodušší prostě zafixovat?</summary><div class="a">Možná ano — fixace je správná volba, když potřebujete jistý rozpočet. Problém není fix samotný, ale fix podepsaný naslepo v nejdražším okně roku. Protokol vám ukáže, kolik načasování historicky stálo, a jestli pro váš profil nedává smysl kombinace nebo postupný nákup.</div></details>
+  <details><summary>Co je spot a není to hazard?</summary><div class="a">Spotová cena kopíruje denní trh OTE. Dlouhodobě bývá levnější než fix (neplatíte dodavateli za přenesené riziko), ale v krizi může výrazně vyskočit — rok 2022 to ukázal. Proto se hodí spíš firmám, které výkyvy unesou, nebo jako část mixu fix + spot, případně varianta se stropem.</div></details>
+  <details><summary>Jaká data používáte?</summary><div class="a">Ceny denního trhu OTE (spotová strategie a živá cena v horní liště — načítá se přes API energy-charts.info, které přebírá data ENTSO-E), závěrečné ceny ročních kontraktů base load CZ z burzy PXE/EEX (fixní strategie) a regulované složky z cenových rozhodnutí ERÚ. U fixních cen počítáme s obvyklou marží dodavatele.</div></details>
+  <details><summary>Komu předáte můj kontakt?</summary><div class="a">Pouze pokud o to v závěru sami požádáte, a vždy jen jednomu konkrétnímu partnerovi pro váš profil odběru. Kontakt nikdy neprodáváme plošně a souhlas můžete kdykoli odvolat.</div></details>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="logo">nepřeplácejte<em style="font-style:normal;background:var(--volt);color:var(--ink);padding:0 4px">.cz</em></div>
+      <p>Kontrola nákupu energií pro firmy. Nejsme dodavatel ani makléř konkrétní značky — počítáme z dat trhu. Protokol má informativní charakter a nenahrazuje individuální poradenství.</p>
+    </div>
+    <div class="mono" style="font-size:12px;line-height:2">
+      <a href="blog.html" style="color:#fff">Blog</a> · <a href="slovnik.html" style="color:#fff">Slovník pojmů</a> · <a href="zasady-ochrany-udaju.html" style="color:#fff">Zásady ochrany údajů</a><br>
+      info@nepreplacejte.cz<br>
+      Data: OTE · PXE/EEX · ERÚ · energy-charts.info (CC BY 4.0)<br>
+      © 2026 nepřeplácejte.cz
+    </div>
+  </div>
+</footer>
+
+<!-- Endpoint lead workeru. Po nasazení Cloudflare Workeru sem doplňte jeho URL,
+     např. "https://nepreplacejte-lead.<účet>.workers.dev/api/lead".
+     Když necháte prázdné, použije se relativní "/api/lead" (worker musí být
+     na stejné doméně přes Cloudflare route). -->
+<script>window.LEAD_ENDPOINT = "" || "/api/lead";</script>
+<script src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+name = "nepreplacejte-lead"
+main = "src/index.js"
+compatibility_date = "2024-11-01"
+
+# Veřejné (necitlivé) konfigurační proměnné.
+# Tajné klíče se nastavují přes `wrangler secret put` (viz README).
+[vars]
+ALLOWED_ORIGIN = "https://nepreplacejte.cz"
+FROM_EMAIL = "report@nepreplacejte.cz"     # ověřený odesílatel v Resend
+NOTIFY_EMAIL = "robert@emarketer.cz"        # kam chodí notifikace o leadu
+RATE_LIMIT_MAX = "5"                         # max odeslání
+RATE_LIMIT_WINDOW = "3600"                   # za tolik sekund (na IP)
+REPORT_TTL_DAYS = "90"                        # jak dlouho žije privátní report
+
+# KV pro uložení reportů (token → data) a rate-limit počítadla.
+# ID doplňte po `wrangler kv namespace create LEADS` (viz README).
+[[kv_namespaces]]
+binding = "LEADS"
+id = "REPLACE_WITH_KV_ID"
+preview_id = "REPLACE_WITH_KV_PREVIEW_ID"

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="nepřeplácejte.cz">
+  <!-- inkoustový podklad -->
+  <rect width="64" height="64" rx="6" fill="#1B232E"/>
+  <!-- razítkový rámeček -->
+  <rect x="7" y="7" width="50" height="50" rx="3" fill="none" stroke="#FFC800" stroke-width="3" stroke-dasharray="6 4"/>
+  <!-- žlutý blesk -->
+  <path d="M37 12 L20 35 L31 35 L27 52 L45 27 L33 27 Z" fill="#FFC800"/>
+</svg>

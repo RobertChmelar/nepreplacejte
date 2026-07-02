@@ -1,0 +1,20 @@
+# macOS
+.DS_Store
+
+# Python (pipeline)
+__pycache__/
+*.pyc
+.venv/
+venv/
+pipeline/.venv/
+
+# Node / Worker
+worker/node_modules/
+node_modules/
+.wrangler/
+worker/.dev.vars
+
+# Lokální tajné klíče — NIKDY necommitovat
+*.secret
+service-account*.json
+.env
