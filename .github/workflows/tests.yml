@@ -1,0 +1,26 @@
+name: Testy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch: {}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Backtest (ruční kontrolní body)
+        run: python3 tests/test_backtest.py
+
+      - name: Konzistence článků vs. výpočet
+        run: python3 tests/check_blog_consistency.py
