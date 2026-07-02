@@ -1,0 +1,44 @@
+name: Aktualizace tržních dat
+
+on:
+  schedule:
+    - cron: "30 14 * * *"   # denně 14:30 UTC
+  workflow_dispatch: {}       # ruční spuštění z GitHub UI
+
+permissions:
+  contents: write             # commit data.json + cal_history.csv
+
+concurrency:
+  group: data-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Stáhnout a zapsat data
+        run: python3 pipeline/update_data.py
+
+      - name: Kontrola konzistence blogu (jen upozornění, neblokuje data)
+        continue-on-error: true
+        run: python3 tests/check_blog_consistency.py
+
+      - name: Commit změn
+        run: |
+          git config user.name  "nepreplacejte-bot"
+          git config user.email "bot@nepreplacejte.cz"
+          git add data/data.json data/cal_history.csv
+          if git diff --cached --quiet; then
+            echo "Žádná změna dat — nic ke commitu."
+          else
+            git commit -m "data: denní aktualizace ($(date -u +%Y-%m-%d))"
+            git push
+          fi
