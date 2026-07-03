@@ -70,8 +70,10 @@ def build_checks(data):
         ("blog-fix-nebo-spot.html", "ele spot 2022", r(ele["spot"][0]), "Kč/MWh", 1),
         ("blog-kdy-fixovat-elektrinu.html", "ele fixQ4−tranše",
          r(ele["avg"]["fixQ4"] - ele["avg"]["transe"]), "Kč/MWh", 1),
-        ("blog-kdy-fixovat-elektrinu.html", "ele férové horní", ele_fair[1], "Kč/MWh", 1),
-        ("blog-cena-elektriny-pro-firmy.html", "ele férové horní", ele_fair[1], "Kč/MWh", 1),
+        # férová rozmezí: "cca" hodnoty vázané na denně pohyblivý cal_now →
+        # tolerance 40 Kč (~1,6 EUR benchmarku); flaguje se až materiální posun
+        ("blog-kdy-fixovat-elektrinu.html", "ele férové horní", ele_fair[1], "Kč/MWh", 40),
+        ("blog-cena-elektriny-pro-firmy.html", "ele férové horní", ele_fair[1], "Kč/MWh", 40),
         # plyn — tabulka strategií / headline čísla
         ("blog-cena-plynu-pro-firmy.html", "plyn fixQ4 Ø", r(gas["avg"]["fixQ4"]), "Kč/MWh", 1),
         ("blog-cena-plynu-pro-firmy.html", "plyn tranše Ø", r(gas["avg"]["transe"]), "Kč/MWh", 1),
@@ -79,7 +81,7 @@ def build_checks(data):
         ("blog-cena-plynu-pro-firmy.html", "plyn fixQ4−tranše",
          r(gas["avg"]["fixQ4"] - gas["avg"]["transe"]), "Kč/MWh", 1),
         # férová / prose zaokrouhlená na desítky → tolerance 10
-        ("blog-cena-plynu-pro-firmy.html", "plyn férové horní (~1290)", gas_fair[1], "Kč/MWh", 10),
+        ("blog-cena-plynu-pro-firmy.html", "plyn férové horní (~1290)", gas_fair[1], "Kč/MWh", 40),
         ("blog-cena-plynu-pro-firmy.html", "plyn spot 2022 (~3180)", r(gas["spot"][0]), "Kč/MWh", 10),
     ]
 

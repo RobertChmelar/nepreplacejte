@@ -12,12 +12,14 @@ Stáhne a zapíše data/data.json PŘESNĚ ve formátu, který čte assets/app.j
         · průběžný roční průměr   -> ele.spot_y[<letošní rok>]  (v Kč)
   (b) Kurz EUR/CZK          — veřejné API ČNB (denní kurz, txt)
         -> eurczk
-  (c) Settlement ročních kontraktů (BL CAL elektřina + plyn) — kurzovní
-      lístek pxe.cz
-        · aktuální CAL na příští rok -> ele.cal_now / gas.cal_now (EUR/MWh)
-        · všechny denní CAL kotace   -> appendují se do data/cal_history.csv
-          (date, commodity, contract, price_eur) pro pozdější výpočet
-          budoucích čtvrtletních průměrů (viz backfill_cal.py).
+  (c) Settlement ročních kontraktů (BL CAL elektřina + plyn) — denní řada
+      idb.kurzy.cz (front-year forward PXE, stejný zdroj a endpointy jako
+      pipeline/backfill_cal.py; anti-bot je jen na HTML indexu kurzy.cz,
+      ne na datovém API)
+        · poslední dostupný settlement -> ele.cal_now / gas.cal_now (EUR/MWh)
+        · tatáž kotace (se skutečným datem) -> append do data/cal_history.csv
+          (date, commodity, contract, price_eur) pro budoucí výpočet
+          čtvrtletních průměrů (viz backfill_cal.py).
 
 FILOZOFIE ROBUSTNOSTI: každý zdroj je v try/except. Když spadne, použije se
 poslední známá hodnota z existujícího data/data.json (nebo vestavěný
@@ -45,21 +47,22 @@ FALLBACK = {
     "ele": {
         "spot_y": {"2021": 2570, "2022": 6080, "2023": 2420, "2024": 2140, "2025": 2400},
         "cal": {
-            "2022": [55, 62, 83, 128],
-            "2023": [125, 185, 360, 255],
-            "2024": [142, 118, 122, 112],
-            "2025": [76, 81, 92, 96],
-            "2026": [95, 88, 84, 88],
+            "2022": [54.31, 65.56, 88.94, 157.04],
+            "2023": [149.26, 227.42, 463.59, 350.66],
+            "2024": [161.74, 140.93, 136.96, 114.69],
+            "2025": [81.89, 94.75, 94.96, 95.5],
+            "2026": [94.88, 94.02, 94.39, 94.66],
         },
         "cal_now": 100,
     },
     "gas": {
         "spot_y_eur": {"2021": 47, "2022": 123, "2023": 41, "2024": 34.5, "2025": 35},
         "cal": {
-            "2022": [17, 21, 33, 55],
-            "2023": [55, 85, 180, 110],
-            "2024": [55, 48, 52, 46],
-            "2025": [30, 34, 37, 40],
+            "2022": [17.5, 21.43, 33.63, 65.48],
+            "2023": [60.96, 94.48, 187.21, 137.37],
+            "2024": [63.23, 55.54, 55.37, 48.68],
+            "2025": [34.08, 38.66, 40.7, 44.15],
+            "2026": [40.76, 36.88, 35.26, 31.85],
         },
         "cal_now": 39,
     },
@@ -148,97 +151,84 @@ def fetch_spot_year_avg_czk(year, eurczk, fallback):
 
 
 # ---------------------------------------------------------------------------
-# (c) PXE — settlement ročních kontraktů
+# (c) Roční kontrakty (CAL) — denní řada idb.kurzy.cz (front-year fwd PXE)
 # ---------------------------------------------------------------------------
+# Stejný zdroj a endpointy jako pipeline/backfill_cal.py. kurzy.cz publikuje
+# rolující front-year křivku v EUR/MWh za JSONP endpointem idb.kurzy.cz;
+# během roku Y je nejbližší roční kontrakt CAL(Y+1).
+KURZY_SERIES = {
+    "ele": {
+        "endpoint": "https://idb.kurzy.cz/ch-22273-eur-1MWh/history?callback=cb",
+        "referer": "https://www.kurzy.cz/komodity/cena-elektriny-graf-vyvoje-ceny/",
+    },
+    "gas": {
+        "endpoint": "https://idb.kurzy.cz/ch-22271-eur-1MWh/history?callback=cb",
+        "referer": "https://www.kurzy.cz/komodity/pxe-zemni-plyn-graf-vyvoje-ceny/",
+    },
+}
+BROWSER_UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+              "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0 Safari/537.36")
+
+
+def _fetch_kurzy_last(commodity):
+    """
+    Poslední dostupný settlement z JSONP řady idb.kurzy.cz.
+    Vrací (iso_date, price_eur); při jakémkoli problému vyhazuje výjimku
+    (fallback řeší volající).
+    """
+    cfg = KURZY_SERIES[commodity]
+    req = urllib.request.Request(cfg["endpoint"], headers={
+        "User-Agent": BROWSER_UA,
+        "Referer": cfg["referer"],
+        "Accept": "application/json, text/javascript, */*",
+    })
+    with urllib.request.urlopen(req, timeout=30) as r:
+        body = r.read().decode("utf-8", "replace")
+    i, j = body.find("["), body.rfind("]")
+    if i < 0 or j < 0:
+        raise ValueError("v odpovědi není JSON pole (anti-bot stránka?)")
+    data = json.loads(body[i:j + 1])
+    last = None
+    for ts, val in data:                      # [[ts_ms, EUR/MWh], ...]
+        if val is not None:
+            last = (ts, float(val))
+    if last is None:
+        raise ValueError("řada neobsahuje žádnou hodnotu")
+    day = dt.datetime.fromtimestamp(last[0] / 1000, tz=dt.timezone.utc).date()
+    return day.isoformat(), round(last[1], 2)
+
+
 def fetch_pxe_cal(fallback_ele, fallback_gas):
     """
-    Aktuální settlement CAL kontraktů z veřejného kurzovního lístku PXE.
-
-    PXE zveřejňuje denní výsledky trhu; formát/URL se ale mění, proto je
-    tento parser 'best effort' a při jakémkoli problému vrací poslední
-    známé hodnoty. Vrací:
+    Aktuální settlement ročních kontraktů (elektřina BL + plyn, EUR/MWh)
+    z denní řady idb.kurzy.cz. Vrací:
         (ele_cal_now, gas_cal_now, rows)
-    kde rows = list dictů {commodity, contract, price_eur} pro cal_history.
-
-    Cílový kontrakt = BL CAL na PŘÍŠTÍ kalendářní rok (rok+1).
+    kde rows = [{date, commodity, contract, price_eur}] se skutečným datem
+    kotace pro append do cal_history.csv. Při výpadku kterékoli řady
+    zůstává poslední známá hodnota (fallback) a zaloguje se WARNING.
     """
-    next_year = dt.date.today().year + 1
-    target = f"CAL-{next_year % 100:02d}"  # např. CAL-27
     rows = []
-    ele_now, gas_now = fallback_ele, fallback_gas
-
-    # Veřejný endpoint kurzovního lístku PXE (JSON). Struktura se může lišit;
-    # proto tolerantní parsování s vícero variantami klíčů.
-    candidates = [
-        "https://www.pxe.cz/pxe_downloads/Results/Kurz/PXE_Kurz.json",
-        "https://www.pxe.cz/Kurzovni-Listek/Oficialni-KL",
-    ]
-    for url in candidates:
+    now = {"ele": fallback_ele, "gas": fallback_gas}
+    for commodity in ("ele", "gas"):
         try:
-            raw = http_get(url)
-            data = json.loads(raw)
-            found = _parse_pxe_payload(data, next_year)
-            if found:
-                for commodity, contract, price in found:
-                    rows.append({"commodity": commodity, "contract": contract,
-                                 "price_eur": price})
-                    if contract.upper().endswith(target.split("-")[1]):
-                        if commodity == "ele":
-                            ele_now = round(price, 2)
-                        elif commodity == "gas":
-                            gas_now = round(price, 2)
-                log("INFO", f"PXE: načteno {len(found)} CAL kotací z {url}")
-                break
+            day, price = _fetch_kurzy_last(commodity)
+            contract = f"CAL-{(int(day[:4]) + 1) % 100:02d}"   # front-year
+            now[commodity] = price
+            rows.append({"date": day, "commodity": commodity,
+                         "contract": contract, "price_eur": price})
+            log("INFO", f"kurzy.cz {commodity}: {contract} = {price} EUR/MWh "
+                        f"(settlement {day})")
         except Exception as e:
-            log("WARN", f"PXE zdroj {url} selhal ({e})")
-            continue
-
-    if not rows:
-        log("WARN", "PXE: žádná kotace strojově nepřečtena — "
-                    f"cal_now zůstává (ele={ele_now}, gas={gas_now}). "
-                    "Zvaž ruční doplnění přes backfill_cal.py / šablonu CSV.")
-    return ele_now, gas_now, rows
-
-
-def _parse_pxe_payload(data, next_year):
-    """
-    Tolerantní extrakce (commodity, contract, price_eur) z PXE JSONu.
-    Rozpozná elektřinu (BL/base) a plyn podle názvu produktu; roční
-    kontrakty podle 'CAL' / 'Y' + roku. Vrací list trojic nebo [].
-    """
-    out = []
-    items = data if isinstance(data, list) else data.get("data") or data.get("items") or []
-    for it in items:
-        if not isinstance(it, dict):
-            continue
-        name = str(it.get("name") or it.get("product") or it.get("instrument") or "")
-        n = name.upper()
-        if "CAL" not in n and "Y-" not in n and "YEAR" not in n:
-            continue
-        # rok kontraktu
-        yy = None
-        for token in n.replace("-", " ").replace("/", " ").split():
-            if token.isdigit() and len(token) in (2, 4):
-                yy = int(token) if len(token) == 4 else 2000 + int(token)
-        if yy is None:
-            continue
-        price = it.get("settlement") or it.get("price") or it.get("close") or it.get("last")
-        if price is None:
-            continue
-        try:
-            price = float(str(price).replace(",", "."))
-        except ValueError:
-            continue
-        commodity = "gas" if ("GAS" in n or "PLYN" in n or "TTF" in n or "VTP" in n) else "ele"
-        out.append((commodity, f"CAL-{yy % 100:02d}", price))
-    return out
+            log("WARN", f"kurzy.cz {commodity} selhal ({e}); "
+                        f"cal_now zůstává {now[commodity]}")
+    return now["ele"], now["gas"], rows
 
 
 def append_cal_history(rows):
-    """Přidá dnešní CAL kotace do rostoucí historie (idempotentně na den)."""
+    """Přidá denní CAL kotace do rostoucí historie (idempotentně podle
+    skutečného data settlementu — víkendy/svátky se nedublují)."""
     if not rows:
         return
-    today = dt.date.today().isoformat()
     existing = set()
     if os.path.exists(CAL_HISTORY):
         with open(CAL_HISTORY, newline="", encoding="utf-8") as f:
@@ -246,9 +236,10 @@ def append_cal_history(rows):
                 existing.add((r["date"], r["commodity"], r["contract"]))
     new_rows = []
     for r in rows:
-        key = (today, r["commodity"], r["contract"])
+        day = r.get("date") or dt.date.today().isoformat()
+        key = (day, r["commodity"], r["contract"])
         if key not in existing:
-            new_rows.append([today, r["commodity"], r["contract"], r["price_eur"]])
+            new_rows.append([day, r["commodity"], r["contract"], r["price_eur"]])
             existing.add(key)
     if not new_rows:
         log("INFO", "cal_history: pro dnešek už zapsáno, přeskočeno")

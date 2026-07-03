@@ -11,8 +11,8 @@ finálním číslům v článcích. Spustitelné dvěma způsoby:
     pytest tests/test_backtest.py      # jako pytest (funkce test_*)
 
 Ruční kontrolní body (elektřina i plyn, vč. marží):
-    elektřina  Ø fixQ4 2022–2025 = 3 926 Kč/MWh (±1)
-    plyn       Ø fixQ4 2022–2025 = 1 819 Kč/MWh (±1)
+    elektřina  Ø fixQ4 2022–2025 = 4 693 Kč/MWh (±1)
+    plyn       Ø fixQ4 2022–2025 = 2 089 Kč/MWh (±1)
 """
 
 import os
@@ -23,10 +23,10 @@ from energy_model import BUILTIN, backtest, fair_range, avg  # noqa: E402
 
 # očekávané hodnoty (ručně dopočítané při kurzu 24,20)
 EXPECT = {
-    "ele": {"fixQ4": 3926, "transe": 3514, "spot": 3510, "mix": 3718,
-            "q4_minus_transe": 411, "fair": [2670, 2970]},
-    "gas": {"fixQ4": 1819, "transe": 1658, "spot": 1613, "mix": 1716,
-            "q4_minus_transe": 160, "fair": [1094, 1294]},
+    "ele": {"fixQ4": 4693, "transe": 4098, "spot": 3510, "mix": 4102,
+            "q4_minus_transe": 595, "fair": [2670, 2970]},
+    "gas": {"fixQ4": 2089, "transe": 1810, "spot": 1613, "mix": 1851,
+            "q4_minus_transe": 279, "fair": [1094, 1294]},
 }
 
 TOL = 1  # Kč/MWh
@@ -60,12 +60,12 @@ def run():
 
     # doplňkově: konkrétní ruční body jednotlivých let
     ele = backtest(BUILTIN, False)
-    # 2022: CAL Q4 128 × 24.2 + 350 = 3447.6
-    assert _close(ele["fixQ4"][0], 3447.6, 0.5), ele["fixQ4"][0]
-    # 2022 spot: 6080 + 250 = 6330
+    # 2022: CAL Q4 157.04 × 24.2 + 350 = 4150.37
+    assert _close(ele["fixQ4"][0], 4150.37, 0.5), ele["fixQ4"][0]
+    # 2022 spot: 6080 + 250 = 6330 (OTE, beze změny)
     assert _close(ele["spot"][0], 6330, 0.001), ele["spot"][0]
     gas = backtest(BUILTIN, True)
-    # 2022 plyn spot: 123 × 24.2 + 200 = 3176.6
+    # 2022 plyn spot: 123 × 24.2 + 200 = 3176.6 (TTF, beze změny)
     assert _close(gas["spot"][0], 3176.6, 0.5), gas["spot"][0]
 
     if failures:
@@ -74,28 +74,28 @@ def run():
             print("  -", f)
         return 1
     print("OK — backtest odpovídá ručním výpočtům:")
-    print(f"  elektřina Ø fixQ4 = {ele['avg']['fixQ4']:.1f} Kč/MWh (≈3926)")
-    print(f"  plyn      Ø fixQ4 = {gas['avg']['fixQ4']:.1f} Kč/MWh (≈1819)")
+    print(f"  elektřina Ø fixQ4 = {ele['avg']['fixQ4']:.1f} Kč/MWh (≈4693)")
+    print(f"  plyn      Ø fixQ4 = {gas['avg']['fixQ4']:.1f} Kč/MWh (≈2089)")
     return 0
 
 
 # --- pytest hooky ---
 def test_ele_fixq4():
-    assert _close(backtest(BUILTIN, False)["avg"]["fixQ4"], 3926)
+    assert _close(backtest(BUILTIN, False)["avg"]["fixQ4"], 4693)
 
 
 def test_gas_fixq4():
-    assert _close(backtest(BUILTIN, True)["avg"]["fixQ4"], 1819)
+    assert _close(backtest(BUILTIN, True)["avg"]["fixQ4"], 2089)
 
 
 def test_ele_q4_minus_transe():
     bt = backtest(BUILTIN, False)
-    assert _close(bt["avg"]["fixQ4"] - bt["avg"]["transe"], 411)
+    assert _close(bt["avg"]["fixQ4"] - bt["avg"]["transe"], 595)
 
 
 def test_gas_q4_minus_transe():
     bt = backtest(BUILTIN, True)
-    assert _close(bt["avg"]["fixQ4"] - bt["avg"]["transe"], 160)
+    assert _close(bt["avg"]["fixQ4"] - bt["avg"]["transe"], 279)
 
 
 def test_fair_ranges():

@@ -75,14 +75,16 @@ bez nich spadne na vestavěná data.
 |---|---|---|
 | api.energy-charts.info `?bzn=CZ` | dnešní Ø + průběžný roční Ø denního trhu CZ | `spot_today_czk`, `ele.spot_y[letošní]` |
 | ČNB denní kurz (txt) | EUR/CZK | `eurczk` |
-| kurzovní lístek pxe.cz | settlement ročních CAL (elektřina BL + plyn) | `ele/gas.cal_now` + append `cal_history.csv` |
+| idb.kurzy.cz (front-year forward PXE, JSONP) | poslední settlement ročního CAL (elektřina BL + plyn) | `ele/gas.cal_now` + append `cal_history.csv` |
 
 Každý zdroj má **fallback** na poslední známou hodnotu — skript nikdy neshodí
 Action. Historická `cal` a `spot_y` (2021–2025) jsou finální a zachovávají se.
 
-> **PXE:** veřejný strojově čitelný endpoint kurzovního lístku se mění; parser
-> je „best effort“. Když nic nenačte, `cal_now` zůstane na poslední hodnotě a
-> zaloguje se WARNING. Historii lze doplnit ručně přes `backfill_cal.py`.
+> **CAL settlement:** čte se z JSONP řady idb.kurzy.cz (stejné endpointy jako
+> `backfill_cal.py`; anti-bot je jen na HTML indexu kurzy.cz, ne na datovém
+> API). Když řada nejde načíst, `cal_now` zůstane na poslední hodnotě a
+> zaloguje se WARNING (záchranný fallback 100/39 EUR). Historickou řadu
+> obstarává jednorázově `backfill_cal.py`.
 
 **Spuštění ručně:**
 ```bash

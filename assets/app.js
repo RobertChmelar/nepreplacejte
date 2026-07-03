@@ -29,8 +29,8 @@ const CONFIG = {
    SPOT: ověřené průměrné roční ceny denního trhu OTE (Kč/MWh, bez DPH)
          — zdroj: OTE, a.s. (2022: 241 EUR/MWh ≈ 6 080 Kč; 2024: 85,11 EUR/MWh)
    CAL:  ceny ročního kontraktu base load CZ (EUR/MWh) podle čtvrtletí
-         nákupu — rekonstrukce ze závěrečných cen PXE/EEX, kalibrováno na
-         ověřené body (Ø H1/2021 pro CAL22 = 59,76 EUR; CAL27 v 2026 ≈ 96–102 EUR)
+         nákupu — čtvrtletní průměry denních závěrečných cen front-year
+         forwardu (kurzy.cz/PXE, staženo 2026-07-03); kotva Ø H1/2021 = 59,98 EUR
    ŽIVĚ: dnešní spot z api.energy-charts.info (Fraunhofer ISE, data
          ENTSO-E — pro zónu CZ jde o ceny denního trhu OTE), CC BY 4.0
    ===================================================================== */
@@ -42,12 +42,14 @@ const MARGIN_SPOT = CONFIG.margin.eleSpot;  // Kč/MWh — obvyklý poplatek u s
 // Průměrné roční ceny denního trhu OTE (Kč/MWh) — ověřená data
 let SPOT_Y = {2021:2570, 2022:6080, 2023:2420, 2024:2140, 2025:2400};
 // Cena ročního kontraktu CAL na rok Y, nakoupeného v Q1–Q4 roku Y-1 (EUR/MWh)
+// Čtvrtletní průměry denních závěrečných cen front-year baseload forwardu
+// (kurzy.cz / PXE, staženo 2026-07-03); kotva Ø H1/2021 = 59,98 EUR ≈ 59,76.
 let CAL = {
-  2022:[55,62,83,128],     // Ø H1/2021 = 59,76 EUR (PXE) ✓
-  2023:[125,185,360,255],  // krize: srpen 2022 přes 1 000 EUR, Q3 Ø ~360
-  2024:[142,118,122,112],
-  2025:[76,81,92,96],
-  2026:[95,88,84,88]
+  2022:[54.31,65.56,88.94,157.04],    // Ø H1/2021 = 59,98 EUR ✓ (ověřená kotva)
+  2023:[149.26,227.42,463.59,350.66], // krize 2022: Q3 Ø 464 EUR
+  2024:[161.74,140.93,136.96,114.69],
+  2025:[81.89,94.75,94.96,95.5],
+  2026:[94.88,94.02,94.39,94.66]
 };
 // Aktuální benchmark pro nový fix: CAL27 base CZ ≈ 100 EUR/MWh (06/2026, EEX/PXE)
 let CAL_NOW_EUR = 100;
@@ -61,10 +63,11 @@ let ELE_FAIR = fairRange(CAL_NOW_EUR, CONFIG.fairOffset.ele);
    na následující rok, kalibrováno na aktuální CAL27 ≈ 39 EUR (948 Kč). */
 let GAS_SPOT_Y_EUR = {2021:47, 2022:123, 2023:41, 2024:34.5, 2025:35};
 let GAS_CAL = {
-  2022:[17,21,33,55],
-  2023:[55,85,180,110],
-  2024:[55,48,52,46],
-  2025:[30,34,37,40]
+  2022:[17.5,21.43,33.63,65.48],
+  2023:[60.96,94.48,187.21,137.37],
+  2024:[63.23,55.54,55.37,48.68],
+  2025:[34.08,38.66,40.7,44.15],
+  2026:[40.76,36.88,35.26,31.85]
 };
 let GAS_CAL_NOW_EUR = 39; // TTF CAL27, 05–06/2026
 let GAS_FAIR = fairRange(GAS_CAL_NOW_EUR, CONFIG.fairOffset.gas);
