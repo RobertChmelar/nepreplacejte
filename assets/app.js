@@ -386,6 +386,10 @@ function collectAnalysisPayload(){
     verdict_text,
     reco_text,
     watch: watch_list,
+    // snapshot tržních dat v okamžiku odeslání (pro detail v reportu)
+    market_data: isGas
+      ? {spot_y_eur: GAS_SPOT_Y_EUR, cal: GAS_CAL, cal_now: GAS_CAL_NOW_EUR}
+      : {spot_y: SPOT_Y, cal: CAL, cal_now: CAL_NOW_EUR},
     save_vs_worst_kc_rok: Math.round(saveVsWorst),
     protokol_num: (document.getElementById('protoNum')||{}).textContent || '',
     ts: new Date().toISOString()

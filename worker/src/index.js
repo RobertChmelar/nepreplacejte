@@ -258,10 +258,11 @@ async function sendEmails(env, record, reportUrl) {
     });
   }
 
-  // potvrzení uživateli
+  // potvrzení uživateli (odpověď míří na NOTIFY_EMAIL)
   await resendSend(env, {
     from,
     to: [c.email],
+    reply_to: env.NOTIFY_EMAIL ? [env.NOTIFY_EMAIL] : undefined,
     subject: "Váš report – kontrola nákupu energií",
     html:
       `<p>Dobrý den ${esc(c.jmeno)},</p>` +
@@ -361,6 +362,54 @@ function renderReport(record) {
     "<p>Doporučení najdete v protokolu na nepreplacejte.cz.</p>";
   const watchHtml = (a.watch || []).map((w) => `<li>${esc(w)}</li>`).join("");
 
+  /* roční náklady při spotřebě firmy (Kč) — rozpad po letech */
+  const costRows = order
+    .map((k, i) => {
+      const perY = (perYear[k] || []).map((v) => `<td class="r">${fmt(v * mwh)}</td>`).join("");
+      const best = i === 0 ? ' class="best"' : "";
+      return `<tr${best}><td>${STRAT[k]}</td><td class="r"><b>${fmt((avg[k] || 0) * mwh)}</b></td>${perY}</tr>`;
+    })
+    .join("");
+
+  /* detail vaší ceny — jen když ji uživatel zadal */
+  let priceDetail = "";
+  if (inp.cena_kc_mwh) {
+    const c = inp.cena_kc_mwh;
+    const overYr = Math.round((c - fair[1]) * mwh);
+    const pos = c > fair[1] ? "nad férovým pásmem" : c < fair[0] ? "pod férovým pásmem" : "ve férovém pásmu";
+    priceDetail =
+      `<h4>Detail vaší ceny</h4><table>` +
+      `<tr><td>Vaše cena (komoditní složka)</td><td class="r"><b>${fmt(c)} Kč/MWh</b> — ${pos}</td></tr>` +
+      `<tr><td>Roční platba za komoditu (${fmt(mwh)} MWh)</td><td class="r">${fmt(c * mwh)} Kč</td></tr>` +
+      `<tr><td>Platba při horní hranici férového pásma</td><td class="r">${fmt(fair[1] * mwh)} Kč</td></tr>` +
+      (overYr > 0
+        ? `<tr><td><b>Přeplatek proti férovému pásmu</b></td><td class="r"><b>${fmt(overYr)} Kč/rok · ${fmt(overYr * 3)} Kč za 3 roky</b></td></tr>`
+        : "") +
+      `</table>`;
+  }
+
+  /* vstupní data trhu (snapshot z okamžiku výpočtu) */
+  let marketHtml = "";
+  const md = a.market_data;
+  if (md && md.cal) {
+    const isGasC = inp.komodita === "plyn";
+    const spotSrc = isGasC ? md.spot_y_eur : md.spot_y;
+    const spotUnit = isGasC ? "EUR/MWh" : "Kč/MWh";
+    const mrows = Object.keys(md.cal).sort()
+      .map((y) => {
+        const q = md.cal[y].map((v) => `<td class="r">${esc(String(v))}</td>`).join("");
+        const sp = spotSrc && spotSrc[String(+y - 1)] != null ? esc(String(spotSrc[String(+y - 1)])) : "—";
+        return `<tr><td>CAL${esc(String(+y % 100))} (nákup ${esc(String(+y - 1))})</td>${q}<td class="r">${sp}</td></tr>`;
+      })
+      .join("");
+    marketHtml =
+      `<h4>Vstupní data výpočtu · roční kontrakt (EUR/MWh) a spot</h4>` +
+      `<table><tr><th>Kontrakt</th><th class="r">Q1</th><th class="r">Q2</th><th class="r">Q3</th><th class="r">Q4</th>` +
+      `<th class="r">spot v roce nákupu (${spotUnit})</th></tr>${mrows}</table>` +
+      `<p class="meta" style="margin-top:6px">Čtvrtletní průměry denních závěrečných cen front-year forwardu (PXE, řada kurzy.cz). ` +
+      `Aktuální benchmark: ${esc(String(md.cal_now))} EUR/MWh · kurz ${esc(String(a.eurczk || ""))} CZK/EUR.</p>`;
+  }
+
   return `<!doctype html><html lang="cs"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex">
@@ -394,6 +443,7 @@ function renderReport(record) {
   .watch li{padding:6px 0 6px 24px;position:relative;font-size:14px}
   .watch li::before{content:"⚠";position:absolute;left:0;top:6px;font-size:12px}
   .fairblk{border:1.5px solid var(--ink);background:#FFF7DC;padding:16px 22px;margin-top:6px;font-size:14.5px}
+  .ctablk{border:1.5px solid var(--ink);background:var(--volt);padding:20px 24px;margin-top:30px;font-size:14.5px;box-shadow:6px 6px 0 var(--ink)}
   .note{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--mut);margin-top:24px;line-height:1.6}
   .meta{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--mut)}
   .printbtn{background:var(--ink);color:#fff;border:2px solid var(--ink);padding:12px 22px;font-weight:700;font-size:14px;cursor:pointer;font-family:'Archivo',sans-serif;margin-top:26px}
@@ -418,6 +468,11 @@ function renderReport(record) {
     <h4>Backtest nákupních strategií · dodávky 2022–2025 · Kč/MWh vč. marže</h4>
     <table><tr><th>Strategie</th><th class="r">Ø cena</th><th class="r">Ø náklad/rok</th>${yearTh}</tr>${rows}</table>
 
+    <h4>Roční náklad při vaší spotřebě ${fmt(mwh)} MWh · Kč</h4>
+    <table><tr><th>Strategie</th><th class="r">Ø / rok</th>${yearTh}</tr>${costRows}</table>
+
+    ${priceDetail}
+
     <h4>Férové rozmezí pro váš objem</h4>
     <div class="fairblk">Nový fixní kontrakt (komoditní složka) je dnes férově <b>${fmt(fair[0])}–${fmt(fair[1])} Kč/MWh</b>.
     Při spotřebě ${fmt(mwh)} MWh to znamená roční náklad <b>${fmt(fair[0] * mwh)}–${fmt(fair[1] * mwh)} Kč</b>.
@@ -428,7 +483,18 @@ function renderReport(record) {
 
     ${watchHtml ? `<h4>Na co si dát pozor</h4><div class="watch"><ul>${watchHtml}</ul></div>` : ""}
 
-    <h4>Kontakt</h4>
+    ${marketHtml}
+
+    <div class="ctablk">
+      <h4 style="margin-top:0">Další krok: konkrétní nabídka pro váš profil</h4>
+      <p style="margin:0 0 6px">Na základě tohoto protokolu vám <b>do 2 pracovních dnů</b> připravíme nezávaznou nabídku
+      od <b>jednoho prověřeného dodavatele</b> pro váš profil (${komodita.toLowerCase()}, ${fmt(mwh)} MWh${
+        inp.kdy === "q4" ? ", vč. návrhu rozložení nákupu do tranší" : ""
+      }). Žádný kolotoč telefonátů — ozve se jeden specialista.</p>
+      <p class="meta" style="margin:0">Dotazy kdykoli na <b>info@nepreplacejte.cz</b> — stačí odpovědět na e-mail s reportem.</p>
+    </div>
+
+    <h4>Zpracováno pro</h4>
     <p class="meta">${esc(record.contact.jmeno)} · ${esc(record.contact.firma || "")}<br>${esc(
     record.contact.email
   )} · ${esc(record.contact.telefon)}</p>

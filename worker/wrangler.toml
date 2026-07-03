@@ -7,7 +7,7 @@ compatibility_date = "2024-11-01"
 [vars]
 ALLOWED_ORIGIN = "https://nepreplacejte.cz"
 FROM_EMAIL = "report@nepreplacejte.cz"     # ověřený odesílatel v Resend
-NOTIFY_EMAIL = "robert@emarketer.cz"        # kam chodí notifikace o leadu
+NOTIFY_EMAIL = "info@nepreplacejte.cz"      # kam chodí notifikace o leadu (+ reply-to potvrzení)
 RATE_LIMIT_MAX = "5"                         # max odeslání
 RATE_LIMIT_WINDOW = "3600"                   # za tolik sekund (na IP)
 REPORT_TTL_DAYS = "90"                        # jak dlouho žije privátní report
