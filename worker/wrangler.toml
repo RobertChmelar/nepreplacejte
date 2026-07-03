@@ -16,5 +16,5 @@ REPORT_TTL_DAYS = "90"                        # jak dlouho žije privátní repo
 # ID doplňte po `wrangler kv namespace create LEADS` (viz README).
 [[kv_namespaces]]
 binding = "LEADS"
-id = "REPLACE_WITH_KV_ID"
-preview_id = "REPLACE_WITH_KV_PREVIEW_ID"
+id = "8ff4e0a2dc0f4ec2a902a126b132189e"
+preview_id = "1b5a547728534bb3bbd672600997d7fc"
