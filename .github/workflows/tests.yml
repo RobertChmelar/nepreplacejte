@@ -24,3 +24,6 @@ jobs:
 
       - name: Konzistence článků vs. výpočet
         run: python3 tests/check_blog_consistency.py
+
+      - name: Scénáře kalkulačky (skutečný app.js, 6 firem)
+        run: node tests/test_app_scenarios.mjs
