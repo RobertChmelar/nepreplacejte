@@ -20,9 +20,10 @@
 <header class="wrap">
   <nav>
     <div class="logo">nepřeplácejte<em>.cz</em></div>
-    <div style="display:flex;align-items:center;gap:22px">
-      <a href="blog.html" style="text-decoration:none;font-weight:600;font-size:14.5px">Blog</a>
-      <a href="slovnik.html" style="text-decoration:none;font-weight:600;font-size:14.5px">Slovník</a>
+    <button class="nav-burger" aria-label="Otevřít menu" aria-expanded="false" onclick="var n=document.getElementById('navlinks');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">☰</button>
+    <div class="navlinks" id="navlinks">
+      <a href="blog.html">Blog</a>
+      <a href="slovnik.html">Slovník</a>
       <button class="nav-cta" onclick="document.getElementById('analyzer').scrollIntoView()">Spustit kontrolu</button>
     </div>
   </nav>

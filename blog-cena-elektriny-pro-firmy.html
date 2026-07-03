@@ -74,6 +74,16 @@ footer p{max-width:62ch;margin-top:10px;line-height:1.6}
 .term p{font-size:15px;color:#333B46}
 .term .rel{font-family:var(--mono);font-size:12px;color:var(--mut);margin-top:10px}
 @media(max-width:760px){.cards{grid-template-columns:1fr}.navlinks{gap:14px}}
+/* mobilní menu (hamburger) */
+.nav-burger{display:none;background:#fff;border:1.5px solid var(--ink);color:var(--ink);font-size:19px;line-height:1;padding:8px 13px;cursor:pointer;font-family:inherit}
+@media(max-width:720px){
+nav{position:relative}
+.nav-burger{display:block}
+.navlinks{display:none;position:absolute;top:calc(100% - 8px);left:0;right:0;z-index:60;background:var(--panel);border:1.5px solid var(--ink);box-shadow:6px 6px 0 var(--ink);flex-direction:column;align-items:stretch;gap:0;padding:4px 0}
+.navlinks.open{display:flex}
+.navlinks a{padding:13px 20px;border-bottom:1px solid var(--line)}
+.navlinks a.nav-cta,.navlinks .nav-cta{margin:10px 16px 12px;text-align:center;padding:13px 20px;border-bottom:none}
+}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Cena elektřiny pro firmy 2026/2027: férové rozmezí a jak poznat, že přeplácíte", "description": "Jaká je aktuální cena elektřiny pro firmy? Férové rozmezí fixní ceny pro rok 2027 je cca 2 670–2 970 Kč/MWh bez DPH. Návod, jak zkontrolovat vlastní smlouvu.", "datePublished": "2026-06-12", "inLanguage": "cs", "author": {"@type": "Organization", "name": "nepřeplácejte.cz"}, "mainEntityOfPage": "https://nepreplacejte.cz/blog-cena-elektriny-pro-firmy.html"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Jaká je cena elektřiny pro firmy v roce 2026?", "acceptedAnswer": {"@type": "Answer", "text": "Spotová cena na denním trhu OTE se v roce 2026 zatím pohybuje v průměru kolem 2 570 Kč/MWh bez DPH. Nové fixace na rok 2027 vycházejí z ročního kontraktu ~100 EUR/MWh, tedy férově cca 2 670–2 970 Kč/MWh silové elektřiny."}}, {"@type": "Question", "name": "Jak zjistím, jestli firma za elektřinu přeplácí?", "acceptedAnswer": {"@type": "Answer", "text": "Najděte na faktuře cenu silové elektřiny v Kč/MWh (bez distribuce a poplatků) a porovnejte ji s aktuálním férovým rozmezím. Cena výrazně nad pásmem — typicky u automaticky prolongovaných smluv — znamená přeplácení."}}]}</script>
 </head>
@@ -81,6 +91,7 @@ footer p{max-width:62ch;margin-top:10px;line-height:1.6}
 <header class="wrap">
   <nav>
     <a class="logo" href="index.html">nepřeplácejte<em>.cz</em></a>
+    <button class="nav-burger" aria-label="Otevřít menu" aria-expanded="false" onclick="var n=document.querySelector('.navlinks');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">☰</button>
     <div class="navlinks">
       <a href="blog.html">Blog</a>
       <a href="slovnik.html">Slovník</a>

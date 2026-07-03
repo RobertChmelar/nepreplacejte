@@ -361,6 +361,12 @@ function collectAnalysisPayload(){
   if(cena && cena>fair[1]*1.04) verdict='over';
   else if(cena && cena<fair[0]*0.96) verdict='under';
   if(state.kdy==='q4') verdict = (verdict==='over')?'over':'timing';
+  // texty protokolu tak, jak je uživatel viděl (plain text — worker je při
+  // renderu reportu escapuje, HTML se klientovi nevěří)
+  const txt = el => (el && el.textContent || '').trim();
+  const verdict_text = txt(document.getElementById('verdictTxt'));
+  const reco_text = Array.from(document.querySelectorAll('#reco p')).map(p=>txt(p)).filter(Boolean);
+  const watch_list = Array.from(document.querySelectorAll('#watchList li')).map(li=>txt(li)).filter(Boolean);
   return {
     asof: DATA_ASOF,
     eurczk: EURCZK,
@@ -377,6 +383,9 @@ function collectAnalysisPayload(){
       order, best, worst
     },
     verdict,
+    verdict_text,
+    reco_text,
+    watch: watch_list,
     save_vs_worst_kc_rok: Math.round(saveVsWorst),
     protokol_num: (document.getElementById('protoNum')||{}).textContent || '',
     ts: new Date().toISOString()

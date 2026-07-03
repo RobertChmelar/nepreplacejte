@@ -74,6 +74,16 @@ footer p{max-width:62ch;margin-top:10px;line-height:1.6}
 .term p{font-size:15px;color:#333B46}
 .term .rel{font-family:var(--mono);font-size:12px;color:var(--mut);margin-top:10px}
 @media(max-width:760px){.cards{grid-template-columns:1fr}.navlinks{gap:14px}}
+/* mobilní menu (hamburger) */
+.nav-burger{display:none;background:#fff;border:1.5px solid var(--ink);color:var(--ink);font-size:19px;line-height:1;padding:8px 13px;cursor:pointer;font-family:inherit}
+@media(max-width:720px){
+nav{position:relative}
+.nav-burger{display:block}
+.navlinks{display:none;position:absolute;top:calc(100% - 8px);left:0;right:0;z-index:60;background:var(--panel);border:1.5px solid var(--ink);box-shadow:6px 6px 0 var(--ink);flex-direction:column;align-items:stretch;gap:0;padding:4px 0}
+.navlinks.open{display:flex}
+.navlinks a{padding:13px 20px;border-bottom:1px solid var(--line)}
+.navlinks a.nav-cta,.navlinks .nav-cta{margin:10px 16px 12px;text-align:center;padding:13px 20px;border-bottom:none}
+}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Fix, nebo spot? Co se firmám opravdu vyplatilo v letech 2022–2025", "description": "Srovnání nákupních strategií elektřiny pro firmy na reálných datech OTE a PXE: fixace, spot, tranše a kombinace 50/50. Čísla, rizika a komu se co hodí.", "datePublished": "2026-06-12", "inLanguage": "cs", "author": {"@type": "Organization", "name": "nepřeplácejte.cz"}, "mainEntityOfPage": "https://nepreplacejte.cz/blog-fix-nebo-spot.html"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Je spotová elektřina pro firmu levnější než fix?", "acceptedAnswer": {"@type": "Answer", "text": "V průměru let 2022–2025 vyšel spot na 3 510 Kč/MWh a fix podepsaný na podzim na 4 693 Kč/MWh. Spot byl tedy levnější — ale v krizovém roce 2022 stál 6 330 Kč/MWh, výrazně víc než včas podepsaný fix. Rozhoduje schopnost firmy unést výkyvy."}}, {"@type": "Question", "name": "Co je kombinace fix + spot?", "acceptedAnswer": {"@type": "Answer", "text": "Část spotřeby (typicky 50–70 %) firma zafixuje a zbytek nakupuje za spotové ceny. Tlumí to výkyvy spotu a zároveň snižuje riziko, že celý objem zafixujete v nevýhodný moment."}}]}</script>
 </head>
@@ -81,6 +91,7 @@ footer p{max-width:62ch;margin-top:10px;line-height:1.6}
 <header class="wrap">
   <nav>
     <a class="logo" href="index.html">nepřeplácejte<em>.cz</em></a>
+    <button class="nav-burger" aria-label="Otevřít menu" aria-expanded="false" onclick="var n=document.querySelector('.navlinks');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">☰</button>
     <div class="navlinks">
       <a href="blog.html">Blog</a>
       <a href="slovnik.html">Slovník</a>

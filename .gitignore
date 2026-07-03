@@ -1,6 +1,9 @@
 # macOS
 .DS_Store
 
+# lokální náhled reportu (generuje test)
+.report-preview.html
+
 # Python (pipeline)
 __pycache__/
 *.pyc

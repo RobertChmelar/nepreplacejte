@@ -318,6 +318,8 @@ function renderReport(record) {
   const inp = a.inputs || {};
   const bt = a.backtest || {};
   const avg = bt.avg || {};
+  const years = bt.years || [2022, 2023, 2024, 2025];
+  const perYear = bt.per_year || {};
   const order = bt.order || ["fixQ4", "transe", "spot", "mix"];
   const mwh = inp.mwh || 0;
   const fair = a.fair_range || [0, 0];
@@ -325,70 +327,115 @@ function renderReport(record) {
   const stampTxt = bad ? "PŘEPLÁCÍTE" : "V POŘÁDKU";
   const stampColor = bad ? "#C9403A" : "#1B8A5A";
   const komodita = inp.komodita === "plyn" ? "Zemní plyn" : "Elektřina";
+  const typTxt = { fix: "fixní cena", spot: "spotová", nevim: "nevím / kombinace" }[inp.typ] || "";
+  const kdyTxt = { q4: "na podzim (X–XII)", rok: "průběžně během roku", nevim: "neřeší se / prolongace" }[inp.kdy] || "";
 
+  /* tabulka strategií — Ø + rozpad po letech (Kč/MWh) */
+  const yearTh = years.map((y) => `<th class="r">${esc(y)}</th>`).join("");
   const rows = order
     .map((k, i) => {
       const price = avg[k] || 0;
-      const best = i === 0 ? ' style="background:#FFF7DC"' : "";
-      const tag = i === 0 ? ' <span style="background:#FFC800;font-size:10px;padding:2px 7px">nejlevnější</span>' : "";
+      const perY = (perYear[k] || []).map((v) => `<td class="r">${fmt(v)}</td>`).join("");
+      const best = i === 0 ? ' class="best"' : "";
+      const tag = i === 0 ? ' <span class="tag">nejlevnější</span>' : "";
       return (
-        `<tr${best}><td style="padding:11px 10px 11px 0;border-bottom:1px solid #EEF0EC">${STRAT[k]}${tag}</td>` +
-        `<td style="text-align:right;padding:11px 0;border-bottom:1px solid #EEF0EC">${fmt(price)}</td>` +
-        `<td style="text-align:right;padding:11px 0;border-bottom:1px solid #EEF0EC">${fmt(price * mwh)} Kč</td></tr>`
+        `<tr${best}><td>${STRAT[k]}${tag}</td>` +
+        `<td class="r"><b>${fmt(price)}</b></td>` +
+        `<td class="r">${fmt(price * mwh)} Kč</td>${perY}</tr>`
       );
     })
     .join("");
 
   const kpis = [
     [fmt(mwh) + " MWh", "roční spotřeba"],
-    [fmt(a.save_vs_worst_kc_rok || 0) + " Kč/rok", "rozdíl nejlepší vs. nejhorší"],
-    [fmt(fair[0]) + "–" + fmt(fair[1]), "férové rozmezí Kč/MWh"],
+    [fmt(a.save_vs_worst_kc_rok || 0) + " Kč/rok", "rozdíl nejlepší vs. nejhorší strategie"],
+    [fmt(fair[0]) + "–" + fmt(fair[1]), "férové rozmezí Kč/MWh (nový fix)"],
   ]
     .map(
       (k) =>
-        `<div style="padding:18px 20px;border-right:1.5px solid #1B232E;flex:1">` +
-        `<div style="font-family:monospace;font-weight:600;font-size:22px">${k[0]}</div>` +
-        `<div style="font-family:monospace;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:#5B6470;margin-top:4px">${k[1]}</div></div>`
+        `<div class="kpi"><div class="v">${k[0]}</div><div class="l">${k[1]}</div></div>`
     )
     .join("");
+
+  const recoHtml = (a.reco_text || []).map((p) => `<p>${esc(p)}</p>`).join("") ||
+    "<p>Doporučení najdete v protokolu na nepreplacejte.cz.</p>";
+  const watchHtml = (a.watch || []).map((w) => `<li>${esc(w)}</li>`).join("");
 
   return `<!doctype html><html lang="cs"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex">
-<title>Kontrolní protokol — nepřeplácejte.cz</title>
+<title>Kontrolní protokol — plný report | nepřeplácejte.cz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  body{font-family:Archivo,system-ui,sans-serif;background:#F2F3F0;color:#1B232E;margin:0;padding:30px 16px;line-height:1.55}
-  .proto{max-width:820px;margin:0 auto;background:#fff;border:1.5px solid #1B232E;box-shadow:9px 9px 0 #1B232E}
-  .head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;padding:24px 30px 16px;border-bottom:1.5px solid #1B232E}
-  .head .t{font-weight:800;font-size:22px}
-  .head .n{font-family:monospace;font-size:12px;color:#5B6470}
+  :root{--ink:#1B232E;--paper:#F2F3F0;--volt:#FFC800;--mut:#5B6470;--line:#D9DCD6}
+  body{font-family:'Archivo',system-ui,sans-serif;background:var(--paper);color:var(--ink);margin:0;padding:30px 16px;line-height:1.55}
+  .proto{max-width:860px;margin:0 auto;background:#fff;border:1.5px solid var(--ink);box-shadow:9px 9px 0 var(--ink)}
+  .head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;padding:24px 30px 16px;border-bottom:1.5px solid var(--ink)}
+  .head .t{font-family:'Archivo Black',sans-serif;font-size:22px}
+  .head .n{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--mut)}
   .body{padding:26px 30px 34px}
-  .stamp{display:inline-block;border:4px solid ${stampColor};color:${stampColor};font-weight:800;font-size:24px;letter-spacing:.08em;padding:6px 18px;transform:rotate(-4deg)}
-  .kpis{display:flex;border:1.5px solid #1B232E;margin:24px 0}
-  table{width:100%;border-collapse:collapse;font-family:monospace;font-size:13.5px;margin-top:8px}
-  th{text-align:left;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:#5B6470;border-bottom:1.5px solid #1B232E;padding:8px 10px 8px 0}
-  th:nth-child(2),th:nth-child(3){text-align:right}
-  h4{margin:28px 0 12px;text-transform:uppercase;letter-spacing:.04em;font-size:15px}
-  .note{font-family:monospace;font-size:11px;color:#5B6470;margin-top:22px}
-  .meta{font-family:monospace;font-size:12px;color:#5B6470}
+  .stamp{display:inline-block;border:4px solid ${stampColor};color:${stampColor};font-family:'Archivo Black',sans-serif;font-size:24px;letter-spacing:.08em;padding:6px 18px;transform:rotate(-4deg)}
+  .verdict{margin:18px 0 6px;font-size:15.5px;max-width:76ch}
+  .kpis{display:flex;border:1.5px solid var(--ink);margin:22px 0;flex-wrap:wrap}
+  .kpi{padding:16px 20px;border-right:1.5px solid var(--ink);flex:1;min-width:180px}
+  .kpi:last-child{border-right:none}
+  .kpi .v{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:21px}
+  .kpi .l{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--mut);margin-top:4px}
+  table{width:100%;border-collapse:collapse;font-family:'IBM Plex Mono',monospace;font-size:12.5px;margin-top:8px}
+  th{text-align:left;font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--mut);border-bottom:1.5px solid var(--ink);padding:8px 8px 8px 0}
+  td{padding:10px 8px 10px 0;border-bottom:1px solid #EEF0EC;vertical-align:top}
+  th.r,td.r{text-align:right}
+  tr.best td{background:#FFF7DC}
+  .tag{display:inline-block;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;background:var(--volt);padding:2px 6px;margin-left:6px;font-weight:600;font-family:'Archivo',sans-serif}
+  h4{font-family:'Archivo',sans-serif;font-weight:700;margin:30px 0 12px;text-transform:uppercase;letter-spacing:.04em;font-size:14.5px}
+  .watch{border:1.5px dashed var(--ink);padding:16px 22px;margin-top:6px}
+  .watch ul{list-style:none;margin:0;padding:0}
+  .watch li{padding:6px 0 6px 24px;position:relative;font-size:14px}
+  .watch li::before{content:"⚠";position:absolute;left:0;top:6px;font-size:12px}
+  .fairblk{border:1.5px solid var(--ink);background:#FFF7DC;padding:16px 22px;margin-top:6px;font-size:14.5px}
+  .note{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--mut);margin-top:24px;line-height:1.6}
+  .meta{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--mut)}
+  .printbtn{background:var(--ink);color:#fff;border:2px solid var(--ink);padding:12px 22px;font-weight:700;font-size:14px;cursor:pointer;font-family:'Archivo',sans-serif;margin-top:26px}
+  .printbtn:hover{background:var(--volt);color:var(--ink)}
+  @media print{
+    body{background:#fff;padding:0}
+    .proto{box-shadow:none;border:none;max-width:none}
+    .printbtn{display:none}
+  }
+  @media(max-width:680px){.body,.head{padding-left:18px;padding-right:18px}.kpi{min-width:100%;border-right:none;border-bottom:1.5px solid var(--ink)}.kpi:last-child{border-bottom:none}table{font-size:11px}}
 </style></head><body>
 <div class="proto">
-  <div class="head"><div class="t">KONTROLNÍ PROTOKOL</div><div class="n">${esc(a.protokol_num || "")}</div></div>
+  <div class="head"><div class="t">KONTROLNÍ PROTOKOL · PLNÝ REPORT</div><div class="n">${esc(a.protokol_num || "")}</div></div>
   <div class="body">
     <div class="stamp">${stampTxt}</div>
-    <p class="meta" style="margin-top:16px">Komodita: <b>${komodita}</b> · spotřeba <b>${fmt(mwh)} MWh</b>${
+    ${a.verdict_text ? `<p class="verdict">${esc(a.verdict_text)}</p>` : ""}
+    <p class="meta">Komodita: <b>${komodita}</b> · spotřeba <b>${fmt(mwh)} MWh</b> · odběrných míst: ${esc(inp.odberna_mista || 1)}${
     inp.cena_kc_mwh ? ` · vaše cena <b>${fmt(inp.cena_kc_mwh)} Kč/MWh</b>` : ""
-  } · data k ${esc(a.asof || "")}</p>
+  }${typTxt ? ` · smlouva: ${typTxt}` : ""}${kdyTxt ? ` · podpis: ${kdyTxt}` : ""} · data k ${esc(a.asof || "")}</p>
     <div class="kpis">${kpis}</div>
-    <h4>Backtest nákupních strategií · dodávky 2022–2025</h4>
-    <table><tr><th>Strategie</th><th>Ø cena Kč/MWh</th><th>Ø náklad / rok</th></tr>${rows}</table>
+
+    <h4>Backtest nákupních strategií · dodávky 2022–2025 · Kč/MWh vč. marže</h4>
+    <table><tr><th>Strategie</th><th class="r">Ø cena</th><th class="r">Ø náklad/rok</th>${yearTh}</tr>${rows}</table>
+
+    <h4>Férové rozmezí pro váš objem</h4>
+    <div class="fairblk">Nový fixní kontrakt (komoditní složka) je dnes férově <b>${fmt(fair[0])}–${fmt(fair[1])} Kč/MWh</b>.
+    Při spotřebě ${fmt(mwh)} MWh to znamená roční náklad <b>${fmt(fair[0] * mwh)}–${fmt(fair[1] * mwh)} Kč</b>.
+    Nabídka nad tímto pásmem = prostor k vyjednávání.</div>
+
+    <h4>Doporučení</h4>
+    ${recoHtml}
+
+    ${watchHtml ? `<h4>Na co si dát pozor</h4><div class="watch"><ul>${watchHtml}</ul></div>` : ""}
+
     <h4>Kontakt</h4>
     <p class="meta">${esc(record.contact.jmeno)} · ${esc(record.contact.firma || "")}<br>${esc(
     record.contact.email
   )} · ${esc(record.contact.telefon)}</p>
-    <p class="note">Report je orientační, vychází z historických dat trhu (OTE · PXE/EEX) a obvyklých marží dodavatele. Minulá výkonnost nezaručuje budoucí výsledky. Vygenerováno ${esc(
-      record.created
-    )}.</p>
+
+    <button class="printbtn" onclick="window.print()">🖨 Uložit / vytisknout jako PDF</button>
+
+    <p class="note">Metodika: spotová strategie z průměrných ročních cen denního trhu (OTE / TTF CZ VTP), fixní strategie z čtvrtletních průměrů denních závěrečných cen ročních kontraktů (front-year forward PXE, denní řada kurzy.cz). Marže dodavatele: elektřina fix +350 / spot +250, plyn fix +300 / spot +200 Kč/MWh. Ceny bez DPH, bez distribuce a regulovaných plateb. Report je orientační a není investičním doporučením; minulá výkonnost nezaručuje budoucí výsledky. Vygenerováno ${esc(record.created)} · nepreplacejte.cz</p>
   </div>
 </div>
 </body></html>`;

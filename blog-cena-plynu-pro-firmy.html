@@ -74,6 +74,16 @@ footer p{max-width:62ch;margin-top:10px;line-height:1.6}
 .term p{font-size:15px;color:#333B46}
 .term .rel{font-family:var(--mono);font-size:12px;color:var(--mut);margin-top:10px}
 @media(max-width:760px){.cards{grid-template-columns:1fr}.navlinks{gap:14px}}
+/* mobilní menu (hamburger) */
+.nav-burger{display:none;background:#fff;border:1.5px solid var(--ink);color:var(--ink);font-size:19px;line-height:1;padding:8px 13px;cursor:pointer;font-family:inherit}
+@media(max-width:720px){
+nav{position:relative}
+.nav-burger{display:block}
+.navlinks{display:none;position:absolute;top:calc(100% - 8px);left:0;right:0;z-index:60;background:var(--panel);border:1.5px solid var(--ink);box-shadow:6px 6px 0 var(--ink);flex-direction:column;align-items:stretch;gap:0;padding:4px 0}
+.navlinks.open{display:flex}
+.navlinks a{padding:13px 20px;border-bottom:1px solid var(--line)}
+.navlinks a.nav-cta,.navlinks .nav-cta{margin:10px 16px 12px;text-align:center;padding:13px 20px;border-bottom:none}
+}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Cena plynu pro firmy 2026/2027: férové rozmezí — a listopadová past platí i tady", "description": "Aktuální cena zemního plynu pro firmy: férové rozmezí fixace na rok 2027 je cca 1 090–1 290 Kč/MWh. Backtest strategií 2022–2025 ukazuje, že podzimní fixace stála 15 % navíc.", "datePublished": "2026-06-12", "inLanguage": "cs", "author": {"@type": "Organization", "name": "nepřeplácejte.cz"}, "mainEntityOfPage": "https://nepreplacejte.cz/blog-cena-plynu-pro-firmy.html"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Jaká je cena plynu pro firmy v roce 2026?", "acceptedAnswer": {"@type": "Answer", "text": "Velkoobchodní cena plynu (TTF) se v roce 2026 pohybuje kolem 40–50 EUR/MWh, kontrakt na rok 2027 kolem 39 EUR/MWh. Férová fixní cena komodity pro firmy tedy vychází zhruba 1 090–1 290 Kč/MWh bez DPH."}}, {"@type": "Question", "name": "Vyplatí se u plynu spot, nebo fixace?", "acceptedAnswer": {"@type": "Answer", "text": "V průměru let 2022–2025 vyšel spot na ~1 613 Kč/MWh a podzimní fixace na ~2 089 Kč/MWh. Spot byl levnější, ale rok 2022 (průměr ~3 180 Kč/MWh) ukázal jeho riziko. Kompromisem je nákup fixace v tranších (~1 810 Kč/MWh) nebo kombinace."}}]}</script>
 </head>
@@ -81,6 +91,7 @@ footer p{max-width:62ch;margin-top:10px;line-height:1.6}
 <header class="wrap">
   <nav>
     <a class="logo" href="index.html">nepřeplácejte<em>.cz</em></a>
+    <button class="nav-burger" aria-label="Otevřít menu" aria-expanded="false" onclick="var n=document.querySelector('.navlinks');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">☰</button>
     <div class="navlinks">
       <a href="blog.html">Blog</a>
       <a href="slovnik.html">Slovník</a>
