@@ -46,7 +46,7 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0
 }
 
 /* ---------- hero ---------- */
-.hero{padding:56px 0 64px;display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+.hero{padding-top:56px;padding-bottom:64px;display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
 .hero h1{font-size:clamp(34px,5vw,56px);letter-spacing:-.015em;margin-bottom:22px}
 .hl{position:relative;white-space:nowrap}
 .hl::after{content:"";position:absolute;left:-2px;right:-4px;bottom:.06em;height:.42em;background:var(--volt);z-index:-1;transform:skewX(-6deg)}
@@ -77,7 +77,7 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0
 .seasonchart .cap{fill:#E8EAE6;font-size:11px}
 
 /* ---------- analyzer ---------- */
-.analyzer{padding:72px 0}
+.analyzer{padding-top:72px;padding-bottom:72px}
 .sec-eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin-bottom:10px}
 .analyzer h2{font-size:clamp(28px,3.6vw,42px);margin-bottom:8px}
 .analyzer .sec-sub{color:var(--mut);margin-bottom:36px;max-width:60ch}
@@ -105,7 +105,7 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0
 .err{color:var(--bad);font-size:13px;margin-top:10px;display:none}
 
 /* ---------- protocol result ---------- */
-#protokol{display:none;padding:0 0 72px}
+#protokol{display:none;padding-bottom:72px}
 .proto{background:var(--panel);border:1.5px solid var(--ink);box-shadow:9px 9px 0 var(--ink);position:relative;overflow:hidden}
 .proto-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;padding:26px 38px 18px;border-bottom:1.5px solid var(--ink)}
 .proto-head .t{font-family:'Archivo Black',sans-serif;font-size:22px;letter-spacing:.01em}
@@ -155,13 +155,13 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0
 .lead-ok{display:none;font-family:var(--mono);font-size:15px;color:var(--volt);padding:8px 0}
 
 /* ---------- how + faq ---------- */
-.how{padding:0 0 72px}
+.how{padding-bottom:72px}
 .how .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:30px}
 .how .c{background:var(--panel);border:1.5px solid var(--ink);padding:26px 24px}
 .how .c .num{font-family:var(--mono);font-size:12px;color:var(--mut);letter-spacing:.1em}
 .how .c h3{font-family:'Archivo',sans-serif;font-weight:700;font-size:17px;margin:10px 0 10px}
 .how .c p{font-size:14.5px;color:var(--mut)}
-.faq{padding:0 0 80px}
+.faq{padding-bottom:80px}
 .faq details{background:var(--panel);border:1.5px solid var(--ink);margin-bottom:-1.5px}
 .faq summary{padding:18px 22px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
 .faq summary::after{content:"+";font-family:var(--mono);font-size:20px}
@@ -174,7 +174,7 @@ footer .logo{color:#fff;font-size:17px}
 footer p{max-width:62ch;margin-top:10px;line-height:1.6}
 
 @media(max-width:840px){
-  .hero{grid-template-columns:1fr;gap:38px;padding:40px 0 48px}
+  .hero{grid-template-columns:1fr;gap:38px;padding-top:40px;padding-bottom:48px}
   .insight .grid{grid-template-columns:1fr;gap:34px}
   .frow{grid-template-columns:1fr}
   .kpis{grid-template-columns:1fr}
