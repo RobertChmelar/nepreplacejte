@@ -1,0 +1,21 @@
+status,slug,titulek,klicove_slovo,poznamka
+pending,kdy-fixovat-plyn,Kdy fixovat cenu plynu? Stejná past jako u elektřiny,kdy fixovat plyn,zrcadlo článku kdy-fixovat-elektrinu pro plyn; čísla z gas backtestu (fixQ4 2089 vs tranše 1810)
+pending,silova-elektrina-na-fakture,Silová elektřina: co to je a kde ji najdete na faktuře,silová elektřina,edukační; vysvětlit komodita vs. distribuce vs. poplatky; odkaz na kalkulačku
+pending,spotova-cena-elektriny-jak-funguje,Jak funguje spotová cena elektřiny (OTE) a pro koho se hodí,spotová cena elektřiny,vysvětlit denní trh; férový spotový poplatek 250 Kč/MWh; rizika 2022
+pending,nakup-v-transich,Nákup elektřiny v tranších: jak funguje a kolik ušetří,nákup energie v tranších,rozvést nejlepší strategii z backtestu; praktický postup 3-4 tranže
+pending,cal-rocni-kontrakt,Co je CAL (roční kontrakt) a proč hýbe vaší cenou,CAL kontrakt elektřina,slovníkové téma do hloubky; forward křivka; jak číst PXE
+pending,konec-fixace-2027,Končí vám fixace v roce 2026? Postup krok za krokem,konec fixace elektřiny,sezónní (podzim); checklist: výpovědní lhůty; neprodlužovat naslepo
+pending,jak-vybrat-dodavatele-energii-firma,Jak vybrat dodavatele energií pro firmu (a proč je to podružné),jak vybrat dodavatele energie firma,pointa webu: JAK > U KOHO; tabulka kritérií
+pending,chyby-pri-nakupu-energii,7 nejčastějších chyb firem při nákupu energií,nákup energií pro firmy chyby,listicle; prolongace/listopad/koncová cena/stálý plat/OM
+pending,smlouva-na-dobu-neurcitou-energie,Smlouva na energie na dobu neurčitou: tichý zabiják rozpočtu,smlouva energie doba neurčitá,prolongační ceníky vs tržní ceny; jak vypovědět
+pending,jak-vypovedet-smlouvu-dodavatel,Jak vypovědět smlouvu s dodavatelem energie (firma),výpověď smlouvy energie firma,praktický návod; lhůty 3-6 měsíců; vzor formulace
+pending,eex-pxe-rozdil,EEX vs. PXE: odkud se berou ceny elektřiny pro ČR,PXE ceny elektřiny,edukativní; burzy; settlement; jak souvisí s nabídkou dodavatele
+pending,cena-elektriny-mala-firma-50mwh,Kolik platí za elektřinu malá firma (do 50 MWh) a kolik by měla,cena elektřiny malá firma,segmentový; příklad z kalkulačky pro 30-50 MWh
+pending,cena-energie-hotel-restaurace,Energie v hotelu a restauraci: sezónní odběr bez pokut,energie hotel restaurace,segmentový; flexibilita objemu; sezónní profil z kalkulačky
+pending,cena-energie-vyrobni-firma,Energie ve výrobní firmě: baseload vs. směny,energie výrobní firma,segmentový; profil přes den; čtvrthodinové maximum
+pending,spot-se-stropem,Spot se stropem: kompromis mezi úsporou a jistotou,spotová cena se stropem,produktový; pro koho; na co si dát pozor v podmínkách
+pending,mix-fix-spot-50-50,"Mix 50 % fix + 50 % spot: strategie, která tlumí výkyvy",kombinace fix a spot,rozvést mix strategii z backtestu s čísly (Ø 4102 Kč/MWh)
+pending,energie-2027-vyhled,Ceny energií pro firmy 2027: co říkají forwardy,cena elektřiny 2027 firmy,aktualizovatelný výhled; cal_now z data.json; férová rozmezí
+pending,staly-mesicni-plat,Stálý měsíční plat za energie: proč ho u většího odběru neplatit,stálý měsíční plat elektřina,krátké; vyjednávání; souvislost s marží
+pending,vice-odbernych-mist,Více odběrných míst: jedna cena a společná fakturace,více odběrných míst energie,pro řetězce/pobočky; konsolidace odběru
+pending,kdy-je-elektrina-nejlevnejsi,V kterém měsíci je elektřina nejlevnější? Data 2021–2025,kdy je elektřina nejlevnější,sezónnost CAL křivky z insight sekce; ~410/595 rozdíl

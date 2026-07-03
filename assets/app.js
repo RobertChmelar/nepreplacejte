@@ -182,6 +182,7 @@ function goStep(n){
     const mwh=parseFloat(document.getElementById('mwh').value);
     if(!mwh||mwh<=0){document.getElementById('err0').style.display='block';return}
     document.getElementById('err0').style.display='none';
+    if(!window.__calcStarted){window.__calcStarted=1;window.gaEvent&&gaEvent('spusteni_kalkulacky',{komodita:state.kom});}
   }
   document.getElementById('pane'+step).classList.remove('on');
   document.getElementById('tab'+step).classList.remove('on');
@@ -303,6 +304,7 @@ function runAnalysis(){
   document.getElementById('watchList').innerHTML=watch.map(w=>`<li>${w}</li>`).join('');
 
   /* show */
+  window.gaEvent&&gaEvent('protokol_zobrazen',{komodita:state.kom,mwh:mwh,verdikt:verdictBad?'preplaci':'ok'});
   const p=document.getElementById('protokol');
   p.style.display='block';
   p.scrollIntoView({behavior:'smooth'});
@@ -422,6 +424,7 @@ async function submitLead(e){
       body:JSON.stringify(payload)
     });
     if(!r.ok) throw new Error('HTTP '+r.status);
+    window.gaEvent&&gaEvent('lead_odeslan',{komodita:state.kom});
     const d=await r.json().catch(()=>({}));
     const ok=document.getElementById('leadOk');
     if(d.report_url){
