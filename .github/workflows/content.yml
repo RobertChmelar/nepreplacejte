@@ -1,0 +1,56 @@
+name: Content agent (týdenní článek)
+
+on:
+  schedule:
+    - cron: "30 4 * * 2"   # úterý 04:30 UTC = 06:30 ČR
+  workflow_dispatch: {}      # ruční spuštění
+
+permissions:
+  contents: write
+
+concurrency:
+  group: content-agent
+  cancel-in-progress: false
+
+jobs:
+  article:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Napsat článek (Claude)
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: "Přečti soubor pipeline/content_prompt.md a přesně podle něj napiš a zapoj jeden nový článek. Necommituj — commit dělá workflow."
+          claude_args: '--max-turns 60 --allowedTools "Bash(python3:*),Read,Write,Edit,Glob,Grep"'
+
+      - name: Najít nový článek
+        id: art
+        run: |
+          NEW=$(git status --porcelain | sed -n 's/^?? \(blog-[a-z0-9-]*\.html\)$/\1/p' | head -1)
+          if [ -z "$NEW" ]; then echo "::error::Agent nevytvořil žádný nový článek."; exit 1; fi
+          echo "file=$NEW" >> "$GITHUB_OUTPUT"
+          echo "Nový článek: $NEW"
+
+      - name: Strukturální validace
+        run: python3 pipeline/validate_article.py "${{ steps.art.outputs.file }}"
+
+      - name: Testy konzistence čísel
+        run: |
+          python3 tests/test_backtest.py
+          python3 tests/check_blog_consistency.py
+
+      - name: Publikovat
+        run: |
+          git config user.name  "nepreplacejte-content-bot"
+          git config user.email "bot@nepreplacejte.cz"
+          git add "${{ steps.art.outputs.file }}" blog.html sitemap.xml pipeline/topics.csv
+          git commit -m "blog: nový článek ${{ steps.art.outputs.file }} (content agent)"
+          git push
