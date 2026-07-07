@@ -1,5 +1,5 @@
 status,slug,titulek,klicove_slovo,poznamka
-pending,kdy-fixovat-plyn,Kdy fixovat cenu plynu? Stejná past jako u elektřiny,kdy fixovat plyn,zrcadlo článku kdy-fixovat-elektrinu pro plyn; čísla z gas backtestu (fixQ4 2089 vs tranše 1810)
+done,kdy-fixovat-plyn,Kdy fixovat cenu plynu? Stejná past jako u elektřiny,kdy fixovat plyn,zrcadlo článku kdy-fixovat-elektrinu pro plyn; čísla z gas backtestu (fixQ4 2089 vs tranše 1810)
 pending,silova-elektrina-na-fakture,Silová elektřina: co to je a kde ji najdete na faktuře,silová elektřina,edukační; vysvětlit komodita vs. distribuce vs. poplatky; odkaz na kalkulačku
 pending,spotova-cena-elektriny-jak-funguje,Jak funguje spotová cena elektřiny (OTE) a pro koho se hodí,spotová cena elektřiny,vysvětlit denní trh; férový spotový poplatek 250 Kč/MWh; rizika 2022
 pending,nakup-v-transich,Nákup elektřiny v tranších: jak funguje a kolik ušetří,nákup energie v tranších,rozvést nejlepší strategii z backtestu; praktický postup 3-4 tranže
