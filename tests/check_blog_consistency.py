@@ -56,7 +56,16 @@ def numbers_with_unit(text, unit):
 
 
 def build_checks(data):
-    """Seznam kontrol: (soubor, popis, hodnota, jednotka, tolerance)."""
+    """
+    Seznam kontrol: (soubor, popis, hodnota, jednotka, tolerance, hard).
+
+    hard=True  — HISTORICKÁ backtestová čísla (fixní kurz 24,20 + neměnná
+                 historická CAL). Nikdy nedriftují → nesoulad = skutečná
+                 chyba, blokuje (exit 1).
+    hard=False — FÉROVÁ ROZMEZÍ vázaná na živý cal_now. Hýbou se s trhem
+                 (denně), takže by z principu neměly shazovat build. Jen
+                 varují („prose je zastaralá, zvaž refresh").
+    """
     ele = backtest(data, False, METHODOLOGY_EURCZK)
     gas = backtest(data, True, METHODOLOGY_EURCZK)
     ele_fair = fair_range(data["ele"]["cal_now"], False)
@@ -64,25 +73,22 @@ def build_checks(data):
 
     r = round
     return [
-        # elektřina — tabulka strategií / headline čísla
-        ("blog-fix-nebo-spot.html", "ele fixQ4 Ø", r(ele["avg"]["fixQ4"]), "Kč/MWh", 1),
-        ("blog-fix-nebo-spot.html", "ele spot Ø", r(ele["avg"]["spot"]), "Kč/MWh", 1),
-        ("blog-fix-nebo-spot.html", "ele spot 2022", r(ele["spot"][0]), "Kč/MWh", 1),
+        # --- TVRDÉ: tabulka strategií / headline (stabilní, blokují) ---
+        ("blog-fix-nebo-spot.html", "ele fixQ4 Ø", r(ele["avg"]["fixQ4"]), "Kč/MWh", 1, True),
+        ("blog-fix-nebo-spot.html", "ele spot Ø", r(ele["avg"]["spot"]), "Kč/MWh", 1, True),
+        ("blog-fix-nebo-spot.html", "ele spot 2022", r(ele["spot"][0]), "Kč/MWh", 1, True),
         ("blog-kdy-fixovat-elektrinu.html", "ele fixQ4−tranše",
-         r(ele["avg"]["fixQ4"] - ele["avg"]["transe"]), "Kč/MWh", 1),
-        # férová rozmezí: "cca" hodnoty vázané na denně pohyblivý cal_now →
-        # tolerance 40 Kč (~1,6 EUR benchmarku); flaguje se až materiální posun
-        ("blog-kdy-fixovat-elektrinu.html", "ele férové horní", ele_fair[1], "Kč/MWh", 40),
-        ("blog-cena-elektriny-pro-firmy.html", "ele férové horní", ele_fair[1], "Kč/MWh", 40),
-        # plyn — tabulka strategií / headline čísla
-        ("blog-cena-plynu-pro-firmy.html", "plyn fixQ4 Ø", r(gas["avg"]["fixQ4"]), "Kč/MWh", 1),
-        ("blog-cena-plynu-pro-firmy.html", "plyn tranše Ø", r(gas["avg"]["transe"]), "Kč/MWh", 1),
-        ("blog-cena-plynu-pro-firmy.html", "plyn spot Ø", r(gas["avg"]["spot"]), "Kč/MWh", 1),
+         r(ele["avg"]["fixQ4"] - ele["avg"]["transe"]), "Kč/MWh", 1, True),
+        ("blog-cena-plynu-pro-firmy.html", "plyn fixQ4 Ø", r(gas["avg"]["fixQ4"]), "Kč/MWh", 1, True),
+        ("blog-cena-plynu-pro-firmy.html", "plyn tranše Ø", r(gas["avg"]["transe"]), "Kč/MWh", 1, True),
+        ("blog-cena-plynu-pro-firmy.html", "plyn spot Ø", r(gas["avg"]["spot"]), "Kč/MWh", 1, True),
         ("blog-cena-plynu-pro-firmy.html", "plyn fixQ4−tranše",
-         r(gas["avg"]["fixQ4"] - gas["avg"]["transe"]), "Kč/MWh", 1),
-        # férová / prose zaokrouhlená na desítky → tolerance 10
-        ("blog-cena-plynu-pro-firmy.html", "plyn férové horní (~1290)", gas_fair[1], "Kč/MWh", 40),
-        ("blog-cena-plynu-pro-firmy.html", "plyn spot 2022 (~3180)", r(gas["spot"][0]), "Kč/MWh", 10),
+         r(gas["avg"]["fixQ4"] - gas["avg"]["transe"]), "Kč/MWh", 1, True),
+        ("blog-cena-plynu-pro-firmy.html", "plyn spot 2022", r(gas["spot"][0]), "Kč/MWh", 10, True),
+        # --- MĚKKÉ: férová rozmezí vázaná na cal_now (driftují, jen varují) ---
+        ("blog-kdy-fixovat-elektrinu.html", "ele férové horní", ele_fair[1], "Kč/MWh", 40, False),
+        ("blog-cena-elektriny-pro-firmy.html", "ele férové horní", ele_fair[1], "Kč/MWh", 40, False),
+        ("blog-cena-plynu-pro-firmy.html", "plyn férové horní", gas_fair[1], "Kč/MWh", 40, False),
     ]
 
 
@@ -90,34 +96,41 @@ def main():
     data = load_data()
     checks = build_checks(data)
     cache = {}
-    failures = []
+    hard_fail, soft_fail = [], []
 
-    for fname, label, value, unit, tol in checks:
+    for fname, label, value, unit, tol, hard in checks:
         path = os.path.join(ROOT, fname)
         if path not in cache:
             try:
                 with open(path, encoding="utf-8") as f:
                     cache[path] = f.read()
             except FileNotFoundError:
-                failures.append((fname, label, value, unit, "SOUBOR CHYBÍ"))
+                (hard_fail if hard else soft_fail).append(
+                    (fname, label, value, unit, "SOUBOR CHYBÍ"))
                 continue
         present = numbers_with_unit(cache[path], unit)
         if not any(abs(n - value) <= tol for n in present):
             near = sorted(present, key=lambda n: abs(n - value))[:3]
-            failures.append((fname, label, value, unit,
-                             f"nenalezeno; nejbližší v souboru: {near}"))
+            (hard_fail if hard else soft_fail).append(
+                (fname, label, value, unit, f"nenalezeno; nejbližší: {near}"))
 
-    if failures:
-        print("NESOULAD — články k aktualizaci:\n")
-        for fname, label, value, unit, note in failures:
+    if soft_fail:
+        print("UPOZORNĚNÍ — férová rozmezí v článcích zastarala (trh se pohnul, "
+              "neblokuje):")
+        for fname, label, value, unit, note in soft_fail:
+            print(f"  ~ {fname}: {label} → nyní ~{value} {unit} ({note})")
+        print("  → až budeš mít chvíli, přepiš „cca X–Y Kč/MWh“ v perexu/tabulce.\n")
+
+    if hard_fail:
+        print("CHYBA — historická čísla nesedí (musí se opravit):")
+        for fname, label, value, unit, note in hard_fail:
             print(f"  • {fname}: {label} → čekáno ~{value} {unit} ({note})")
-        print(f"\n{len(failures)} míst k revizi. Zkontroluj, zda se změnila "
-              "historická data / cal_now v data.json a přepiš prose v článku.")
         return 1
 
-    print(f"OK — {len(checks)} klíčových čísel v článcích odpovídá výpočtu "
+    print(f"OK — historická čísla v článcích odpovídají výpočtu "
           f"(kurz {METHODOLOGY_EURCZK}, cal_now ele={data['ele']['cal_now']}, "
-          f"gas={data['gas']['cal_now']}).")
+          f"gas={data['gas']['cal_now']}"
+          + (f"; {len(soft_fail)} férových rozmezí k refreshi)" if soft_fail else ")"))
     return 0
 
 
