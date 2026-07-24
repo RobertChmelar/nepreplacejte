@@ -1,0 +1,45 @@
+name: Měsíční aktualizace trhu (pilíře)
+
+on:
+  schedule:
+    - cron: "0 5 1 * *"     # 1. v měsíci 05:00 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: market-update
+  cancel-in-progress: false
+
+jobs:
+  market:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Aktualizovat „stav trhu" v pilířích
+        run: python3 pipeline/update_market_section.py
+
+      - name: Kontroly (backtest + konzistence, advisory)
+        run: |
+          python3 tests/test_backtest.py
+          python3 tests/check_blog_consistency.py
+
+      - name: Commit změn
+        run: |
+          git config user.name  "nepreplacejte-market-bot"
+          git config user.email "bot@nepreplacejte.cz"
+          git add blog-cena-elektriny-pro-firmy.html blog-cena-plynu-pro-firmy.html
+          if git diff --cached --quiet; then
+            echo "Žádná změna — nic ke commitu."
+          else
+            git commit -m "market: měsíční aktualizace stavu trhu v pilířích ($(date -u +%Y-%m))"
+            git push
+          fi
