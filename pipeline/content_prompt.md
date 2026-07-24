@@ -25,8 +25,17 @@ věcně, sebevědomě, bez marketingových frází — tón stávajících člá
    rozdíl fixQ4−tranše 595 Kč/MWh; plyn 2 089 / 1 810 / 1 613 / 1 851,
    rozdíl 279 Kč/MWh. Férová rozmezí se odvíjejí od `cal_now` × kurz
    + přirážky (ele +250/+550, plyn +150/+350) — přepočítej z aktuálního
-   data.json a uváděj jako „cca". ŽÁDNÁ čísla nevymýšlej. Když si nejsi
-   jistý, formuluj kvalitativně („výrazně dražší") místo číselně.
+   data.json. ŽÁDNÁ čísla nevymýšlej. Když si nejsi jistý, formuluj
+   kvalitativně („výrazně dražší") místo číselně.
+
+   **Férová rozmezí (odvozená z cal_now) piš VŽDY jako datovaný snímek +
+   odkaz na kalkulačku**, nikdy jako nadčasové „aktuální" tvrzení — ta rychle
+   zastarají a shodí důvěryhodnost. Vzor: „…v době psaní (<měsíc rok>)
+   vycházelo férové rozmezí cca X–Y Kč/MWh; aktuální hodnotu pro váš objem
+   spočítá [kalkulačka](index.html#analyzer)." V `<meta description>` a perexu
+   férové číslo NEDÁVEJ natvrdo (v Googlu zastará) — místo něj odkaž na
+   kalkulačku. Naproti tomu HISTORICKÁ backtestová čísla (4 693, 595, 2 089,
+   279, spotové Ø…) jsou stabilní a klidně je uváděj napevno.
 
 4. **Obsah:** 600–900 slov. `<h1>` s klíčovým slovem, meta description
    50–160 znaků s klíčovým slovem, perex, 3–5 sekcí `<h2>`, alespoň jedna
