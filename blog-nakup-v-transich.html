@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nákup elektřiny v tranších: jak funguje a kolik ušetří | nepřeplácejte.cz</title>
+<meta name="description" content="Jak funguje nákup elektřiny v tranších a kolik ušetří proti jednorázové fixaci: backtest 2022–2025 a praktický postup ve 3–4 krocích.">
+<link rel="canonical" href="https://nepreplacejte.cz/blog-nakup-v-transich.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1B232E;--paper:#F2F3F0;--panel:#FFFFFF;--volt:#FFC800;--line:#D9DCD6;--mut:#5B6470;--good:#1B8A5A;--bad:#C9403A;--mono:'IBM Plex Mono',monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Archivo',sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;font-size:16.5px}
+h1,h2,h3{font-family:'Archivo Black',sans-serif;font-weight:400;line-height:1.12}
+.mono{font-family:var(--mono)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+a{color:inherit}
+nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0}
+.logo{font-family:'Archivo Black',sans-serif;font-size:21px;letter-spacing:-.02em;text-decoration:none}
+.logo em{font-style:normal;background:var(--volt);padding:0 5px}
+.navlinks{display:flex;align-items:center;gap:22px}
+.navlinks a{text-decoration:none;font-weight:600;font-size:14.5px}
+.nav-cta{background:var(--ink);color:#fff;padding:11px 20px;font-weight:600;font-size:14px;border:2px solid var(--ink);text-decoration:none;display:inline-block}
+.nav-cta:hover{background:var(--volt);color:var(--ink)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin-bottom:10px}
+footer{background:var(--ink);color:#8A95A1;padding:40px 0;font-size:13px;margin-top:80px}
+footer .wrap{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
+footer .flogo{font-family:'Archivo Black',sans-serif;color:#fff;font-size:17px}
+footer .flogo em{font-style:normal;background:var(--volt);color:var(--ink);padding:0 4px}
+footer a{color:#fff}
+footer p{max-width:62ch;margin-top:10px;line-height:1.6}
+/* article */
+.art{max-width:760px;margin:0 auto;padding:44px 24px 0}
+.art h1{font-size:clamp(30px,4.4vw,44px);letter-spacing:-.01em;margin:10px 0 16px}
+.art .perex{font-size:19px;color:var(--mut);margin-bottom:14px}
+.art .meta{font-family:var(--mono);font-size:12.5px;color:var(--mut);border-bottom:1.5px solid var(--ink);padding-bottom:22px;margin-bottom:34px}
+.art h2{font-size:clamp(21px,2.6vw,27px);margin:42px 0 14px}
+.art p{margin-bottom:16px}
+.art ul,.art ol{margin:0 0 16px 22px}
+.art li{margin-bottom:8px}
+.art table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:13.5px;margin:20px 0 26px}
+.art th{text-align:left;font-weight:500;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--mut);border-bottom:1.5px solid var(--ink);padding:8px 10px 8px 0}
+.art td{padding:10px 10px 10px 0;border-bottom:1px solid #E3E5E0}
+.art tr.hot td{background:#FFF7DC}
+.hl{background:linear-gradient(transparent 58%,var(--volt) 58%,var(--volt) 92%,transparent 92%)}
+.ctabox{background:var(--ink);color:#fff;padding:28px 30px;margin:42px 0}
+.ctabox h3{font-family:'Archivo',sans-serif;font-weight:700;font-size:18px;margin-bottom:8px}
+.ctabox p{color:#AEB6BE;font-size:15px;margin-bottom:18px}
+.btn-volt{background:var(--volt);color:var(--ink);padding:13px 24px;font-weight:700;font-size:15px;text-decoration:none;display:inline-block;border:2px solid var(--volt)}
+.btn-volt:hover{background:#fff;border-color:#fff}
+.note{font-family:var(--mono);font-size:11.5px;color:var(--mut);border-top:1.5px dashed var(--line);padding-top:18px;margin:44px 0 0;line-height:1.7}
+/* blog index */
+.bhero{padding:50px 0 34px;border-bottom:1.5px solid var(--ink)}
+.bhero h1{font-size:clamp(30px,4.4vw,46px)}
+.bhero p{color:var(--mut);max-width:60ch;margin-top:12px}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:26px;padding:40px 0}
+.card{background:var(--panel);border:1.5px solid var(--ink);padding:26px 26px 22px;text-decoration:none;display:flex;flex-direction:column;gap:10px;transition:box-shadow .15s}
+.card:hover{box-shadow:6px 6px 0 var(--volt)}
+.card .k{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--mut)}
+.card h2{font-size:20px}
+.card p{color:var(--mut);font-size:14.5px}
+.card .more{font-family:var(--mono);font-size:12.5px;margin-top:auto}
+/* glossary */
+.gwrap{max-width:820px;margin:0 auto;padding:44px 24px 0}
+.gwrap h1{font-size:clamp(30px,4.4vw,44px);margin-bottom:14px}
+.gwrap .glead{color:var(--mut);max-width:62ch;margin-bottom:30px}
+.gidx{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:38px}
+.gidx a{font-family:var(--mono);font-size:12.5px;border:1.5px solid var(--ink);padding:6px 11px;text-decoration:none;background:#fff}
+.gidx a:hover{background:var(--volt)}
+.term{background:var(--panel);border:1.5px solid var(--ink);padding:20px 24px;margin-bottom:-1.5px;scroll-margin-top:20px}
+.term h2{font-family:'Archivo',sans-serif;font-weight:700;font-size:17.5px;margin-bottom:8px}
+.term p{font-size:15px;color:#333B46}
+.term .rel{font-family:var(--mono);font-size:12px;color:var(--mut);margin-top:10px}
+@media(max-width:760px){.cards{grid-template-columns:1fr}.navlinks{gap:14px}}
+/* mobilní menu (hamburger) */
+.nav-burger{display:none;background:#fff;border:1.5px solid var(--ink);color:var(--ink);font-size:19px;line-height:1;padding:8px 13px;cursor:pointer;font-family:inherit}
+@media(max-width:720px){
+nav{position:relative}
+.nav-burger{display:block}
+.navlinks{display:none;position:absolute;top:calc(100% - 8px);left:0;right:0;z-index:60;background:var(--panel);border:1.5px solid var(--ink);box-shadow:6px 6px 0 var(--ink);flex-direction:column;align-items:stretch;gap:0;padding:4px 0}
+.navlinks.open{display:flex}
+.navlinks a{padding:13px 20px;border-bottom:1px solid var(--line)}
+.navlinks a.nav-cta,.navlinks .nav-cta{margin:10px 16px 12px;text-align:center;padding:13px 20px;border-bottom:none}
+}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Nákup elektřiny v tranších: jak funguje a kolik ušetří", "description": "Jak funguje nákup elektřiny v tranších a kolik ušetří proti jednorázové fixaci: backtest 2022–2025 a praktický postup ve 3–4 krocích.", "datePublished": "2026-08-04", "inLanguage": "cs", "author": {"@type": "Organization", "name": "nepřeplácejte.cz"}, "mainEntityOfPage": "https://nepreplacejte.cz/blog-nakup-v-transich.html"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Kolik firma ušetří nákupem elektřiny v tranších oproti jednorázové fixaci?", "acceptedAnswer": {"@type": "Answer", "text": "V backtestu let 2022–2025 vyšel nákup ve čtyřech čtvrtletních tranších v průměru na 4 098 Kč/MWh, jednorázová podzimní fixace na 4 693 Kč/MWh — rozdíl 595 Kč/MWh. V jednotlivých letech se ale pořadí měnilo: tranše nejsou zárukou nejnižší ceny v každém konkrétním roce, snižují hlavně riziko špatného načasování."}}, {"@type": "Question", "name": "Kolik tranší je pro firmu optimální?", "acceptedAnswer": {"@type": "Answer", "text": "Většina dodavatelů v ČR nabízí produkty se 3–4 tranšemi ročně. Víc tranší cenu dál průměruje, ale zvyšuje administrativní náročnost — u menších odběrů se rozdíl vůči poplatkům stává zanedbatelným."}}]}</script>
+</head>
+<body>
+<header class="wrap">
+  <nav>
+    <a class="logo" href="index.html">nepřeplácejte<em>.cz</em></a>
+    <button class="nav-burger" aria-label="Otevřít menu" aria-expanded="false" onclick="var n=document.querySelector('.navlinks');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">☰</button>
+    <div class="navlinks">
+      <a href="blog.html">Blog</a>
+      <a href="slovnik.html">Slovník</a>
+      <a class="nav-cta" href="index.html#analyzer">Spustit kontrolu</a>
+    </div>
+  </nav>
+</header>
+
+<article class="art">
+  <div class="eyebrow">Nákupní strategie · elektřina</div>
+  <h1>Nákup elektřiny v tranších: jak funguje a kolik ušetří</h1>
+  <p class="perex">Místo jednoho podpisu rozdělíte roční objem na několik nákupů v čase. Na datech 2022–2025 ukazujeme, jak nákup elektřiny v tranších funguje, kolik reálně ušetřil proti jednorázové fixaci a jak ho nastavit v praxi.</p>
+  <div class="meta mono">4. 8. 2026 · data: OTE, PXE/EEX, ERÚ · <a href="blog.html">← všechny články</a></div>
+
+<p>Firma, která fixuje cenu elektřiny na celý rok jedním podpisem, se spoléhá na to, že trefí den, kdy je roční kontrakt (CAL) levný. Nákup v tranších tuhle sázku ruší: objem se rozdělí na 3–4 přibližně stejné části, nakoupené v různých měsících před dodávkou. Cena se tak zprůměruje z více dnů trhu místo jednoho — a firma přestává záviset na tom, jestli zrovna trefila dobrý moment.</p>
+
+<h2>Jak nákup v tranších funguje</h2>
+<p>V praxi to vypadá tak, že dodavatel (nebo makléř) nakoupí čtvrtinu ročního objemu na burze při každém z několika dohodnutých termínů — typicky čtvrtletně, někdy i měsíčně. Výsledná cena na faktuře je vážený průměr cen z jednotlivých nákupů plus marže. Firma tím nezíská nejnižší možnou cenu roku, ale ani neriskuje tu nejvyšší — mechanismus je stejný jako u pravidelného investování na burze, jen aplikovaný na komoditu, kterou firma reálně spotřebuje.</p>
+
+<h2>Kolik to v letech 2022–2025 reálně ušetřilo</h2>
+<p>Porovnali jsme cenu silové elektřiny (vč. obvyklé marže dodavatele 350 Kč/MWh) pro firmu, která nakupuje ve čtyřech tranších během roku, s firmou, jež kontrakt fixuje jedním podpisem na podzim předchozího roku:</p>
+<table>
+<tr><th>Rok dodávky</th><th>Podzimní fix (Kč/MWh)</th><th>4 tranše (Kč/MWh)</th></tr>
+<tr><td>2022</td><td>4 150</td><td>2 563</td></tr>
+<tr><td>2023</td><td>8 836</td><td>7 555</td></tr>
+<tr><td>2024</td><td>3 125</td><td>3 704</td></tr>
+<tr><td>2025</td><td>2 661</td><td>2 571</td></tr>
+<tr class="hot"><td>Ø 2022–2025</td><td>4 693</td><td>4 098</td></tr>
+</table>
+<p>Průměrně tranše vyšly o 595 Kč/MWh levněji. Řádek 2024 ale ukazuje, že to není pravidlo bez výjimky — ceny CAL kontraktu ten rok postupně klesaly, takže poslední (nejlevnější) čtvrtletí zachytil jen jednorázový podzimní fix, zatímco tranše zprůměrovaly i dražší začátek roku. Výhoda tranší je proto spíš v tom, že v žádném roce nekončí u nejhorší možné ceny — v krizovém roce 2023 tranše ušetřily proti podzimnímu fixu přes 1 200 Kč/MWh, zatímco v roce s klesajícím trhem prodělaly jen zlomek toho, o co v krizovém roce vydělaly.</p>
+
+<h2>Praktický postup: 3–4 tranže krok za krokem</h2>
+<ol>
+<li><strong>Zjistěte roční spotřebu a rozdělte ji na stejné díly</strong> — u většiny dodavatelů jde o čtyři čtvrtletní tranše, u větších odběrů (od cca 100 MWh) lze domluvit i měsíční členění.</li>
+<li><strong>Vyžádejte si u dodavatele produkt s postupným nákupem</strong>, ne standardní jednorázový fix — ne všichni ho nabízí a u menších odběrů bývá dostupný jen na vyžádání.</li>
+<li><strong>Stanovte si pevná data nákupu předem</strong> a držte se jich. Cíl tranší je vyhnout se rozhodování „počkáme, třeba to ještě spadne“ — to je přesně past, která dělá z jednorázového fixu nejdražší strategii.</li>
+<li><strong>Sledujte cenu CAL kontraktu v kalkulačce</strong> a u poslední tranše zvažte malou flexibilitu jen tehdy, pokud je trh viditelně nad férovým rozmezím — ne jako standardní postup.</li>
+</ol>
+
+<h2>Kdy tranše nedávají tolik smysl</h2>
+<p>U malých odběrů (řádově do 30–50 MWh ročně) může být rozdíl mezi tranšemi a jednorázovým fixem menší než administrativní přirážka, kterou si dodavatel za členěný nákup účtuje — tady se vyplatí přepočítat obě varianty konkrétně, ne se řídit obecným pravidlem. Firmy se silným cash-flow a nízkým podílem energie na nákladech pak mohou zvážit i čistý spot nebo kombinaci fix/spot — podrobně to rozebíráme v článku <a href="blog-fix-nebo-spot.html">Fix, nebo spot?</a>. Kdy přesně tranše fungují lépe než jednorázový podzimní podpis, popisujeme v článku <a href="blog-kdy-fixovat-elektrinu.html">Kdy fixovat elektřinu na rok 2027?</a>, pojmy jako CAL kontrakt nebo silová elektřina najdete ve <a href="slovnik.html">slovníku pojmů</a>.</p>
+<p>Férové rozmezí pro nový fix se v čase mění s cenou CAL kontraktu — v době psaní (srpen 2026) vycházelo cca 2 930–3 230 Kč/MWh za silovou složku. Aktuální hodnotu pro váš objem spočítá <a href="index.html#analyzer">kalkulačka</a>.</p>
+
+  <div class="ctabox">
+  <h3>Zkontrolujte si nákup energií zdarma</h3>
+  <p>Za 2 minuty zjistíte, jestli je vaše cena ve férovém rozmezí a jestli vám sedí způsob nákupu — na reálných datech OTE a PXE/EEX, s protokolem na konci.</p>
+  <a class="btn-volt" href="index.html#analyzer">Spustit kontrolu →</a>
+</div>
+  <h2>Časté otázky</h2>
+  <h2>Kolik firma ušetří nákupem elektřiny v tranších oproti jednorázové fixaci?</h2><p>V backtestu let 2022–2025 vyšel nákup ve čtyřech čtvrtletních tranších v průměru na 4 098 Kč/MWh, jednorázová podzimní fixace na 4 693 Kč/MWh — rozdíl 595 Kč/MWh. V jednotlivých letech se ale pořadí měnilo: tranše nejsou zárukou nejnižší ceny v každém konkrétním roce, snižují hlavně riziko špatného načasování.</p><h2>Kolik tranší je pro firmu optimální?</h2><p>Většina dodavatelů v ČR nabízí produkty se 3–4 tranšemi ročně. Víc tranší cenu dál průměruje, ale zvyšuje administrativní náročnost — u menších odběrů se rozdíl vůči poplatkům stává zanedbatelným.</p>
+  <p class="note">Publikováno: 4. 8. 2026 · Autor: nepřeplácejte.cz · Zdroje dat: OTE, a.s. (denní trh), PXE/EEX (roční kontrakty), ERÚ. Ceny bez DPH. Článek má informativní charakter, není investičním doporučením; minulá výkonnost nezaručuje budoucí výsledky.</p>
+</article>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="flogo">nepřeplácejte<em>.cz</em></div>
+      <p>Kontrola nákupu energií pro firmy. Nejsme dodavatel ani makléř konkrétní značky — počítáme z dat trhu. Obsah má informativní charakter a nenahrazuje individuální poradenství.</p>
+    </div>
+    <div class="mono" style="font-size:12px;line-height:2">
+      <a href="blog.html">Blog</a> · <a href="slovnik.html">Slovník pojmů</a><br>
+      info@nepreplacejte.cz<br>
+      Data: OTE · PXE/EEX · ERÚ · energy-charts.info (CC BY 4.0)<br>
+      © 2026 nepřeplácejte.cz
+    </div>
+  </div>
+</footer>
+<script src="assets/consent.js" defer></script>
+</body>
+</html>
