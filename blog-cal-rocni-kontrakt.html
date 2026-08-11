@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Co je CAL (roční kontrakt) elektřiny a proč hýbe vaší cenou | nepřeplácejte.cz</title>
+<meta name="description" content="CAL kontrakt (např. CAL27) je základ fixní ceny elektřiny pro firmy. Jak vzniká, jak číst forwardovou křivku na PXE/EEX a proč cena kolísá.">
+<link rel="canonical" href="https://nepreplacejte.cz/blog-cal-rocni-kontrakt.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1B232E;--paper:#F2F3F0;--panel:#FFFFFF;--volt:#FFC800;--line:#D9DCD6;--mut:#5B6470;--good:#1B8A5A;--bad:#C9403A;--mono:'IBM Plex Mono',monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Archivo',sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;font-size:16.5px}
+h1,h2,h3{font-family:'Archivo Black',sans-serif;font-weight:400;line-height:1.12}
+.mono{font-family:var(--mono)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+a{color:inherit}
+nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0}
+.logo{font-family:'Archivo Black',sans-serif;font-size:21px;letter-spacing:-.02em;text-decoration:none}
+.logo em{font-style:normal;background:var(--volt);padding:0 5px}
+.navlinks{display:flex;align-items:center;gap:22px}
+.navlinks a{text-decoration:none;font-weight:600;font-size:14.5px}
+.nav-cta{background:var(--ink);color:#fff;padding:11px 20px;font-weight:600;font-size:14px;border:2px solid var(--ink);text-decoration:none;display:inline-block}
+.nav-cta:hover{background:var(--volt);color:var(--ink)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin-bottom:10px}
+footer{background:var(--ink);color:#8A95A1;padding:40px 0;font-size:13px;margin-top:80px}
+footer .wrap{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
+footer .flogo{font-family:'Archivo Black',sans-serif;color:#fff;font-size:17px}
+footer .flogo em{font-style:normal;background:var(--volt);color:var(--ink);padding:0 4px}
+footer a{color:#fff}
+footer p{max-width:62ch;margin-top:10px;line-height:1.6}
+/* article */
+.art{max-width:760px;margin:0 auto;padding:44px 24px 0}
+.art h1{font-size:clamp(30px,4.4vw,44px);letter-spacing:-.01em;margin:10px 0 16px}
+.art .perex{font-size:19px;color:var(--mut);margin-bottom:14px}
+.art .meta{font-family:var(--mono);font-size:12.5px;color:var(--mut);border-bottom:1.5px solid var(--ink);padding-bottom:22px;margin-bottom:34px}
+.art h2{font-size:clamp(21px,2.6vw,27px);margin:42px 0 14px}
+.art p{margin-bottom:16px}
+.art ul,.art ol{margin:0 0 16px 22px}
+.art li{margin-bottom:8px}
+.art table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:13.5px;margin:20px 0 26px}
+.art th{text-align:left;font-weight:500;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--mut);border-bottom:1.5px solid var(--ink);padding:8px 10px 8px 0}
+.art td{padding:10px 10px 10px 0;border-bottom:1px solid #E3E5E0}
+.art tr.hot td{background:#FFF7DC}
+.hl{background:linear-gradient(transparent 58%,var(--volt) 58%,var(--volt) 92%,transparent 92%)}
+.ctabox{background:var(--ink);color:#fff;padding:28px 30px;margin:42px 0}
+.ctabox h3{font-family:'Archivo',sans-serif;font-weight:700;font-size:18px;margin-bottom:8px}
+.ctabox p{color:#AEB6BE;font-size:15px;margin-bottom:18px}
+.btn-volt{background:var(--volt);color:var(--ink);padding:13px 24px;font-weight:700;font-size:15px;text-decoration:none;display:inline-block;border:2px solid var(--volt)}
+.btn-volt:hover{background:#fff;border-color:#fff}
+.note{font-family:var(--mono);font-size:11.5px;color:var(--mut);border-top:1.5px dashed var(--line);padding-top:18px;margin:44px 0 0;line-height:1.7}
+/* blog index */
+.bhero{padding:50px 0 34px;border-bottom:1.5px solid var(--ink)}
+.bhero h1{font-size:clamp(30px,4.4vw,46px)}
+.bhero p{color:var(--mut);max-width:60ch;margin-top:12px}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:26px;padding:40px 0}
+.card{background:var(--panel);border:1.5px solid var(--ink);padding:26px 26px 22px;text-decoration:none;display:flex;flex-direction:column;gap:10px;transition:box-shadow .15s}
+.card:hover{box-shadow:6px 6px 0 var(--volt)}
+.card .k{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--mut)}
+.card h2{font-size:20px}
+.card p{color:var(--mut);font-size:14.5px}
+.card .more{font-family:var(--mono);font-size:12.5px;margin-top:auto}
+/* glossary */
+.gwrap{max-width:820px;margin:0 auto;padding:44px 24px 0}
+.gwrap h1{font-size:clamp(30px,4.4vw,44px);margin-bottom:14px}
+.gwrap .glead{color:var(--mut);max-width:62ch;margin-bottom:30px}
+.gidx{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:38px}
+.gidx a{font-family:var(--mono);font-size:12.5px;border:1.5px solid var(--ink);padding:6px 11px;text-decoration:none;background:#fff}
+.gidx a:hover{background:var(--volt)}
+.term{background:var(--panel);border:1.5px solid var(--ink);padding:20px 24px;margin-bottom:-1.5px;scroll-margin-top:20px}
+.term h2{font-family:'Archivo',sans-serif;font-weight:700;font-size:17.5px;margin-bottom:8px}
+.term p{font-size:15px;color:#333B46}
+.term .rel{font-family:var(--mono);font-size:12px;color:var(--mut);margin-top:10px}
+@media(max-width:760px){.cards{grid-template-columns:1fr}.navlinks{gap:14px}}
+/* mobilní menu (hamburger) */
+.nav-burger{display:none;background:#fff;border:1.5px solid var(--ink);color:var(--ink);font-size:19px;line-height:1;padding:8px 13px;cursor:pointer;font-family:inherit}
+@media(max-width:720px){
+nav{position:relative}
+.nav-burger{display:block}
+.navlinks{display:none;position:absolute;top:calc(100% - 8px);left:0;right:0;z-index:60;background:var(--panel);border:1.5px solid var(--ink);box-shadow:6px 6px 0 var(--ink);flex-direction:column;align-items:stretch;gap:0;padding:4px 0}
+.navlinks.open{display:flex}
+.navlinks a{padding:13px 20px;border-bottom:1px solid var(--line)}
+.navlinks a.nav-cta,.navlinks .nav-cta{margin:10px 16px 12px;text-align:center;padding:13px 20px;border-bottom:none}
+}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Co je CAL (roční kontrakt) a proč hýbe vaší cenou", "description": "CAL kontrakt (např. CAL27) je základ fixní ceny elektřiny pro firmy. Jak vzniká, jak číst forwardovou křivku na PXE/EEX a proč cena kolísá.", "datePublished": "2026-08-11", "inLanguage": "cs", "author": {"@type": "Organization", "name": "nepřeplácejte.cz"}, "mainEntityOfPage": "https://nepreplacejte.cz/blog-cal-rocni-kontrakt.html"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Co znamená CAL27?", "acceptedAnswer": {"@type": "Answer", "text": "CAL27 je roční kontrakt (baseload) na dodávku elektřiny po celý kalendářní rok 2027, obchodovaný na burze PXE/EEX. Jeho aktuální settlement cena je základ, ze kterého dodavatelé skládají nabídky fixu na rok 2027 — k ní si přičítají vlastní marži."}}, {"@type": "Question", "name": "Proč se cena CAL kontraktu v průběhu roku mění?", "acceptedAnswer": {"@type": "Answer", "text": "Protože jde o obchodovaný nástroj — reaguje na očekávanou nabídku a poptávku, ceny plynu a uhlí, počasí i geopolitiku. V roce 2022 se CAL23 (dodávka 2023) pohnul z 149 na 464 EUR/MWh během tří čtvrtletí; v klidnějším roce 2025 zůstal CAL26 stabilní kolem 92–96 EUR/MWh."}}]}</script>
+</head>
+<body>
+<header class="wrap">
+  <nav>
+    <a class="logo" href="index.html">nepřeplácejte<em>.cz</em></a>
+    <button class="nav-burger" aria-label="Otevřít menu" aria-expanded="false" onclick="var n=document.querySelector('.navlinks');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">☰</button>
+    <div class="navlinks">
+      <a href="blog.html">Blog</a>
+      <a href="slovnik.html">Slovník</a>
+      <a class="nav-cta" href="index.html#analyzer">Spustit kontrolu</a>
+    </div>
+  </nav>
+</header>
+
+<article class="art">
+  <div class="eyebrow">Základy · elektřina</div>
+  <h1>Co je CAL (roční kontrakt) a proč hýbe vaší cenou</h1>
+  <p class="perex">CAL kontrakt (např. CAL27) je základ fixní ceny elektřiny pro firmy. Jak vzniká, jak číst forwardovou křivku na PXE/EEX a proč se cena v čase hýbe.</p>
+  <div class="meta mono">11. 8. 2026 · data: PXE/EEX, ERÚ · <a href="blog.html">← všechny články</a></div>
+
+<p>Když dodavatel nabídne firmě fix na příští rok, nevymýšlí cenu z ničeho — opisuje ji z burzy. Základem je <strong>CAL kontrakt</strong>, tedy roční futures na dodávku elektřiny (CAL27 = dodávka v roce 2027), obchodovaný na pražské burze <a href="slovnik.html#pxe">PXE</a> (součást skupiny EEX). Kdo rozumí tomu, jak se CAL cena tvoří a hýbe, přestane se ptát „proč mi dali zrovna tuhle cenu“ a začne se ptát „je tahle cena teď dobrá, nebo špatná“.</p>
+
+<h2>Co přesně je CAL kontrakt</h2>
+<p>CAL (z anglického <em>calendar year</em>) je <a href="slovnik.html#forward">forward</a> na rovnoměrnou dodávku (<a href="slovnik.html#baseload">baseload</a>) elektřiny po celý kalendářní rok. Cena se obchoduje průběžně, dokud kontrakt neexpiruje — poslední zveřejněná denní <em>settlement</em> cena je to číslo, které vidíte v tickerech a ze kterého dodavatelé počítají nabídky. Vedle CAL existují i kratší kontrakty (kvartální Q, měsíční M) — dohromady tvoří tzv. forwardovou křivku, podle které trh cení budoucnost.</p>
+
+<h2>Jak se z CAL ceny stane cena na vaší faktuře</h2>
+<p>Přepočet je jednoduchý: cena silové elektřiny ve fixu ≈ CAL cena (EUR/MWh) × kurz CZK/EUR + marže dodavatele. V našem backtestu 2022–2025 vyšla u fixace podepsané na podzim (kdy se ceníme CAL kontraktem Q4) průměrná cena 4 693 Kč/MWh, u nákupu rozloženého do čtyř tranší během roku 4 098 Kč/MWh — rozdíl 595 Kč/MWh je čistě důsledek toho, <em>ve kterém okamžiku forwardové křivky</em> firma nakupovala, ne kvalitou vyjednávání s dodavatelem.</p>
+
+<h2>Forwardová křivka v praxi: klidný rok vs. krize</h2>
+<p>Nejlíp je to vidět na dvou konkrétních ročnících. CAL23 (dodávka 2023) se obchodoval během roku 2022 a prošel si extrémním výkyvem — od jara do podzimu se ztrojnásobil. CAL26 (dodávka 2026) se naproti tomu obchodoval v klidném roce 2025 a zůstal prakticky na místě.</p>
+<table>
+<tr><th>Kontrakt</th><th>Q1</th><th>Q2</th><th>Q3</th><th>Q4</th></tr>
+<tr class="hot"><td>CAL23 (dodávka 2023, rok obchodování 2022)</td><td>149,3</td><td>227,4</td><td>463,6</td><td>350,7</td></tr>
+<tr><td>CAL26 (dodávka 2026, rok obchodování 2025)</td><td>81,9</td><td>94,8</td><td>95,0</td><td>95,5</td></tr>
+</table>
+<p>Ceny jsou v EUR/MWh, jde o čtvrtletní průměry denních závěrečných cen. Firma, která zafixovala CAL23 v Q1 2022, zaplatila za silovou složku o víc než 300 EUR/MWh méně než firma, která čekala do Q3 — to je přesně ten typ rozdílu, který má na svědomí <a href="blog-kdy-fixovat-elektrinu.html">špatně načasovaná fixace</a>, ne špatný dodavatel.</p>
+
+<h2>Jak číst PXE (a proč tam vidíte i EEX)</h2>
+<p>Na pxe.cz najdete denní settlement ceny kontraktů pro zónu CZ — hledejte <strong>baseload</strong> sloupec (rovnoměrná dodávka 24/7); <a href="slovnik.html#peakload">peakload</a> je jiný, dražší produkt pro odběr jen ve špičce. PXE je propojená s celoevropskou burzou EEX v Lipsku, takže se stejná likvidita a stejné settlementy objevují i v datech EEX — jde o dvě fasády nad týmž trhem, ne o dvě různé ceny. Delší historii settlementů prodává EEX DataSource jako placenou službu; aktuální hodnoty jsou na pxe.cz volně dostupné.</p>
+
+<h2>Kde je CAL cena teď</h2>
+<p>Podle dat ke dni 10. 8. 2026 se aktuální CAL kontrakt pro elektřinu obchoduje kolem 109,3 EUR/MWh, což je při kurzu 24,26 Kč/EUR cca 2 652 Kč/MWh za samotnou silovou složku bez marže dodavatele. Po připočtení férové přirážky (250–550 Kč/MWh, podle rizika a marže dodavatele) vycházelo v době psaní férové rozmezí cca 2 900–3 200 Kč/MWh; aktuální hodnotu pro váš objem spočítá <a href="index.html#analyzer">kalkulačka</a>. Než podepíšete, porovnejte i to, jestli vám lépe sedí <a href="blog-nakup-v-transich.html">nákup v tranších</a>, který riziko špatného načasování na jediném bodu křivky přímo eliminuje.</p>
+
+  <div class="ctabox">
+  <h3>Zkontrolujte si nákup energií zdarma</h3>
+  <p>Za 2 minuty zjistíte, jestli je vaše cena ve férovém rozmezí a jestli vám sedí způsob nákupu — na reálných datech OTE a PXE/EEX, s protokolem na konci.</p>
+  <a class="btn-volt" href="index.html#analyzer">Spustit kontrolu →</a>
+</div>
+  <h2>Časté otázky</h2>
+  <h2>Co znamená CAL27?</h2><p>CAL27 je roční kontrakt (baseload) na dodávku elektřiny po celý kalendářní rok 2027, obchodovaný na burze PXE/EEX. Jeho aktuální settlement cena je základ, ze kterého dodavatelé skládají nabídky fixu na rok 2027 — k ní si přičítají vlastní marži.</p><h2>Proč se cena CAL kontraktu v průběhu roku mění?</h2><p>Protože jde o obchodovaný nástroj — reaguje na očekávanou nabídku a poptávku, ceny plynu a uhlí, počasí i geopolitiku. V roce 2022 se CAL23 (dodávka 2023) pohnul z 149 na 464 EUR/MWh během tří čtvrtletí; v klidnějším roce 2025 zůstal CAL26 stabilní kolem 92–96 EUR/MWh.</p>
+  <p class="note">Publikováno: 11. 8. 2026 · Autor: nepřeplácejte.cz · Zdroje dat: PXE (Power Exchange Central Europe) / EEX, kurzy.cz, ERÚ. Ceny bez DPH. Článek má informativní charakter, není investičním doporučením; minulá výkonnost nezaručuje budoucí výsledky.</p>
+</article>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="flogo">nepřeplácejte<em>.cz</em></div>
+      <p>Kontrola nákupu energií pro firmy. Nejsme dodavatel ani makléř konkrétní značky — počítáme z dat trhu. Obsah má informativní charakter a nenahrazuje individuální poradenství.</p>
+    </div>
+    <div class="mono" style="font-size:12px;line-height:2">
+      <a href="blog.html">Blog</a> · <a href="slovnik.html">Slovník pojmů</a><br>
+      info@nepreplacejte.cz<br>
+      Data: OTE · PXE/EEX · ERÚ · energy-charts.info (CC BY 4.0)<br>
+      © 2026 nepřeplácejte.cz
+    </div>
+  </div>
+</footer>
+<script src="assets/consent.js" defer></script>
+</body>
+</html>
