@@ -11,6 +11,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://nepreplacejte.cz/blog-chyby-pri-nakupu-energii.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://nepreplacejte.cz/blog-jak-vybrat-dodavatele-energii-firma.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
