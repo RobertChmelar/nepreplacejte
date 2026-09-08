@@ -76,6 +76,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://nepreplacejte.cz/blog-smlouva-na-dobu-neurcitou-energie.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://nepreplacejte.cz/slovnik.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
