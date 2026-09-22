@@ -9,7 +9,7 @@ done,jak-vybrat-dodavatele-energii-firma,Jak vybrat dodavatele energií pro firm
 done,chyby-pri-nakupu-energii,7 nejčastějších chyb firem při nákupu energií,nákup energií pro firmy chyby,listicle; prolongace/listopad/koncová cena/stálý plat/OM
 done,smlouva-na-dobu-neurcitou-energie,Smlouva na energie na dobu neurčitou: tichý zabiják rozpočtu,smlouva energie doba neurčitá,prolongační ceníky vs tržní ceny; jak vypovědět
 done,jak-vypovedet-smlouvu-dodavatel,Jak vypovědět smlouvu s dodavatelem energie (firma),výpověď smlouvy energie firma,praktický návod; lhůty 3-6 měsíců; vzor formulace
-pending,eex-pxe-rozdil,EEX vs. PXE: odkud se berou ceny elektřiny pro ČR,PXE ceny elektřiny,edukativní; burzy; settlement; jak souvisí s nabídkou dodavatele
+done,eex-pxe-rozdil,EEX vs. PXE: odkud se berou ceny elektřiny pro ČR,PXE ceny elektřiny,edukativní; burzy; settlement; jak souvisí s nabídkou dodavatele
 pending,cena-elektriny-mala-firma-50mwh,Kolik platí za elektřinu malá firma (do 50 MWh) a kolik by měla,cena elektřiny malá firma,segmentový; příklad z kalkulačky pro 30-50 MWh
 pending,cena-energie-hotel-restaurace,Energie v hotelu a restauraci: sezónní odběr bez pokut,energie hotel restaurace,segmentový; flexibilita objemu; sezónní profil z kalkulačky
 pending,cena-energie-vyrobni-firma,Energie ve výrobní firmě: baseload vs. směny,energie výrobní firma,segmentový; profil přes den; čtvrthodinové maximum
