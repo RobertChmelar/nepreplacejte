@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Energie ve výrobní firmě: baseload vs. směny | nepřeplácejte.cz</title>
+<meta name="description" content="Jak nakupuje energie výrobní firma: plochý baseload, směnný provoz a čtvrthodinové maximum. Co ovlivňuje cenu a kde se ve smlouvě přeplácí.">
+<link rel="canonical" href="https://nepreplacejte.cz/blog-cena-energie-vyrobni-firma.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1B232E;--paper:#F2F3F0;--panel:#FFFFFF;--volt:#FFC800;--line:#D9DCD6;--mut:#5B6470;--good:#1B8A5A;--bad:#C9403A;--mono:'IBM Plex Mono',monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Archivo',sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;font-size:16.5px}
+h1,h2,h3{font-family:'Archivo Black',sans-serif;font-weight:400;line-height:1.12}
+.mono{font-family:var(--mono)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+a{color:inherit}
+nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0}
+.logo{font-family:'Archivo Black',sans-serif;font-size:21px;letter-spacing:-.02em;text-decoration:none}
+.logo em{font-style:normal;background:var(--volt);padding:0 5px}
+.navlinks{display:flex;align-items:center;gap:22px}
+.navlinks a{text-decoration:none;font-weight:600;font-size:14.5px}
+.nav-cta{background:var(--ink);color:#fff;padding:11px 20px;font-weight:600;font-size:14px;border:2px solid var(--ink);text-decoration:none;display:inline-block}
+.nav-cta:hover{background:var(--volt);color:var(--ink)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin-bottom:10px}
+footer{background:var(--ink);color:#8A95A1;padding:40px 0;font-size:13px;margin-top:80px}
+footer .wrap{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
+footer .flogo{font-family:'Archivo Black',sans-serif;color:#fff;font-size:17px}
+footer .flogo em{font-style:normal;background:var(--volt);color:var(--ink);padding:0 4px}
+footer a{color:#fff}
+footer p{max-width:62ch;margin-top:10px;line-height:1.6}
+/* article */
+.art{max-width:760px;margin:0 auto;padding:44px 24px 0}
+.art h1{font-size:clamp(30px,4.4vw,44px);letter-spacing:-.01em;margin:10px 0 16px}
+.art .perex{font-size:19px;color:var(--mut);margin-bottom:14px}
+.art .meta{font-family:var(--mono);font-size:12.5px;color:var(--mut);border-bottom:1.5px solid var(--ink);padding-bottom:22px;margin-bottom:34px}
+.art h2{font-size:clamp(21px,2.6vw,27px);margin:42px 0 14px}
+.art p{margin-bottom:16px}
+.art ul,.art ol{margin:0 0 16px 22px}
+.art li{margin-bottom:8px}
+.art table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:13.5px;margin:20px 0 26px}
+.art th{text-align:left;font-weight:500;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--mut);border-bottom:1.5px solid var(--ink);padding:8px 10px 8px 0}
+.art td{padding:10px 10px 10px 0;border-bottom:1px solid #E3E5E0}
+.art tr.hot td{background:#FFF7DC}
+.hl{background:linear-gradient(transparent 58%,var(--volt) 58%,var(--volt) 92%,transparent 92%)}
+.ctabox{background:var(--ink);color:#fff;padding:28px 30px;margin:42px 0}
+.ctabox h3{font-family:'Archivo',sans-serif;font-weight:700;font-size:18px;margin-bottom:8px}
+.ctabox p{color:#AEB6BE;font-size:15px;margin-bottom:18px}
+.btn-volt{background:var(--volt);color:var(--ink);padding:13px 24px;font-weight:700;font-size:15px;text-decoration:none;display:inline-block;border:2px solid var(--volt)}
+.btn-volt:hover{background:#fff;border-color:#fff}
+.note{font-family:var(--mono);font-size:11.5px;color:var(--mut);border-top:1.5px dashed var(--line);padding-top:18px;margin:44px 0 0;line-height:1.7}
+/* blog index */
+.bhero{padding:50px 0 34px;border-bottom:1.5px solid var(--ink)}
+.bhero h1{font-size:clamp(30px,4.4vw,46px)}
+.bhero p{color:var(--mut);max-width:60ch;margin-top:12px}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:26px;padding:40px 0}
+.card{background:var(--panel);border:1.5px solid var(--ink);padding:26px 26px 22px;text-decoration:none;display:flex;flex-direction:column;gap:10px;transition:box-shadow .15s}
+.card:hover{box-shadow:6px 6px 0 var(--volt)}
+.card .k{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--mut)}
+.card h2{font-size:20px}
+.card p{color:var(--mut);font-size:14.5px}
+.card .more{font-family:var(--mono);font-size:12.5px;margin-top:auto}
+/* glossary */
+.gwrap{max-width:820px;margin:0 auto;padding:44px 24px 0}
+.gwrap h1{font-size:clamp(30px,4.4vw,44px);margin-bottom:14px}
+.gwrap .glead{color:var(--mut);max-width:62ch;margin-bottom:30px}
+.gidx{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:38px}
+.gidx a{font-family:var(--mono);font-size:12.5px;border:1.5px solid var(--ink);padding:6px 11px;text-decoration:none;background:#fff}
+.gidx a:hover{background:var(--volt)}
+.term{background:var(--panel);border:1.5px solid var(--ink);padding:20px 24px;margin-bottom:-1.5px;scroll-margin-top:20px}
+.term h2{font-family:'Archivo',sans-serif;font-weight:700;font-size:17.5px;margin-bottom:8px}
+.term p{font-size:15px;color:#333B46}
+.term .rel{font-family:var(--mono);font-size:12px;color:var(--mut);margin-top:10px}
+@media(max-width:760px){.cards{grid-template-columns:1fr}.navlinks{gap:14px}}
+/* mobilní menu (hamburger) */
+.nav-burger{display:none;background:#fff;border:1.5px solid var(--ink);color:var(--ink);font-size:19px;line-height:1;padding:8px 13px;cursor:pointer;font-family:inherit}
+@media(max-width:720px){
+nav{position:relative}
+.nav-burger{display:block}
+.navlinks{display:none;position:absolute;top:calc(100% - 8px);left:0;right:0;z-index:60;background:var(--panel);border:1.5px solid var(--ink);box-shadow:6px 6px 0 var(--ink);flex-direction:column;align-items:stretch;gap:0;padding:4px 0}
+.navlinks.open{display:flex}
+.navlinks a{padding:13px 20px;border-bottom:1px solid var(--line)}
+.navlinks a.nav-cta,.navlinks .nav-cta{margin:10px 16px 12px;text-align:center;padding:13px 20px;border-bottom:none}
+}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Energie ve výrobní firmě: baseload vs. směny", "description": "Jak nakupuje energie výrobní firma: plochý baseload, směnný provoz a čtvrthodinové maximum. Co ovlivňuje cenu a kde se ve smlouvě přeplácí.", "datePublished": "2026-10-13", "inLanguage": "cs", "author": {"@type": "Organization", "name": "nepřeplácejte.cz"}, "mainEntityOfPage": "https://nepreplacejte.cz/blog-cena-energie-vyrobni-firma.html"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Jak se liší nákup energie pro nepřetržitý a směnný provoz?", "acceptedAnswer": {"@type": "Answer", "text": "Nepřetržitý provoz se blíží baseloadu, takže se nakupuje přímo z burzovního produktu s nízkou přirážkou. Směnný provoz má odběr soustředěný do pracovních hodin a tvar odběru se promítá do ceny, proto stojí za to porovnat celkovou koncovou cenu."}}, {"@type": "Question", "name": "Co je čtvrthodinové maximum a proč na něm výrobní firmě záleží?", "acceptedAnswer": {"@type": "Answer", "text": "Je to nejvyšší průměrný výkon naměřený za čtvrthodinu v daném období. Z něj se odvozují platby za kapacitu a distribuci, takže jediná špička při náběhu strojů může navýšit fakturu bez ohledu na cenu silové elektřiny."}}]}</script>
+</head>
+<body>
+<header class="wrap">
+  <nav>
+    <a class="logo" href="index.html">nepřeplácejte<em>.cz</em></a>
+    <button class="nav-burger" aria-label="Otevřít menu" aria-expanded="false" onclick="var n=document.querySelector('.navlinks');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">☰</button>
+    <div class="navlinks">
+      <a href="blog.html">Blog</a>
+      <a href="slovnik.html">Slovník</a>
+      <a class="nav-cta" href="index.html#analyzer">Spustit kontrolu</a>
+    </div>
+  </nav>
+</header>
+
+<article class="art">
+  <div class="eyebrow">Segmenty · elektřina</div>
+  <h1>Energie ve výrobní firmě: baseload vs. směny</h1>
+  <p class="perex">Výrobní podnik nespotřebovává elektřinu jako kancelář ani jako hotel. Jak tvar odběru — plochý baseload, dvě směny, nebo celokontinuální provoz — mění nákupní strategii, a kde se v takové smlouvě nejčastěji přeplácí. Aktuální férovou cenu pro váš objem spočítá <a href="index.html#analyzer">kalkulačka</a>.</p>
+  <div class="meta mono">13. 10. 2026 · data: OTE, PXE/EEX, ERÚ · <a href="blog.html">← všechny články</a></div>
+  
+<p>Dvě firmy se stejnou roční spotřebou 800 MWh mohou mít zcela odlišný nákupní problém. První jede nepřetržitě, druhá pracuje v jedné směně a o víkendech stojí. Cena silové elektřiny za MWh je v obou případech odvozena od stejných burzovních produktů — jenže jejich <em>tvar odběru</em> rozhoduje o tom, kolik z ceny je skutečně férové a kolik je riziková přirážka dodavatele.</p>
+<h2>Baseload, peak a váš profil</h2>
+<p>Burzovní kontrakty se obchodují hlavně jako <a href="slovnik.html#baseload">baseload</a> (stejný výkon 24 hodin denně, 7 dní v týdnu) a <a href="slovnik.html#peakload">peakload</a> (pracovní dny ve dne). Firma s plochým odběrem se baseloadu blíží, a proto se jí nakupuje nejsnáz: dodavatel může energii zajistit jedním standardním produktem a nemusí si účtovat velkou přirážku za „tvarování“. Firma s výraznou denní špičkou potřebuje víc energie právě tehdy, kdy je na trhu nejdražší, a její <a href="slovnik.html#profil">profil odběru</a> se do ceny promítne.</p>
+<table>
+<tr><th>Typ provozu</th><th>Tvar odběru</th><th>Co to znamená pro nákup</th></tr>
+<tr><td>Nepřetržitý (3 směny, 7 dní)</td><td>blízko baseloadu</td><td>nejpřímější nákup z burzy, nejnižší přirážka za tvar</td></tr>
+<tr class="hot"><td>Dvousměnný (5 dní)</td><td>plateau ve dne, noc a víkend nízko</td><td>fix za průměrnou cenu platí i za hodiny, kdy nespotřebujete nic</td></tr>
+<tr><td>Jednosměnný</td><td>ostrá denní špička</td><td>tvar se promítá do ceny; zvažte spotovou složku</td></tr>
+<tr><td>Sezónní výroba</td><td>kampaně, velké výkyvy</td><td>pozor na toleranci objemu a pokuty za odchylku</td></tr>
+</table>
+<h2>Co backtest říká výrobním firmám</h2>
+<p>V našem backtestu let 2022–2025 vyšla elektřina na čistém spotu průměrně na 3 510 Kč/MWh, nákup v tranších na 4 098 Kč/MWh, kombinace 50 % fix + 50 % spot na 4 102 Kč/MWh a fix podepsaný na podzim na 4 693 Kč/MWh. Rozdíl mezi tranšemi a podzimním podpisem činí zhruba 595 Kč/MWh. Pro firmu s plochým odběrem je tento rozdíl přenositelný téměř 1:1, protože její spotřeba kopíruje modelový baseload. Pro směnný provoz platí totéž jen přibližně — skutečná cena závisí na tom, jak velká část odběru připadá na dražší hodiny.</p>
+<p>Jak ukazuje <a href="blog-fix-nebo-spot.html">srovnání fixu a spotu</a>, spot byl nejlevnější, ale v roce 2022 nejrizikovější. Výrobní firma, která musí cenu promítnout do kalkulace zakázek na rok dopředu, často potřebuje alespoň část objemu zafixovat. Praktickou cestou je <a href="blog-nakup-v-transich.html">nákup v tranších</a>.</p>
+<h2>Čtvrthodinové maximum: druhá polovina faktury</h2>
+<p>Výrobní podnik neplatí jen za silovou elektřinu. Významná část faktury jsou regulované platby a u větších odběrů se do nich promítá i <a href="slovnik.html#ctvrthodinove-maximum">čtvrthodinové maximum</a> a rezervovaná kapacita. Jediná špička při náběhu linky může na celé měsíce zvýšit platbu, kterou žádný nákup silové složky neovlivní. Proto před jednáním o ceně komodity zkontrolujte:</p>
+<ul>
+<li>kdy v měsíci vzniká maximum a zda jde o náběh strojů, který lze rozložit v čase,</li>
+<li>zda rezervovaná kapacita odpovídá skutečnému maximu, nebo je výrazně vyšší,</li>
+<li>zda je sazba distribuce správně zvolená pro váš provoz.</li>
+</ul>
+<h2>Na co si dát pozor ve smlouvě</h2>
+<p>Ve výrobě se objem mění s objednávkami. Smlouva s pevným objemem a úzkou tolerancí tak může způsobit, že za odchylku zaplatíte víc než za samotnou energii. Chtějte toleranci objemu vyjádřenou v procentech, vysvětlení ceny odchylky a ověřte, zda dodavatel nepřičítá marži zvlášť za „tvar“ odběru. Porovnávejte vždy celkovou koncovou cenu, ne jednotlivé položky.</p>
+<p>Orientační měřítko: v době psaní (říjen 2026) vycházelo férové rozmezí silové elektřiny pro firmu cca 3 810–4 110 Kč/MWh; aktuální hodnotu pro váš objem spočítá <a href="index.html#analyzer">kalkulačka</a>.</p>
+
+  <div class="ctabox">
+  <h3>Zkontrolujte si nákup energií zdarma</h3>
+  <p>Za 2 minuty zjistíte, jestli je vaše cena ve férovém rozmezí a jestli vám sedí způsob nákupu — na reálných datech OTE a PXE/EEX, s protokolem na konci.</p>
+  <a class="btn-volt" href="index.html#analyzer">Spustit kontrolu →</a>
+</div>
+  <h2>Časté otázky</h2>
+  <h2>Jak se liší nákup energie pro nepřetržitý a směnný provoz?</h2><p>Nepřetržitý provoz se blíží baseloadu, takže se nakupuje přímo z burzovního produktu s nízkou přirážkou. Směnný provoz má odběr soustředěný do pracovních hodin a tvar odběru se promítá do ceny, proto stojí za to porovnat celkovou koncovou cenu.</p><h2>Co je čtvrthodinové maximum a proč na něm výrobní firmě záleží?</h2><p>Je to nejvyšší průměrný výkon naměřený za čtvrthodinu v daném období. Z něj se odvozují platby za kapacitu a distribuci, takže jediná špička při náběhu strojů může navýšit fakturu bez ohledu na cenu silové elektřiny.</p>
+  <p class="note">Publikováno: 13. 10. 2026 · Autor: nepřeplácejte.cz · Zdroje dat: OTE, a.s. (denní trh), PXE/EEX (roční kontrakty), ERÚ. Ceny bez DPH. Článek má informativní charakter, není investičním doporučením; minulá výkonnost nezaručuje budoucí výsledky.</p>
+</article>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="flogo">nepřeplácejte<em>.cz</em></div>
+      <p>Kontrola nákupu energií pro firmy. Nejsme dodavatel ani makléř konkrétní značky — počítáme z dat trhu. Obsah má informativní charakter a nenahrazuje individuální poradenství.</p>
+    </div>
+    <div class="mono" style="font-size:12px;line-height:2">
+      <a href="blog.html">Blog</a> · <a href="slovnik.html">Slovník pojmů</a><br>
+      info@nepreplacejte.cz<br>
+      Data: OTE · PXE/EEX · ERÚ · energy-charts.info (CC BY 4.0)<br>
+      © 2026 nepřeplácejte.cz
+    </div>
+  </div>
+</footer>
+<script src="assets/consent.js" defer></script>
+</body>
+</html>
