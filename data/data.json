@@ -1,5 +1,5 @@
 {
-  "asof": "2026-10-23",
+  "asof": "2026-10-24",
   "eurczk": 24.335,
   "ele": {
     "spot_y": {
@@ -86,5 +86,5 @@
     },
     "cal_now": 76.42
   },
-  "spot_today_czk": 4320
+  "spot_today_czk": 3039
 }
