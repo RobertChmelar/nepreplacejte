@@ -14,7 +14,7 @@ done,cena-elektriny-mala-firma-50mwh,Kolik platí za elektřinu malá firma (do 
 done,cena-energie-hotel-restaurace,Energie v hotelu a restauraci: sezónní odběr bez pokut,energie hotel restaurace,segmentový; flexibilita objemu; sezónní profil z kalkulačky
 done,cena-energie-vyrobni-firma,Energie ve výrobní firmě: baseload vs. směny,energie výrobní firma,segmentový; profil přes den; čtvrthodinové maximum
 done,spot-se-stropem,Spot se stropem: kompromis mezi úsporou a jistotou,spotová cena se stropem,produktový; pro koho; na co si dát pozor v podmínkách
-pending,mix-fix-spot-50-50,"Mix 50 % fix + 50 % spot: strategie, která tlumí výkyvy",kombinace fix a spot,rozvést mix strategii z backtestu s čísly (Ø 4102 Kč/MWh)
+done,mix-fix-spot-50-50,"Mix 50 % fix + 50 % spot: strategie, která tlumí výkyvy",kombinace fix a spot,rozvést mix strategii z backtestu s čísly (Ø 4102 Kč/MWh)
 pending,energie-2027-vyhled,Ceny energií pro firmy 2027: co říkají forwardy,cena elektřiny 2027 firmy,aktualizovatelný výhled; cal_now z data.json; férová rozmezí
 pending,staly-mesicni-plat,Stálý měsíční plat za energie: proč ho u většího odběru neplatit,stálý měsíční plat elektřina,krátké; vyjednávání; souvislost s marží
 pending,vice-odbernych-mist,Více odběrných míst: jedna cena a společná fakturace,více odběrných míst energie,pro řetězce/pobočky; konsolidace odběru
