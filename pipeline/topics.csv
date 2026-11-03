@@ -15,7 +15,7 @@ done,cena-energie-hotel-restaurace,Energie v hotelu a restauraci: sezónní odb�
 done,cena-energie-vyrobni-firma,Energie ve výrobní firmě: baseload vs. směny,energie výrobní firma,segmentový; profil přes den; čtvrthodinové maximum
 done,spot-se-stropem,Spot se stropem: kompromis mezi úsporou a jistotou,spotová cena se stropem,produktový; pro koho; na co si dát pozor v podmínkách
 done,mix-fix-spot-50-50,"Mix 50 % fix + 50 % spot: strategie, která tlumí výkyvy",kombinace fix a spot,rozvést mix strategii z backtestu s čísly (Ø 4102 Kč/MWh)
-pending,energie-2027-vyhled,Ceny energií pro firmy 2027: co říkají forwardy,cena elektřiny 2027 firmy,aktualizovatelný výhled; cal_now z data.json; férová rozmezí
+done,energie-2027-vyhled,Ceny energií pro firmy 2027: co říkají forwardy,cena elektřiny 2027 firmy,aktualizovatelný výhled; cal_now z data.json; férová rozmezí
 pending,staly-mesicni-plat,Stálý měsíční plat za energie: proč ho u většího odběru neplatit,stálý měsíční plat elektřina,krátké; vyjednávání; souvislost s marží
 pending,vice-odbernych-mist,Více odběrných míst: jedna cena a společná fakturace,více odběrných míst energie,pro řetězce/pobočky; konsolidace odběru
 pending,kdy-je-elektrina-nejlevnejsi,V kterém měsíci je elektřina nejlevnější? Data 2021–2025,kdy je elektřina nejlevnější,sezónnost CAL křivky z insight sekce; ~410/595 rozdíl
